@@ -1,66 +1,115 @@
-<div class="container w-50 mt-5 p-5 border border-5">
+<div class="container w-50 mt-5 px-5 pt-1 border border-5">
     <span class="h2">Register</span>
     <hr>
-    <span class="h6">Step: {{stepName}}</span>
+    <span class="h6">Step {{stepIndex+1}} of {{steps.length}}: {{steps[stepIndex]['name']}}</span>
     <br>
-    <form class="py-3">
-      <fieldset *ngIf="step==1">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username">
+    <form class="py-3" [formGroup]="registrationForm" (ngSubmit)="submit()" novalidate>
+      <div [ngSwitch]="stepIndex+1">
+        <fieldset *ngSwitchCase="1" formGroupName="accountDet">
+          <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" formControlName="username">
+            </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <span class="text-primary action-link mx-2" (click)="sendSecurityCode()">Send verification code</span>
+            <input type="email" class="form-control" id="email" formControlName="email">
           </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email">
-        </div>
-        <div class="mb-3">
-          <label for="securityCode" class="form-label">Security Code</label>
-          <input type="text" class="form-control" id="securityCode">
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password">
-        </div>
-        <div class="mb-3">
-          <label for="cpassword" class="form-label">Confirm Password</label>
-          <input type="password" class="form-control" id="cpassword">
-        </div>
-      </fieldset>
+          <div class="mb-3">
+            <label for="securityCode" class="form-label">Security Code</label>
+            <input type="text" class="form-control" id="securityCode" formControlName="securityCode">
+            <span>Didn't receive security code?</span><span class="text-primary action-link mx-2" (click)="resendSecurityCode()">Resend</span>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+          </div>
+          <div class="mb-3">
+            <label for="cpassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="cpassword" formControlName="confirmPassword">
+          </div>
+        </fieldset>
+  
+        <fieldset *ngSwitchCase="2" formGroupName="personalDet">
+          <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstname" formControlName="firstName">
+          </div>
+          <div class="mb-3">
+            <label for="middlename" class="form-label">Middle Name</label>
+            <input type="email" class="form-control" id="middlename" formControlName="middleName">
+          </div>
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastname" formControlName="lastName">
+          </div>
+          <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <span id="genderHelp" class="form-text small text-danger mx-3">Gender is required</span>
+            <div class="form-check">
+              <input type="radio" id="male" class="form-check-input" value="male"
+              formControlName="gender">
+              <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" id="female" class="form-check-input" value="female"
+              formControlName="gender">
+              <label class="form-check-label" for="female">Female</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" id="country" formControlName="country">
+          </div>
+          <div class="mb-3">
+            <label for="dateOfBirth" class="form-label">Date of Birthday</label>
+            <input type="date" class="form-control" id="dateOfBirth" formControlName="dateOfBirth">
+          </div>
+        </fieldset>
+  
+        <fieldset *ngSwitchCase="3" formGroupName="recoveryDet">
+          <div class="mb-3">
+            <label for="securityEmail" class="form-label">Security Email</label>
+            <input type="email" class="form-control" id="securityEmail" formControlName="recoveryEmail">
+          </div>
+          <div class="mb-3">
+            <label for="securityPhone" class="form-label">Security Phone</label>
+            <input type="text" class="form-control" id="securityPhone" formControlName="recoveryPhone">
+          </div>
+          <div class="mb-3">
+            <label for="securityQuestion" class="form-label">Security Question</label>
+            <input type="text" class="form-control" id="securityQuestion" formControlName="securityQuestion">
+          </div>
+          <div class="mb-3">
+            <label for="securityAnswer" class="form-label">Security Answer</label>
+            <input type="text" class="form-control" id="securityAnswer" formControlName="securityAnswer">
+          </div>
+        </fieldset>
 
-      <fieldset *ngIf="step==2">
-        <div class="mb-3">
-          <label for="username" class="form-label">First Name</label>
-          <input type="text" class="form-control" id="username">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Middle Name</label>
-          <input type="email" class="form-control" id="exampleInputEmail1">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Last Name</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-      </fieldset>
-
-      <fieldset *ngIf="step==3">
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-      </fieldset>
+        <fieldset *ngSwitchCase="4" formGroupName="securityDet">
+          <div class="form-check form-switch mb-3">
+            <label for="loginAlert" class="form-label">Login Alert</label>
+            <input type="checkbox" class="form-check-input form-control" role="switch" id="loginAlert" formControlName="loginAlert">
+          </div>
+          <div class="form-check form-switch mb-3">
+            <label for="passwordAlert" class="form-label">Password update alert</label>
+            <input type="checkbox" class="form-check-input form-control" role="switch" id="passwordAlert" formControlName="passwordChangeAlert">
+          </div>
+          <div class="form-check form-switch mb-3">
+            <label for="twoStepLogin" class="form-label">Two step login</label>
+            <input type="checkbox" class="form-check-input form-control" role="switch" id="twoStepLogin" formControlName="twoStepLogin">
+          </div>
+          <div class="form-check form-switch mb-3">
+            <label for="promoemails" class="form-label">Promotional Emails</label>
+            <input type="checkbox" class="form-check-input form-control" role="switch" id="promoemails" formControlName="promotionalMails">
+          </div>
+        </fieldset>
+      </div>
 
       <hr>
-      <button type="button" class="btn btn-primary mx-1" (click)="previous()">Previous</button>
-      <button type="button" class="btn btn-primary mx-1" (click)="next()">Next</button>
-      <button type="submit" class="btn btn-primary mx-1">Submit</button>
+      <button type="button" class="btn btn-primary mx-1" [class.d-none]="stepIndex==0" (click)="previous()">Previous</button>
+      <button type="button" class="btn btn-primary mx-1" [class.d-none]="stepIndex>=steps.length-1"(click)="next()">Next</button>
+      <button type="submit" class="btn btn-primary mx-1" [class.d-none]="stepIndex!=steps.length-1">Submit</button>
       <hr>
       <fieldset>
         <div class="mb-3">

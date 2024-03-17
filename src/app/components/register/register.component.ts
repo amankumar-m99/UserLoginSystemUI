@@ -1,5 +1,6 @@
+import { group } from '@angular/animations';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,40 +8,83 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  step:number;
-  stepName:string;
-  accountDetails:FormGroup;
-  personalDetails:FormGroup;
-  securityDetails:FormGroup;
+  stepIndex:number;
+  step:any;
+  steps:any[];
+  registrationForm:FormGroup;
   constructor(private formBuilder:FormBuilder){
-    this.step=1;
-    this.stepName = "AccountDetails";
-    this.accountDetails = formBuilder.group({
+    this.stepIndex=0;
+    let accountDetails = formBuilder.group({
       username: [''],
       email: [''],
       securityCode: [''],
       password: [''],
       confirmPassword: [''],
     });
-    this.personalDetails = formBuilder.group({
+    let personalDetails = formBuilder.group({
       firstName: [''],
       middleName: [''],
       lastName: [''],
       gender: [''],
       country: [''],
-      dateOfBirth: [''],
+      dateOfBirth: [],
     });
-    this.securityDetails = formBuilder.group({
-      loginAlert: [''],
-      passwordChangeAlert: [''],
-      twoStepLogin: [''],
-      promotionalMails: [''],
+    let recoveryDetails = formBuilder.group({
+      recoveryEmail: [''],
+      recoveryPhone: [''],
+      securityQuestion: [''],
+      securityAnswer: ['']
+    });
+    let securityDetails = formBuilder.group({
+      loginAlert: [true],
+      passwordChangeAlert: [true],
+      twoStepLogin: [false],
+      promotionalMails: [true],
+    });
+    this.steps = [
+      {
+        "name":"Account Details",
+        "form" : accountDetails
+      },
+      {
+        "name":"Personal Details",
+        "form" : personalDetails
+      },
+      {
+        "name":"Recovery Details",
+        "form" : recoveryDetails
+      },
+      {
+        "name":"Security Details",
+        "form" : securityDetails
+      }
+    ]
+    this.registrationForm = this.formBuilder.group({
+      accountDet : accountDetails,
+      personalDet: personalDetails,
+      recoveryDet: recoveryDetails,
+      securityDet: securityDetails
     });
   }
-  previous(){}
+  previous(){
+    if(this.stepIndex == 0){
+      return;
+    }
+    this.stepIndex--;
+    this.step=this.steps[this.stepIndex];
+  }
   next(){
-    this.step++;
-    console.log(this.step);
+    if(this.stepIndex >= this.steps.length-1){
+      return;
+    }
+    this.stepIndex++;
+    this.step=this.steps[this.stepIndex];
   }
-  submit(){}
+
+  sendSecurityCode(){}
+  resendSecurityCode(){}
+
+  submit(){
+    console.log(this.registrationForm.value);
+  }
 }
