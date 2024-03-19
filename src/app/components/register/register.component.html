@@ -7,26 +7,20 @@
       <div [ngSwitch]="stepIndex+1">
         <fieldset *ngSwitchCase="1" formGroupName="accountDet">
           <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" formControlName="username">
-            </div>
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" formControlName="username" aria-describedby="usernameHelp"
+              [class.is-invalid]="username?.invalid && username?.touched">
+            <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username is required</div>
+          </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <span class="text-primary action-link mx-2" (click)="sendSecurityCode()">Send verification code</span>
-            <input type="email" class="form-control" id="email" formControlName="email">
+            <input type="email" class="form-control" id="email" formControlName="email"
+              [class.is-invalid]="registrationForm.get('accountDet')?.get('email')?.invalid && registrationForm.get('accountDet')?.get('email')?.touched">
           </div>
           <div class="mb-3">
-            <label for="securityCode" class="form-label">Security Code</label>
-            <input type="text" class="form-control" id="securityCode" formControlName="securityCode">
-            <span>Didn't receive security code?</span><span class="text-primary action-link mx-2" (click)="resendSecurityCode()">Resend</span>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" formControlName="password">
-          </div>
-          <div class="mb-3">
-            <label for="cpassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="cpassword" formControlName="confirmPassword">
+            <label for="password" class="form-label">Set a password</label>
+            <input type="password" class="form-control" id="password" formControlName="password"
+              [class.is-invalid]="registrationForm.get('accountDet')?.get('password')?.invalid && registrationForm.get('accountDet')?.get('password')?.touched">
           </div>
         </fieldset>
   
