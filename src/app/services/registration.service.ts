@@ -8,14 +8,14 @@ export class RegistrationService {
   constructor() { }
 
   isEmailInUse(email:string):boolean{
-    return true;
+    return false;
   }
 
   hasEmailBeenInUse(email:string):boolean{
-    return true;
+    return false;
   }
 
   isUsernameAvailable(username:string):boolean{
-    return false;
+    return true;
   }
 }

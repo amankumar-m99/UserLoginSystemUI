@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +11,8 @@ export class LoginComponent {
   loginForm : FormGroup;
   constructor(private formBuilder:FormBuilder){
     this.loginForm = this.formBuilder.group({
-      username: ['username'],
-      password: ['pass']
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 

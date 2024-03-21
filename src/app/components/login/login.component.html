@@ -1,22 +1,22 @@
-<div class="container w-50 mt-5 p-5 border border-5">
+<div class="container w-50 mt-5 px-5 pt-3 border border-2">
     <span class="h2">Login</span>
-    {{loginForm.value | json}}
     <hr>
     <form class="py-3" [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Username or email address</label>
           <input type="email" class="form-control dark-input" id="exampleInputEmail1" formControlName="username">
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input type="password" class="form-control dark-input" id="exampleInputPassword1" aria-describedby="passwordHelp" formControlName="password">
           <div id="passwordHelp" class="form-text"><a [routerLink]="['/register']">Forgot password?</a></div>
         </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <hr>
         <div class="mb-3">
           <span>Not a member?</span>&nbsp;
           <span><a [routerLink]="['/register']">Register</a> instead</span>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <hr>
 </div>
