@@ -4,8 +4,11 @@ body{
     background-color: black;
 }
 .dark-input{
-    background-color: #f5f3f0;
+    background-color: #333635;
+    color:white;
+    font-weight: 400;
 }
 .dark-input:focus {
     background-color: lightblue;
+    font-weight: 500;
 }
