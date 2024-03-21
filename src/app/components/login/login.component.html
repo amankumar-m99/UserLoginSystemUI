@@ -5,11 +5,11 @@
     <form class="py-3" [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Username or email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" formControlName="username">
+          <input type="email" class="form-control dark-input" id="exampleInputEmail1" formControlName="username">
         </div>
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp" formControlName="password">
+          <input type="password" class="form-control dark-input" id="exampleInputPassword1" aria-describedby="passwordHelp" formControlName="password">
           <div id="passwordHelp" class="form-text"><a [routerLink]="['/register']">Forgot password?</a></div>
         </div>
         <div class="mb-3">

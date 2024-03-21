@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    color: white;
+    background-color: black;
+}
+.dark-input{
+    background-color: #f5f3f0;
+}
+.dark-input:focus {
+    background-color: lightblue;
+}

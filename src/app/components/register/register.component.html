@@ -8,18 +8,18 @@
         <fieldset *ngSwitchCase="1" formGroupName="accountDet">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" formControlName="username" aria-describedby="usernameHelp"
+            <input type="text" class="form-control dark-input" id="username" formControlName="username" aria-describedby="usernameHelp"
               [class.is-invalid]="username?.invalid && username?.touched">
             <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username is required</div>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" formControlName="email"
+            <input type="email" class="form-control dark-input" id="email" formControlName="email"
               [class.is-invalid]="registrationForm.get('accountDet')?.get('email')?.invalid && registrationForm.get('accountDet')?.get('email')?.touched">
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Set a password</label>
-            <input type="password" class="form-control" id="password" formControlName="password"
+            <input type="password" class="form-control dark-input" id="password" formControlName="password"
               [class.is-invalid]="registrationForm.get('accountDet')?.get('password')?.invalid && registrationForm.get('accountDet')?.get('password')?.touched">
           </div>
         </fieldset>
@@ -27,75 +27,75 @@
         <fieldset *ngSwitchCase="2" formGroupName="personalDet">
           <div class="mb-3">
             <label for="firstname" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstname" formControlName="firstName">
+            <input type="text" class="form-control dark-input" id="firstname" formControlName="firstName">
           </div>
           <div class="mb-3">
             <label for="middlename" class="form-label">Middle Name</label>
-            <input type="email" class="form-control" id="middlename" formControlName="middleName">
+            <input type="email" class="form-control dark-input" id="middlename" formControlName="middleName">
           </div>
           <div class="mb-3">
             <label for="lastname" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastname" formControlName="lastName">
+            <input type="text" class="form-control dark-input" id="lastname" formControlName="lastName">
           </div>
           <div class="mb-3">
             <label for="gender" class="form-label">Gender</label>
             <span id="genderHelp" class="form-text small text-danger mx-3">Gender is required</span>
             <div class="form-check">
-              <input type="radio" id="male" class="form-check-input" value="male"
+              <input type="radio" id="male" class="form-check-input dark-input" value="male"
               formControlName="gender">
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check">
-              <input type="radio" id="female" class="form-check-input" value="female"
+              <input type="radio" id="female" class="form-check-input dark-input" value="female"
               formControlName="gender">
               <label class="form-check-label" for="female">Female</label>
             </div>
           </div>
           <div class="mb-3">
             <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control" id="country" formControlName="country">
+            <input type="text" class="form-control dark-input" id="country" formControlName="country">
           </div>
           <div class="mb-3">
             <label for="dateOfBirth" class="form-label">Date of Birthday</label>
-            <input type="date" class="form-control" id="dateOfBirth" formControlName="dateOfBirth">
+            <input type="date" class="form-control dark-input" id="dateOfBirth" formControlName="dateOfBirth">
           </div>
         </fieldset>
   
         <fieldset *ngSwitchCase="3" formGroupName="recoveryDet">
           <div class="mb-3">
             <label for="securityEmail" class="form-label">Security Email</label>
-            <input type="email" class="form-control" id="securityEmail" formControlName="recoveryEmail">
+            <input type="email" class="form-control dark-input" id="securityEmail" formControlName="recoveryEmail">
           </div>
           <div class="mb-3">
             <label for="securityPhone" class="form-label">Security Phone</label>
-            <input type="text" class="form-control" id="securityPhone" formControlName="recoveryPhone">
+            <input type="text" class="form-control dark-input" id="securityPhone" formControlName="recoveryPhone">
           </div>
           <div class="mb-3">
             <label for="securityQuestion" class="form-label">Security Question</label>
-            <input type="text" class="form-control" id="securityQuestion" formControlName="securityQuestion">
+            <input type="text" class="form-control dark-input" id="securityQuestion" formControlName="securityQuestion">
           </div>
           <div class="mb-3">
             <label for="securityAnswer" class="form-label">Security Answer</label>
-            <input type="text" class="form-control" id="securityAnswer" formControlName="securityAnswer">
+            <input type="text" class="form-control dark-input" id="securityAnswer" formControlName="securityAnswer">
           </div>
         </fieldset>
 
         <fieldset *ngSwitchCase="4" formGroupName="securityDet">
           <div class="form-check form-switch mb-3">
             <label for="loginAlert" class="form-label">Login Alert</label>
-            <input type="checkbox" class="form-check-input form-control" role="switch" id="loginAlert" formControlName="loginAlert">
+            <input type="checkbox" class="form-check-input form-control dark-input" role="switch" id="loginAlert" formControlName="loginAlert">
           </div>
           <div class="form-check form-switch mb-3">
             <label for="passwordAlert" class="form-label">Password update alert</label>
-            <input type="checkbox" class="form-check-input form-control" role="switch" id="passwordAlert" formControlName="passwordChangeAlert">
+            <input type="checkbox" class="form-check-input form-control dark-input" role="switch" id="passwordAlert" formControlName="passwordChangeAlert">
           </div>
           <div class="form-check form-switch mb-3">
             <label for="twoStepLogin" class="form-label">Two step login</label>
-            <input type="checkbox" class="form-check-input form-control" role="switch" id="twoStepLogin" formControlName="twoStepLogin">
+            <input type="checkbox" class="form-check-input form-control dark-input" role="switch" id="twoStepLogin" formControlName="twoStepLogin">
           </div>
           <div class="form-check form-switch mb-3">
             <label for="promoemails" class="form-label">Promotional Emails</label>
-            <input type="checkbox" class="form-check-input form-control" role="switch" id="promoemails" formControlName="promotionalMails">
+            <input type="checkbox" class="form-check-input form-control dark-input" role="switch" id="promoemails" formControlName="promotionalMails">
           </div>
         </fieldset>
       </div>
