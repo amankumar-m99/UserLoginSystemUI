@@ -106,7 +106,7 @@ export class RegisterComponent {
     }
     let username = currentForm.get("username")?.value;
     flag = this.registrationService.isUsernameAvailable(username);
-    if(flag){
+    if(!flag){
       alert("username is already taken!");
       return false;
     }
