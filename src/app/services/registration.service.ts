@@ -1,21 +1,38 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class RegistrationService {
 
-  constructor() { }
+  usernameUrl = "http://localhost:8080/register/username-available/";
+  emailInUseUrl="http://localhost:8080/register/email-in-use/";
+  emailHasBeenInUse="http://localhost:8080/register/has-email-been-in-use/";
+  registrationUrl = "http://localhost:8080/register/user";
 
-  isEmailInUse(email:string):boolean{
-    return false;
+  constructor(private httpClient: HttpClient) { }
+
+  isUsernameAvailable(username:string):Observable<boolean>{
+    let url = this.usernameUrl + username;
+    return this.httpClient.get<boolean>(url);
   }
 
-  hasEmailBeenInUse(email:string):boolean{
-    return false;
+  isEmailInUse(email:string):Observable<boolean>{
+    let url = this.emailInUseUrl + email;
+    return this.httpClient.get<boolean>(url);
   }
 
-  isUsernameAvailable(username:string):boolean{
-    return true;
+  hasEmailBeenInUse(email:string):Observable<boolean>{
+    let url = this.hasEmailBeenInUse + email;
+    return this.httpClient.get<boolean>(url);
   }
+
+  register():Observable<boolean>{
+    let url = this.registrationUrl;
+    return this.httpClient.get<boolean>(url);
+  }
+
 }

@@ -2,7 +2,7 @@
     <span class="h2">Register</span>
     <hr>
     <span class="h6">Step {{stepIndex+1}} of {{steps.length}}: {{steps[stepIndex]['name']}}</span>
-    <br>
+    <hr>
     <form class="py-3" [formGroup]="registrationForm" (ngSubmit)="submit()" novalidate>
       <div [ngSwitch]="stepIndex+1">
         <fieldset *ngSwitchCase="1" formGroupName="accountDet">
