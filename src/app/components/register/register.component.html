@@ -10,8 +10,8 @@
         <fieldset *ngSwitchCase="1" formGroupName="accountDet">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control dark-input" id="username" formControlName="username" aria-describedby="usernameHelp"
-              [class.is-invalid]="username?.invalid && username?.touched">
+            <input type="text" class="form-control dark-input" id="username" aria-describedby="usernameHelp"
+              formControlName="username" [class.is-invalid]="username?.invalid && username?.touched">
             <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">
               <ng-container *ngIf="username?.hasError('required');else usernameRequiredValidated">
                 <span>Username is required</span>
@@ -30,8 +30,8 @@
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control dark-input" id="email" formControlName="email" aria-describedby="emailHelp"
-            [class.is-invalid]="registrationForm.get('accountDet')?.get('email')?.invalid && registrationForm.get('accountDet')?.get('email')?.touched">
+            <input type="email" class="form-control dark-input" id="email" aria-describedby="emailHelp"
+              formControlName="email" [class.is-invalid]="email?.invalid && email?.touched">
             <div id="emailHelp" class="form-text text-danger" [class.d-none]="email?.valid || email?.untouched">
               <ng-container *ngIf="email?.hasError('required');else emailRequiredValidated">
                 <span>Email is required</span>
@@ -45,8 +45,8 @@
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Set a password</label>
-            <input type="password" class="form-control dark-input" id="password" formControlName="password" aria-describedby="passwordHelp"
-              [class.is-invalid]="registrationForm.get('accountDet')?.get('password')?.invalid && registrationForm.get('accountDet')?.get('password')?.touched">
+            <input type="password" class="form-control dark-input" id="password" aria-describedby="passwordHelp"
+              formControlName="password" [class.is-invalid]="password?.invalid && password?.touched">
             <div id="passwordHelp" class="form-text text-danger" [class.d-none]="password?.valid || password?.untouched">
               <ng-container *ngIf="password?.hasError('required');else passwordRequiredValidated">
                 <span>Password is required</span>
@@ -63,7 +63,18 @@
         <fieldset *ngSwitchCase="2" formGroupName="personalDet">
           <div class="mb-3">
             <label for="firstname" class="form-label">First Name</label>
-            <input type="text" class="form-control dark-input" id="firstname" formControlName="firstName">
+            <input type="text" class="form-control dark-input" id="firstname" aria-describedby="firstNameHelp"
+              formControlName="firstName" [class.is-invalid]="firstName?.invalid && firstName?.touched">
+            <div id="firstNameHelp" class="form-text text-danger" [class.d-none]="firstName?.valid || firstName?.untouched">
+              <ng-container *ngIf="firstName?.hasError('required');else firstNameRequiredValidated">
+                <span>Name is required</span>
+              </ng-container>
+              <ng-template #firstNameRequiredValidated>
+                <ng-container *ngIf="firstName?.hasError('minlength')">
+                  <span>Name too short</span>
+                </ng-container>
+              </ng-template>
+            </div>
           </div>
           <div class="mb-3">
             <label for="middlename" class="form-label">Middle Name</label>
@@ -75,25 +86,42 @@
           </div>
           <div class="mb-3">
             <label for="gender" class="form-label">Gender</label>
-            <span id="genderHelp" class="form-text small text-danger mx-3 d-none">Gender is required</span>
+            <span class="form-text small text-danger mx-3 d-none">Gender is required</span>
             <div class="form-check">
-              <input type="radio" id="male" class="form-check-input dark-input" value="male"
-              formControlName="gender">
+              <input type="radio" id="male" class="form-check-input dark-input is-invalid" value="male" aria-describedby="genderHelp"
+                formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check">
-              <input type="radio" id="female" class="form-check-input dark-input" value="female"
-              formControlName="gender">
+              <input type="radio" id="female" class="form-check-input dark-input is-invalid" value="female" aria-describedby="genderHelp"
+                formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
               <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div id="genderHelp" class="form-text text-danger" [class.d-none]="gender?.valid || gender?.untouched">
+              <ng-container *ngIf="gender?.hasError('required')">
+                <span>Gender is required</span>
+              </ng-container>
             </div>
           </div>
           <div class="mb-3">
             <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control dark-input" id="country" formControlName="country">
+            <input type="text" class="form-control dark-input" id="country" formControlName="country" aria-describedby="countryHelp"
+              [class.is-invalid]="country?.invalid && country?.touched">
+            <div id="countryHelp" class="form-text text-danger" [class.d-none]="country?.valid || country?.untouched">
+              <ng-container *ngIf="country?.hasError('required')">
+                <span>Country is required</span>
+              </ng-container>
+            </div>
           </div>
           <div class="mb-3">
             <label for="dateOfBirth" class="form-label">Date of Birthday</label>
-            <input type="date" class="form-control dark-input" id="dateOfBirth" formControlName="dateOfBirth">
+            <input type="date" class="form-control dark-input" id="dateOfBirth" formControlName="dateOfBirth"
+              [class.is-invalid]="dateOfBirth?.invalid && dateOfBirth?.touched">
+            <div id="countryHelp" class="form-text text-danger" [class.d-none]="dateOfBirth?.valid || dateOfBirth?.untouched">
+              <ng-container *ngIf="dateOfBirth?.hasError('required')">
+                <span>Birthday is required</span>
+              </ng-container>
+            </div>
           </div>
         </fieldset>
 

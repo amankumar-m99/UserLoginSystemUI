@@ -24,12 +24,12 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
     let personalDetails = formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(1)]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
       middleName: [''],
       lastName: [''],
       gender: ['', [Validators.required]],
       country: ['', [Validators.required]],
-      dateOfBirth: ["2024-03-27", [Validators.required]],
+      dateOfBirth: ["", [Validators.required]],
     });
     let securityDetails = formBuilder.group({
       recoveryEmail: [''],
@@ -146,6 +146,7 @@ export class RegisterComponent {
   }
 
   sendSecurityCode(){}
+
   resendSecurityCode(){}
 
   submit(){
@@ -155,12 +156,54 @@ export class RegisterComponent {
   get username(){
     return this.registrationForm.get("accountDet")?.get("username");
   }
-
   get email(){
     return this.registrationForm.get("accountDet")?.get("email");
   }
-
   get password(){
     return this.registrationForm.get("accountDet")?.get("password");
+  }
+
+  get firstName(){
+    return this.registrationForm.get("personalDet")?.get("firstName");
+  }
+  get middleName(){
+    return this.registrationForm.get("personalDet")?.get("middleName");
+  }
+  get lastName(){
+    return this.registrationForm.get("personalDet")?.get("lastName");
+  }
+  get gender(){
+    return this.registrationForm.get("personalDet")?.get("gender");
+  }
+  get country(){
+    return this.registrationForm.get("personalDet")?.get("country");
+  }
+  get dateOfBirth(){
+    return this.registrationForm.get("personalDet")?.get("dateOfBirth");
+  }
+
+  get recoveryEmail(){
+    return this.registrationForm.get("securityDet")?.get("recoveryEmail");
+  }
+  get recoveryPhone(){
+    return this.registrationForm.get("securityDet")?.get("recoveryEmail");
+  }
+  get sequrityQuestion(){
+    return this.registrationForm.get("securityDet")?.get("sequrityQuestion");
+  }
+  get sequrityAnswer(){
+    return this.registrationForm.get("securityDet")?.get("sequrityAnswer");
+  }
+  get loginAlert(){
+    return this.registrationForm.get("securityDet")?.get("loginAlert");
+  }
+  get passwordChangeAlert(){
+    return this.registrationForm.get("securityDet")?.get("passwordChangeAlert");
+  }
+  get twoStepLogin(){
+    return this.registrationForm.get("securityDet")?.get("twoStepLogin");
+  }
+  get promotionalMails(){
+    return this.registrationForm.get("securityDet")?.get("promotionalMails");
   }
 }
