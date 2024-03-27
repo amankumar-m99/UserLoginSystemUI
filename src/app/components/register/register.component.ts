@@ -1,6 +1,8 @@
 import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { emailValidator } from 'src/app/custom-validators/email-validator';
+import { forbiddenNameValidator } from 'src/app/custom-validators/username-validator';
 import { RegistrationService } from 'src/app/services/registration.service';
 import { Utils } from 'src/app/utils/utils';
 
@@ -17,25 +19,23 @@ export class RegisterComponent {
   constructor(private formBuilder:FormBuilder, private registrationService:RegistrationService){
     this.stepIndex=0;
     let accountDetails = formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(2), forbiddenNameValidator(/abc/)]],
+      email: ['', [Validators.required, emailValidator()]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
     let personalDetails = formBuilder.group({
-      firstName: [''],
+      firstName: ['', [Validators.required, Validators.minLength(1)]],
       middleName: [''],
       lastName: [''],
-      gender: [''],
-      country: [''],
-      dateOfBirth: [],
+      gender: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      dateOfBirth: ["2024-03-27", [Validators.required]],
     });
-    let recoveryDetails = formBuilder.group({
+    let securityDetails = formBuilder.group({
       recoveryEmail: [''],
       recoveryPhone: [''],
       securityQuestion: [''],
-      securityAnswer: ['']
-    });
-    let securityDetails = formBuilder.group({
+      securityAnswer: [''],
       loginAlert: [true],
       passwordChangeAlert: [true],
       twoStepLogin: [false],
@@ -51,10 +51,6 @@ export class RegisterComponent {
         "form" : personalDetails
       },
       {
-        "name":"Recovery Details",
-        "form" : recoveryDetails
-      },
-      {
         "name":"Security Details",
         "form" : securityDetails
       }
@@ -62,11 +58,11 @@ export class RegisterComponent {
     this.registrationForm = this.formBuilder.group({
       accountDet : accountDetails,
       personalDet: personalDetails,
-      recoveryDet: recoveryDetails,
       securityDet: securityDetails
     });
     this.step = this.steps[0];
   }
+
   previous(){
     if(this.stepIndex == 0){
       return;
@@ -74,6 +70,7 @@ export class RegisterComponent {
     this.stepIndex--;
     this.step=this.steps[this.stepIndex];
   }
+
   next(){
     if(this.stepIndex >= this.steps.length-1){
       return;
@@ -84,33 +81,64 @@ export class RegisterComponent {
       return;
     }
     if(this.stepIndex == 0){
-      if(!this.processStepOne())
-        return;
+      // this.processStepOne();
+      this.incrementStep();
     }
+    else{
+      this.incrementStep();
+    }
+  }
+
+  incrementStep():void{
     this.stepIndex++;
     this.step=this.steps[this.stepIndex];
   }
 
-  processStepOne():boolean{
+  processStepOne():void{
     let currentForm = this.step['form'] as FormGroup;
     let email = currentForm.get("email")?.value;
-    let flag = this.registrationService.isEmailInUse(email);
-    if(flag){
-      alert("Email address is already in use!");
-      return false;
-    }
-    flag = this.registrationService.hasEmailBeenInUse(email);
-    if(flag){
-      alert("Email address was once in use!");
-      return false;
-    }
     let username = currentForm.get("username")?.value;
-    flag = this.registrationService.isUsernameAvailable(username);
-    if(!flag){
-      alert("username is already taken!");
-      return false;
-    }
-    return true;
+    this.checkEmailInUse(email, username);
+  }
+
+  checkEmailInUse(email:string, username:string){
+    this.registrationService.isEmailInUse(email).subscribe(response=>{
+      if(response == true){
+        alert("Email address is already in use!");
+      }
+      else{
+        this.checkEmailHasBeenInUse(email, username);
+      }
+    }, error=>{
+      alert("Error " + error.status + " while enquiring email in use. "+ error.statusText);
+    });
+  }
+
+  checkEmailHasBeenInUse(email:string, username:string){
+    this.registrationService.hasEmailBeenInUse(email).subscribe(response=>{
+      if(response == true){
+        alert("Email address was once in use.");
+      }
+      else{
+        this.checkUsernameAvailable(username);
+      }
+    }, error=>{
+      alert("Error " + error.status + " while enquiring email has been in use. "+ error.statusText);
+    });
+  }
+
+  checkUsernameAvailable(username:string){
+    this.registrationService.isUsernameAvailable(username).subscribe(response=>{
+      if(response == true){
+        this.incrementStep();
+      }
+      else{
+        alert("username is not available.");
+      }
+    }, error=>{
+      alert("Error " + error.status + " while enquiring username availability. "+ error.statusText);
+      
+    });
   }
 
   indicateInValidFields(formGroup:FormGroup):void{
@@ -126,5 +154,13 @@ export class RegisterComponent {
 
   get username(){
     return this.registrationForm.get("accountDet")?.get("username");
+  }
+
+  get email(){
+    return this.registrationForm.get("accountDet")?.get("email");
+  }
+
+  get password(){
+    return this.registrationForm.get("accountDet")?.get("password");
   }
 }

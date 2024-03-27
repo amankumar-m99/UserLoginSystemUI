@@ -10,7 +10,7 @@ export class RegistrationService {
 
   usernameUrl = "http://localhost:8080/register/username-available/";
   emailInUseUrl="http://localhost:8080/register/email-in-use/";
-  emailHasBeenInUse="http://localhost:8080/register/has-email-been-in-use/";
+  emailHasBeenInUseUrl="http://localhost:8080/register/has-email-been-in-use/";
   registrationUrl = "http://localhost:8080/register/user";
 
   constructor(private httpClient: HttpClient) { }
@@ -26,7 +26,7 @@ export class RegistrationService {
   }
 
   hasEmailBeenInUse(email:string):Observable<boolean>{
-    let url = this.hasEmailBeenInUse + email;
+    let url = this.emailHasBeenInUseUrl + email;
     return this.httpClient.get<boolean>(url);
   }
 
