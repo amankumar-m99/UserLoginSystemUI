@@ -1,10 +1,10 @@
-import { group } from '@angular/animations';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/custom-validators/email-validator';
 import { forbiddenNameValidator } from 'src/app/custom-validators/username-validator';
 import { RegistrationFormModel } from 'src/app/model/registration-form-model';
 import { RegistrationService } from 'src/app/services/registration.service';
+import { SecurityCodeService } from 'src/app/services/security-code.service';
 import { Utils } from 'src/app/utils/utils';
 
 @Component({
@@ -19,7 +19,12 @@ export class RegisterComponent {
   isForm2:boolean;
   registrationForm:FormGroup;
   securityCodeForm:FormGroup;
-  constructor(private formBuilder:FormBuilder, private registrationService:RegistrationService){
+  countries:string[];
+  constructor(private formBuilder:FormBuilder,
+    private registrationService:RegistrationService,
+    private securityCodeService:SecurityCodeService
+    ){
+    this.countries = ["India", "Not India"];
     this.isForm2 = false;
     this.stepIndex=0;
     this.securityCodeForm = this.formBuilder.group({
@@ -88,8 +93,8 @@ export class RegisterComponent {
       return;
     }
     if(this.stepIndex == 0){
-      // this.processStepOne();
-      this.incrementStep();
+      this.processStepOne();
+      // this.incrementStep();
     }
     else{
       this.incrementStep();
@@ -100,6 +105,8 @@ export class RegisterComponent {
     this.stepIndex++;
     this.step=this.steps[this.stepIndex];
   }
+
+  validateCountry(){}
 
   processStepOne():void{
     let currentForm = this.step['form'] as FormGroup;
@@ -152,7 +159,14 @@ export class RegisterComponent {
     Utils.markAllFieldAsTouched(formGroup);
   }
 
-  sendSecurityCode(email:string){}
+  sendSecurityCode(email:string){
+    alert("sending security code to "+ email);
+    this.securityCodeService.sendSecurityCodeToEmail(email).subscribe(res=>{
+      alert("sent security code to "+ email)
+    }, error=>{
+      alert("could not sent security code to "+ email)
+    });
+  }
 
   resendSecurityCode(){}
 

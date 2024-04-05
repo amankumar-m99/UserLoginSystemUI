@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { StaticData } from '../static/static-data';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,10 @@ import { Observable } from 'rxjs';
 
 export class RegistrationService {
 
-  usernameUrl = "http://localhost:8080/register/username-available/";
-  emailInUseUrl="http://localhost:8080/register/email-in-use/";
-  emailHasBeenInUseUrl="http://localhost:8080/register/has-email-been-in-use/";
-  registrationUrl = "http://localhost:8080/register/user";
+  usernameUrl = StaticData.apiBaseUrl+"/register/username-available/";
+  emailInUseUrl=StaticData.apiBaseUrl+"/register/email-in-use/";
+  emailHasBeenInUseUrl=StaticData.apiBaseUrl+"/register/has-email-been-in-use/";
+  registrationUrl = StaticData.apiBaseUrl+"/register/user";
 
   constructor(private httpClient: HttpClient) { }
 

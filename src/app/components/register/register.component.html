@@ -3,7 +3,7 @@
   <hr>
   <form class="pb-3" [formGroup]="securityCodeForm" (ngSubmit)="submitSecurityCode()" novalidate>
     <div class="mb-3">
-      <label for="securitycode" class="form-label">Enter the security code sent to {{email?.value}}</label>
+      <label for="securitycode" class="form-label">Enter the security code sent to <strong>{{email?.value}}</strong></label>
       <input type="text" class="form-control dark-input" id="securitycode" aria-describedby="securityCodeHelp"
         formControlName="securityCode" [class.is-invalid]="securityCode?.invalid && securityCode?.touched">
       <div id="securityCodeHelp" class="form-text text-danger" [class.d-none]="securityCode?.valid || securityCode?.untouched">
@@ -22,7 +22,7 @@
         </ng-template>
       </div>
     </div>
-    <div class="form-text text-light my-1">Didn't receive the security code? Resend.</div>
+    <div class="form-text text-light my-1">Didn't receive the security code? Please wait for 10 seconds before we resend.</div>
     <hr>
     <button type="submit" class="btn btn-primary mx-1">Submit</button>
   </form>
@@ -136,8 +136,11 @@
           </div>
           <div class="mb-3">
             <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control dark-input" id="country" formControlName="country" aria-describedby="countryHelp"
-              [class.is-invalid]="country?.invalid && country?.touched">
+            <select class="form-select dark-input" aria-label="Default select" formControlName="country" aria-describedby="countryHelp"
+              (blur)="validateCountry()" (change)="validateCountry()" [class.is-invalid]="country?.invalid && country?.touched">
+              <option value = "" disabled>--Select Country--</option>
+              <option *ngFor = "let country of countries" [value] = "country">{{country}}</option>
+            </select>
             <div id="countryHelp" class="form-text text-danger" [class.d-none]="country?.valid || country?.untouched">
               <ng-container *ngIf="country?.hasError('required')">
                 <span>Country is required</span>
