@@ -11,6 +11,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { NetworkIndicatorComponent } from './components/network-indicator/network-indicator.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     DashboardComponent,
     PageNotFoundComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    NetworkIndicatorComponent,
+    AboutComponent,
+    ContactComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
