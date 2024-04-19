@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginFormModel } from 'src/app/model/login-form-model';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginFormModel } from 'src/app/model/login/login-form-model';
+import { LoginService } from 'src/app/services/login/login.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { Utils } from 'src/app/utils/utils';
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent {
   constructor(
     private formBuilder:FormBuilder,
     private loginService:LoginService,
+    private userService:UserService,
     private router:Router
     ){
     this.loginForm = this.formBuilder.group({
@@ -33,7 +35,20 @@ export class LoginComponent {
       // localStorage.setItem("username", res.username);
       Utils.setCookie("username", res.username);
       Utils.setCookie("token", res.jwtToken);
-      this.router.navigate(['/dashboard']);
+      this.userService.getUserInfo(res).subscribe(user=>{
+        let roleId = user.roles[0].id;
+        for(let role of user.roles){
+          if(role.id < roleId)
+            roleId = role.id;
+        }
+        switch(roleId){
+          case 1: this.router.navigate(['/admin-dashboard']); break;
+          default: this.router.navigate(['/dashboard']); break;
+        }
+      }, error=>{
+        alert("Error while navigation to dashboard.")
+      });
+
     }, error=>{
       alert("Error while loging in. "+error.status);
     })

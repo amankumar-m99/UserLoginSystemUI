@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StaticData } from '../static/static-data';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { securityCodeForm } from '../model/security-code-form';
+import { StaticData } from 'src/app/static/static-data';
+import { securityCodeForm } from 'src/app/model/security/security-code-form';
 
 @Injectable({
   providedIn: 'root'

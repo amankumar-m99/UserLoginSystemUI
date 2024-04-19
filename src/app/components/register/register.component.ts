@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/custom-validators/email-validator';
 import { forbiddenNameValidator } from 'src/app/custom-validators/username-validator';
-import { RegistrationFormModel } from 'src/app/model/registration-form-model';
-import { RegistrationService } from 'src/app/services/registration.service';
-import { SecurityCodeService } from 'src/app/services/security-code.service';
+import { RegistrationFormModel } from 'src/app/model/registration/registration-form-model';
+import { RegistrationService } from 'src/app/services/registration/registration.service';
+import { SecurityCodeService } from 'src/app/services/security-code/security-code.service';
 import { Utils } from 'src/app/utils/utils';
 
 @Component({

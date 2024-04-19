@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { StaticData } from '../static/static-data';
 import { HttpClient } from '@angular/common/http';
-import { LoginFormModel } from '../model/login-form-model';
 import { Observable } from 'rxjs';
-import { JwtResponse } from '../model/jwt-response';
+import { StaticData } from 'src/app/static/static-data';
+import { JwtResponse } from 'src/app/model/jwt/jwt-response';
+import { LoginFormModel } from 'src/app/model/login/login-form-model';
 
 @Injectable({
   providedIn: 'root'

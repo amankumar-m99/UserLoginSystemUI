@@ -14,7 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NetworkIndicatorComponent } from './components/network-indicator/network-indicator.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent } from './components/dashboard/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
