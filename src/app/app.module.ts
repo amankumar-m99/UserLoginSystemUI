@@ -15,6 +15,9 @@ import { NetworkIndicatorComponent } from './components/network-indicator/networ
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { AdminDashboardComponent } from './components/dashboard/admin-dashboard/admin-dashboard.component';
+import { SuperAdminDashboardComponent } from './components/dashboard/super-admin-dashboard/super-admin-dashboard.component';
+import { UserDashboardComponent } from './components/dashboard/user-dashboard/user-dashboard.component';
+import { UserComponent } from './components/user/user/user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { AdminDashboardComponent } from './components/dashboard/admin-dashboard/
     NetworkIndicatorComponent,
     AboutComponent,
     ContactComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    SuperAdminDashboardComponent,
+    UserDashboardComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

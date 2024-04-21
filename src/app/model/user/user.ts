@@ -13,7 +13,7 @@ export class User{
         public isAccountExpired:boolean,
         public isCredentialExpired:boolean,
         public roles:Role[],
-        public userPersonalDetails:UserPersonalDetails,
-        public userSecurityDetails:UserSecurityDetails
+        public personalDetails:UserPersonalDetails,
+        public securityDetails:UserSecurityDetails
     ){}
 }

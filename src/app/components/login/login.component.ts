@@ -33,22 +33,9 @@ export class LoginComponent {
     this.loginService.login(loginFormModel).subscribe(res=>{
       // localStorage.setItem("jwt", res.jwtToken);
       // localStorage.setItem("username", res.username);
-      Utils.setCookie("username", res.username);
+      Utils.setCookie("userId", res.userId.toString());
       Utils.setCookie("token", res.jwtToken);
-      this.userService.getUserInfo(res).subscribe(user=>{
-        let roleId = user.roles[0].id;
-        for(let role of user.roles){
-          if(role.id < roleId)
-            roleId = role.id;
-        }
-        switch(roleId){
-          case 1: this.router.navigate(['/admin-dashboard']); break;
-          default: this.router.navigate(['/dashboard']); break;
-        }
-      }, error=>{
-        alert("Error while navigation to dashboard.")
-      });
-
+      this.router.navigate(['/dashboard']);
     }, error=>{
       alert("Error while loging in. "+error.status);
     })

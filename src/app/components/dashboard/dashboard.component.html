@@ -1,1 +1,10 @@
-<p>dashboard works!</p>
+
+<container-element [ngSwitch]="roleId">
+    <div *ngSwitchCase="1">...1</div>
+    <app-super-admin-dashboard *ngSwitchCase="1"></app-super-admin-dashboard>
+    <app-admin-dashboard *ngSwitchCase="2"></app-admin-dashboard>
+    <app-user-dashboard *ngSwitchCase="3"></app-user-dashboard>
+    <div *ngSwitchDefault>
+        <p>Invalid User</p>
+    </div>
+  </container-element>

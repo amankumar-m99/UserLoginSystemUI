@@ -7,16 +7,16 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { AdminDashboardComponent } from './components/dashboard/admin-dashboard/admin-dashboard.component';
+import { UserComponent } from './components/user/user/user.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
   { path:"login", title:"Login", component:LoginComponent},
   { path:"register", title:"Register", component:RegisterComponent},
   { path:"dashboard", title:"Dashboard", component:DashboardComponent},
-  { path:"admin-dashboard", title:"Admin Dashboard", component:AdminDashboardComponent},
   { path:"about", title:"About", component:AboutComponent},
   { path:"contact", title:"Contact", component:ContactComponent},
+  { path:"user/:id", title:"User Details", component:UserComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

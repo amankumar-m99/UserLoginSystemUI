@@ -1,6 +1,9 @@
 import { FormGroup } from "@angular/forms";
+import { JwtResponse } from "../model/jwt/jwt-response";
+import { HttpHeaders } from "@angular/common/http";
 
 export class Utils{
+
     public static markAllFieldAsTouched(formGroup: FormGroup):void{
       Object.keys(formGroup.controls).forEach((key: string)=>{
         const abstractControl = formGroup.get(key);
@@ -33,6 +36,22 @@ export class Utils{
         }
       }
       return "";
+    }
+  
+    public static getJwtToken():string{
+      return this.getCookie("token");
+    }
+  
+    public static getJwtResponse():JwtResponse{
+      let userId = parseInt(this.getCookie("userId"));
+      return new JwtResponse(this.getCookie("token"), userId);
+    }
+  
+    public static getHeaderWithToken():HttpHeaders{
+      let token = this.getJwtToken();
+      let auth = "Bearer " + token;
+      let header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', auth);
+      return header;
     }
     
     // public static checkCookie() {
