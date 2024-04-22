@@ -8,13 +8,13 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { UserComponent } from './components/user/user/user.component';
-import { authorize } from './utils/auth.util';
+import { ActivateDashBoardRoute, ActivateLoginAndRegisterRoute } from './utils/auth.util';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
-  { path:"login", title:"Login", component:LoginComponent},
-  { path:"register", title:"Register", component:RegisterComponent},
-  { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[authorize]},
+  { path:"login", title:"Login", component:LoginComponent, canActivate:[ActivateLoginAndRegisterRoute]},
+  { path:"register", title:"Register", component:RegisterComponent, canActivate:[ActivateLoginAndRegisterRoute]},
+  { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"about", title:"About", component:AboutComponent},
   { path:"contact", title:"Contact", component:ContactComponent},
   { path:"user/:id", title:"User Details", component:UserComponent},

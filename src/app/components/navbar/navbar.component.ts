@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
-  logout():void{
-    
-  }
-}
+export class NavbarComponent { }

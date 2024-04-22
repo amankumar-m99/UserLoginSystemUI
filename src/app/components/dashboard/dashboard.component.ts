@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtResponse } from 'src/app/model/jwt/jwt-response';
 import { UserService } from 'src/app/services/user/user.service';
-import { Utils } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-dashboard',

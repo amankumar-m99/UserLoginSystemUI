@@ -37,6 +37,18 @@ export class Utils{
       }
       return "";
     }
+
+    public static hasCookie(cookie:string):boolean {
+      let result = this.getCookie(cookie);
+      if(result === undefined || result == null){
+        return false;
+      }
+      return true;
+    }
+  
+    public static deleteCookie(cookie:string):void {
+      document.cookie = cookie + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
   
     public static getJwtToken():string{
       return this.getCookie("token");
@@ -62,15 +74,4 @@ export class Utils{
       return true;
     }
     
-    // public static checkCookie() {
-    //   let user = getCookie("username");
-    //   if (user != "") {
-    //     alert("Welcome again " + user);
-    //   } else {
-    //     user = prompt("Please enter your name:", "");
-    //     if (user != "" && user != null) {
-    //       setCookie("username", user, 365);
-    //     }
-    //   }
-    // }
 }
