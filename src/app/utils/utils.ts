@@ -53,6 +53,14 @@ export class Utils{
       let header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', auth);
       return header;
     }
+  
+    public static isUserLoggedIn():boolean{
+      let token = this.getCookie("token");
+      if(token === undefined || token == null || token.length == 0){
+        return false;
+      }
+      return true;
+    }
     
     // public static checkCookie() {
     //   let user = getCookie("username");
