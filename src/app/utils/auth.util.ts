@@ -17,3 +17,15 @@ export const ActivateLoginAndRegisterRoute = ()=>{
     router.navigate(['dashboard']);
     return false;
 }
+
+export const ActivateAdminRoute = ()=>{
+    let router = inject(Router);
+    if(!Utils.isUserLoggedIn()){
+        // router.navigate(['dashboard']);
+        return false;
+    }
+    if(Utils.getCookie("userId") === "2" || Utils.getCookie("userId") === "1")
+        return true;
+    // router.navigate(['dashboard']);
+    return false;
+}

@@ -8,7 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { UserComponent } from './components/user/user/user.component';
-import { ActivateDashBoardRoute, ActivateLoginAndRegisterRoute } from './utils/auth.util';
+import { ActivateDashBoardRoute, ActivateLoginAndRegisterRoute, ActivateAdminRoute } from './utils/auth.util';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
@@ -17,7 +17,7 @@ const routes: Routes = [
   { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"about", title:"About", component:AboutComponent},
   { path:"contact", title:"Contact", component:ContactComponent},
-  { path:"user/:id", title:"User Details", component:UserComponent},
+  { path:"user/:id", title:"User Details", component:UserComponent, canActivate:[ActivateAdminRoute]},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
