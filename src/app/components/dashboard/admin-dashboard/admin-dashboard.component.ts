@@ -12,7 +12,8 @@ import { Utils } from 'src/app/utils/utils';
 export class AdminDashboardComponent implements OnInit{
 
   users: User[];
-  user: User | undefined
+  user: User | undefined;
+  path:string="quote"
 
   constructor(
     private router:Router,
@@ -58,12 +59,19 @@ export class AdminDashboardComponent implements OnInit{
     Utils.deleteCookie("userId");
     this.router.navigate(['/home']);
   }
+  quoteOfTheDay():void{
+    this.path = "quote";
+  }
 
-  updatePassword():void{
-    alert("Feature not available yet!");
+  profileClicked():void{
+    this.path = "profile";
   }
 
   viewHistory():void{
-    alert("Feature not available yet!");
+    this.path = "history";
+  }
+  
+  adminConsole():void{
+    this.path = "admin";
   }
 }
