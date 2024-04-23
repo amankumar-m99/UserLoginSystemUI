@@ -12,6 +12,7 @@ import { Utils } from 'src/app/utils/utils';
 export class AdminDashboardComponent implements OnInit{
 
   users: User[];
+  user: User | undefined
 
   constructor(
     private router:Router,
@@ -22,10 +23,12 @@ export class AdminDashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe(res=>{
+      this.user=res;
+    })
   }
 
   getAllUsers():void{
-
     this.userService.getAllUsers().subscribe(response=>{
       if(this.users.length != 0)
         this.users.length = 0;
@@ -40,11 +43,27 @@ export class AdminDashboardComponent implements OnInit{
   addNewUser():void{
 
   }
+  getRoleName():string{
+    let roleName = this.user?.roles[0].roleName;
+    if(roleName === undefined || roleName == null)
+      return "N/A";
+    return roleName;
+  }
 
   logout():void{
+    let proceed:boolean = confirm("You shall be logged out. Continue?");
+    if(!proceed)
+      return;
     Utils.deleteCookie("token");
     Utils.deleteCookie("userId");
-    // let router = inject(Router);
-    this.router.navigate(['home']);
+    this.router.navigate(['/home']);
+  }
+
+  updatePassword():void{
+    alert("Feature not available yet!");
+  }
+
+  viewHistory():void{
+    alert("Feature not available yet!");
   }
 }
