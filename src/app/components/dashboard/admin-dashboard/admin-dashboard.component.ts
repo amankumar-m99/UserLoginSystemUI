@@ -67,8 +67,8 @@ export class AdminDashboardComponent implements OnInit{
     this.path = "profile";
   }
 
-  viewHistory():void{
-    this.path = "history";
+  security():void{
+    this.path = "security";
   }
   
   adminConsole():void{

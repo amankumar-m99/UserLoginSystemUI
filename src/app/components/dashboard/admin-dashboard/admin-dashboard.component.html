@@ -1,43 +1,11 @@
-<div class="container my-5">
-    <div class="row align-items-center">
-        <div class="col-3">
-            <p class="p-5 h1"><i class="bi bi-person-circle"></i></p>
-        </div>
-        <div class="col-5 fs-6">
-            <div class="row">
-                <div class="col">
-                    <p class=""><i class="bi bi-person"></i>: {{user?.personalDetails?.firstName | uppercase}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p class=""><i class="bi bi-envelope"></i>: {{user?.email | lowercase}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p class="">@: {{user?.username | lowercase}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <span class="badge text-bg-primary">{{getRoleName()}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="d-flex flex-column">
-                <button class="btn btn-outline-info my-1" (click)="quoteOfTheDay()">Quote of the day</button>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="d-flex flex-column">
-                <button class="btn btn-outline-danger my-1" (click)="logout()">Log out</button>
-                <button class="btn btn-outline-primary my-1" (click)="profileClicked()">Profile</button>
-                <button class="btn btn-outline-warning my-1" (click)="viewHistory()">View History</button>
-                <button class="btn btn-outline-info my-1" (click)="adminConsole()">Admin Console</button>
-            </div>
-        </div>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-2"><Button class="btn btn-outline-primary border-2" (click)="quoteOfTheDay()">Home</Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary" (click)="profileClicked()">My Profile</Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary" (click)="security()">Security</Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary">Notification</Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary" (click)="adminConsole()">Admin</Button></div>
+        <div class="col-2"><Button class="btn btn-outline-danger" (click)="logout()"><i class="bi bi-person-circle"></i> Log out</Button></div>
     </div>
     <hr>
     <div *ngIf="path=='quote' else notquote">
@@ -47,6 +15,33 @@
     </div>
     <ng-template #notquote>
         <div *ngIf="path=='profile' else notprofile">
+            <div class="row align-items-center">
+                <div class="col-3">
+                    <p class="p-5 h1"><i class="bi bi-person-circle"></i></p>
+                </div>
+                <div class="col-5 fs-6">
+                    <div class="row">
+                        <div class="col">
+                            <p class=""><i class="bi bi-person"></i>: {{user?.personalDetails?.firstName | uppercase}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class=""><i class="bi bi-envelope"></i>: {{user?.email | lowercase}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="">@: {{user?.username | lowercase}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="badge text-bg-primary">{{getRoleName()}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="table table-striped table-dark my-5">
                 <thead>
                     <tr>
@@ -92,6 +87,10 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </ng-template>
+    <ng-template #notprofile>
+        <div *ngIf="path=='security' else notsecurity">
             <table class="table table-striped table-dark my-5">
                 <thead>
                     <tr>
@@ -138,17 +137,7 @@
             </table>
         </div>
     </ng-template>
-    <ng-template #notprofile>
-        <div *ngIf="path=='history' else nothistory">
-            <div class="row justify-content-center my-5">
-                <div class="col text-center">
-                    <p>History cannot be fetched at the moment.</p>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template #nothistory>
-        <p>admin console</p>
+    <ng-template #notsecurity>
         <div class="container-fluid">
             <div class="row my-3 justify-content-between">
                         <div class="col-4">
