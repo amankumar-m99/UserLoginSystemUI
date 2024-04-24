@@ -1,8 +1,12 @@
-<container-element [ngSwitch]="roleId">
-    <app-super-admin-dashboard *ngSwitchCase="1"></app-super-admin-dashboard>
-    <app-admin-dashboard *ngSwitchCase="2"></app-admin-dashboard>
-    <app-user-dashboard *ngSwitchCase="3"></app-user-dashboard>
-    <div *ngSwitchDefault>
-        <p>Invalid User</p>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-2"><Button class="btn btn-outline-primary border-2"><a [routerLink]="['/dashboard/home']">Home</a></Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary"><a [routerLink]="['/dashboard/profile']">My Profile</a></Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary"><a [routerLink]="['/dashboard/security']">Security</a></Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary"><a [routerLink]="['/dashboard/notifications']">Notification</a></Button></div>
+        <div class="col-2"><Button class="btn btn-outline-primary"><a [routerLink]="['/dashboard/admin-console']">Admin</a></Button></div>
+        <div class="col-2"><Button class="btn btn-outline-danger" (click)="logout()"><i class="bi bi-person-circle"></i> Log out</Button></div>
     </div>
-  </container-element>
+    <hr>
+    <router-outlet></router-outlet>
+</div>

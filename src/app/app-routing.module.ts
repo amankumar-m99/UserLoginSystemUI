@@ -9,12 +9,27 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { UserComponent } from './components/user/user/user.component';
 import { ActivateDashBoardRoute, ActivateLoginAndRegisterRoute, ActivateAdminRoute } from './utils/auth.util';
+import { ProfileComponent } from './components/profile/profile.component';
+import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
+import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
   { path:"login", title:"Login", component:LoginComponent, canActivate:[ActivateLoginAndRegisterRoute]},
   { path:"register", title:"Register", component:RegisterComponent, canActivate:[ActivateLoginAndRegisterRoute]},
-  { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
+  { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute],
+    children: [
+      { path:'', redirectTo:'home', pathMatch: 'full' },
+      { path:'home', component: DashboardHomeComponent },
+      { path:'profile', component: ProfileComponent },
+      { path:'security', component: DashboardSecurityComponent },
+      { path:'notifications', component: DashboardNotificationComponent },
+      { path:'admin-console', component: AdminPanelComponent },
+      { path:'super-admin-console', component: AdminPanelComponent }
+    ]
+  },
   { path:"about", title:"About", component:AboutComponent},
   { path:"contact", title:"Contact", component:ContactComponent},
   { path:"user/:id", title:"User Details", component:UserComponent, canActivate:[ActivateAdminRoute]},

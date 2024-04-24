@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class UserComponent implements OnInit{
   userId = -1;
-  user:User | undefined;
+  user!:User;
   constructor(
     private activatedroute:ActivatedRoute,
     private userService:UserService
