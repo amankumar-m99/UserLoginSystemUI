@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
   roleId: number;
   users: User[];
   user: User | undefined;
-  path:string ="";
 
   constructor(
     private router:Router,
@@ -66,16 +65,4 @@ export class DashboardComponent implements OnInit {
     Utils.deleteCookie("userId");
     this.router.navigate(['/home']);
   }
-  quoteOfTheDay():void{
-  }
-
-  profileClicked():void{
-  }
-
-  security():void{
-  }
-  
-  adminConsole():void{
-  }
-
 }

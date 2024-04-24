@@ -31,7 +31,5 @@ export class AdminPanelComponent {
     });
   }
 
-  addNewUser():void{
-
-  }
+  addNewUser():void{ }
 }
