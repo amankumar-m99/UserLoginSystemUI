@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Quote } from 'src/app/model/quote/quote';
+import { QuotesService } from 'src/app/services/quotes/quotes.service';
 import { Utils } from 'src/app/utils/utils';
 
 @Component({
@@ -8,10 +10,21 @@ import { Utils } from 'src/app/utils/utils';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  constructor(private router:Router){}
+  quote!:Quote;
+
+  constructor(
+    private router:Router,
+    private quoteService:QuotesService
+  ){}
+
   ngOnInit(): void {
     if(Utils.isUserLoggedIn()){
       this.router.navigate(["dashboard"]);
+    }
+    else{
+      this.quoteService.getRandomQuote().subscribe(res=>{
+        this.quote = res;
+      })
     }
   }
 
