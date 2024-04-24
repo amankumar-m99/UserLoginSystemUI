@@ -10,7 +10,7 @@ import { Utils } from 'src/app/utils/utils';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  quote!:Quote;
+  // quote!:Quote;
 
   constructor(
     private router:Router,
@@ -21,11 +21,11 @@ export class HomeComponent implements OnInit{
     if(Utils.isUserLoggedIn()){
       this.router.navigate(["dashboard"]);
     }
-    else{
-      this.quoteService.getRandomQuote().subscribe(res=>{
-        this.quote = res;
-      })
-    }
+    // else{
+    //   this.quoteService.getRandomQuote().subscribe(res=>{
+    //     this.quote = res;
+    //   })
+    // }
   }
 
   login():void{

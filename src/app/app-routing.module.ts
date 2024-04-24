@@ -14,11 +14,13 @@ import { DashboardSecurityComponent } from './components/dashboard/dashboard-sec
 import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
   { path:"login", title:"Login", component:LoginComponent, canActivate:[ActivateLoginAndRegisterRoute]},
   { path:"register", title:"Register", component:RegisterComponent, canActivate:[ActivateLoginAndRegisterRoute]},
+  { path:"logout", title:"Logout", component:LogoutComponent },
   { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute],
     children: [
       { path:'', redirectTo:'home', pathMatch: 'full' },

@@ -57,12 +57,5 @@ export class DashboardComponent implements OnInit {
     return roleName;
   }
 
-  logout():void{
-    let proceed:boolean = confirm("You shall be logged out. Continue?");
-    if(!proceed)
-      return;
-    Utils.deleteCookie("token");
-    Utils.deleteCookie("userId");
-    this.router.navigate(['/home']);
-  }
+  
 }
