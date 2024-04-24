@@ -14,7 +14,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NetworkIndicatorComponent } from './components/network-indicator/network-indicator.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { AdminDashboardComponent } from './components/dashboard/admin-dashboard/admin-dashboard.component';
 import { UserComponent } from './components/user/user/user.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
@@ -34,7 +33,6 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     NetworkIndicatorComponent,
     AboutComponent,
     ContactComponent,
-    AdminDashboardComponent,
     UserComponent,
     ProfileComponent,
     DashboardHomeComponent,
