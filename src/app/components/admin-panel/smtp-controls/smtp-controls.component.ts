@@ -27,10 +27,12 @@ export class SmtpControlsComponent implements OnInit{
       host: ['', Validators.required],
       port: ['', Validators.required],
       auth: [false, Validators.required],
-      starttlsEnable: [false, Validators.required]
+      starttlsEnable: [false, Validators.required],
+      isSelected: [false, Validators.required]
     });
   }
   ngOnInit(): void {
+    this.getAllRecords();
   }
 
   save():void{
@@ -84,5 +86,8 @@ export class SmtpControlsComponent implements OnInit{
   }
   get startTtls(){
     return this.smtpForm.get("starttlsEnable");
+  }
+  get isSelected(){
+    return this.smtpForm.get("isSelected");
   }
 }

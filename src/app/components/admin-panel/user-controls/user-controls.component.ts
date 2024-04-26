@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
@@ -11,13 +12,22 @@ import { UserService } from 'src/app/services/user/user.service';
 export class UserControlsComponent {
 
   users:User[];
+  userForm:FormGroup;
+
+  @ViewChild('modalCloseBtn') modalCloseBtn!:ElementRef;
 
   constructor(
     private router:Router,
+    private formBuilder:FormBuilder,
     private userService:UserService
   )
   {
     this.users = [];
+    this.userForm = this.formBuilder.group({
+      username : ['', Validators.required],
+      email : ['', Validators.required],
+      password : ['', Validators.required]
+    });
   }
 
   getAllUsers():void{
@@ -33,4 +43,18 @@ export class UserControlsComponent {
   }
 
   addNewUser():void{ }
+
+  save():void{ }
+
+  submit():void{ }
+
+  get username(){
+    return this.userForm.get("username");
+  }
+  get email(){
+    return this.userForm.get("host");
+  }
+  get password(){
+    return this.userForm.get("password");
+  }
 }

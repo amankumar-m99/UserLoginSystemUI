@@ -7,6 +7,7 @@ export class Smtp{
         public host:string,
         public port:number,
         public auth:boolean,
-        public starttlsEnable:boolean
+        public starttlsEnable:boolean,
+        public isSelected:boolean
     ){ }
 }

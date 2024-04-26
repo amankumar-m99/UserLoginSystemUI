@@ -50,6 +50,12 @@ export class Utils{
       document.cookie = cookie + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
   
+    public static deleteAllCookies():void {
+      this.deleteCookie("userId");
+      this.deleteCookie("token");
+      this.deleteCookie("roleId");
+    }
+  
     public static getJwtToken():string{
       return this.getCookie("token");
     }
@@ -72,6 +78,19 @@ export class Utils{
         return false;
       }
       return true;
+    }
+  
+    public static getRoleId():number{
+      let cookie = this.getCookie("roleId");
+      if(cookie === undefined || cookie == null || cookie.length == 0){
+        return -1;
+      }
+      return parseInt(cookie);
+    }
+  
+    public static setRoleId(roleId:string):void{
+      this.setCookie("roleId", roleId);
+      let cookie = this.getCookie("roleId");
     }
     
 }

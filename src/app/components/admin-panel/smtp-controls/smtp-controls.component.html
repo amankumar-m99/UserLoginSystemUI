@@ -9,8 +9,8 @@
         </form>
     </div>
     <div class="col-4 row justify-content-end">
-        <button class="btn btn-outline-primary mx-2 col-4" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add new SMTP</button>
-        <button class="btn btn-outline-primary mx-2 col-4" (click)="getAllRecords()">All Records</button>
+        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add new SMTP</button>
+        <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllRecords()"><i class="bi bi-arrow-clockwise"></i> Refresh Records</button>
     </div>
 </div>
 <hr>
@@ -20,16 +20,17 @@
             <th scope="col">#</th>
             <th scope="col">DB_ID</th>
             <th scope="col">Username</th>
-            <th scope="col">password</th>
+            <th scope="col">Password</th>
             <th scope="col">Host</th>
             <th scope="col">Port</th>
-            <th scope="col">auth</th>
+            <th scope="col">Auth</th>
             <th scope="col">Starttls Enable</th>
+            <th scope="col">Selection Status</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngIf="smtps.length == 0;">
-            <td colspan="8" class="text-center"> No Content !</td>
+            <td colspan="9" class="text-center"> No Content !</td>
         </tr>
         <tr *ngFor="let smtp of smtps; index as i">
             <th scope="row">{{i+1}}</th>
@@ -40,6 +41,8 @@
             <td>{{smtp.port}}</td>
             <td>{{smtp.auth}}</td>
             <td>{{smtp.starttlsEnable}}</td>
+            <td *ngIf="smtp.isSelected"><span class="badge rounded-pill text-bg-success">Selected</span></td>
+            <td *ngIf="!smtp.isSelected">Mark as select</td>
         </tr>
     </tbody>
 </table>
@@ -85,6 +88,10 @@
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input dark-input" id="exampleCheck2" formControlName="starttlsenable">
               <label class="form-check-label" for="exampleCheck2">Start TLS Enabled</label>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input dark-input" id="isSelected" formControlName="isSelected">
+              <label class="form-check-label" for="isSelected">Set as Default</label>
             </div>
             <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
         </form>

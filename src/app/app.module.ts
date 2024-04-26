@@ -20,7 +20,6 @@ import { DashboardHomeComponent } from './components/dashboard/dashboard-home/da
 import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
 import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { LogoutComponent } from './components/logout/logout.component';
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 
@@ -42,7 +41,6 @@ import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/sm
     DashboardSecurityComponent,
     DashboardNotificationComponent,
     AdminPanelComponent,
-    LogoutComponent,
     UserControlsComponent,
     SmtpControlsComponent,
   ],

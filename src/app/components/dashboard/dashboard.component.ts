@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
           roleId = role.id;
       }
       this.roleId = roleId;
+      Utils.setRoleId(this.roleId.toString());
     }, error=>{
       alert("Error while navigation to dashboard.")
     });

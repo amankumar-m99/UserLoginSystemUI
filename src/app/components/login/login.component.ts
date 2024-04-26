@@ -35,7 +35,17 @@ export class LoginComponent {
       // localStorage.setItem("username", res.username);
       Utils.setCookie("userId", res.userId.toString());
       Utils.setCookie("token", res.jwtToken);
-      this.router.navigate(['/dashboard']);
+      this.userService.getCurrentUser().subscribe(user=>{
+        let roleId = user.roles[0].id;
+        for(let role of user.roles){
+          if(role.id < roleId)
+            roleId = role.id;
+        }
+        Utils.setRoleId(roleId.toString());
+        this.router.navigate(['/dashboard']);
+      }, error=>{
+        alert("Error while navigation to dashboard.");
+      });
     }, error=>{
       alert("Error while loging in. "+error.status);
     })
