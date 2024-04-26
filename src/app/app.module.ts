@@ -21,6 +21,8 @@ import { DashboardSecurityComponent } from './components/dashboard/dashboard-sec
 import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
+import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { LogoutComponent } from './components/logout/logout.component';
     DashboardSecurityComponent,
     DashboardNotificationComponent,
     AdminPanelComponent,
-    LogoutComponent
+    LogoutComponent,
+    UserControlsComponent,
+    SmtpControlsComponent,
   ],
   imports: [
     BrowserModule,

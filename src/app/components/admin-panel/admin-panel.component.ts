@@ -19,17 +19,4 @@ export class AdminPanelComponent {
     this.users = [];
   }
 
-  getAllUsers():void{
-    this.userService.getAllUsers().subscribe(response=>{
-      if(this.users.length != 0)
-        this.users.length = 0;
-      response.forEach(r=>{
-        this.users.push(r);
-      });
-    }, error=>{
-      alert("Error " + error.statusCode + " occured!");
-    });
-  }
-
-  addNewUser():void{ }
 }

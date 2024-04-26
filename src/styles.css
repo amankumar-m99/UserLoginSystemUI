@@ -15,3 +15,18 @@ body{
 .dark-input::placeholder {
     color: white;
 }
+
+.dark-my-modal{
+    /* background-color: #17242b; */
+    /* background-color: #1b2a33; */
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+.my-modal-btn{
+    background-color: #5f6e75;
+}
+
+.my-modal-text-color{
+    color: white;
+}

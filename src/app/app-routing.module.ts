@@ -15,6 +15,8 @@ import { DashboardNotificationComponent } from './components/dashboard/dashboard
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
+import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
@@ -28,7 +30,12 @@ const routes: Routes = [
       { path:'profile', component: ProfileComponent },
       { path:'security', component: DashboardSecurityComponent },
       { path:'notifications', component: DashboardNotificationComponent },
-      { path:'admin-console', component: AdminPanelComponent },
+      { path:'admin-console', component: AdminPanelComponent, 
+      children:[
+          { path:'', redirectTo:'users', pathMatch: 'full' },
+          { path:'users', component: UserControlsComponent },
+          { path:'smtp', component: SmtpControlsComponent }
+        ]},
       { path:'super-admin-console', component: AdminPanelComponent }
     ]
   },

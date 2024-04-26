@@ -9,6 +9,8 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class ProfileComponent implements OnInit{
   user!: User;
+  border_color = "green";
+  badge_class = "text-bg-success";
 
   constructor(private userService:UserService){ }
 

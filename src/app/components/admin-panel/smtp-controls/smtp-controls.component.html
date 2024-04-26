@@ -1,0 +1,98 @@
+<div class="row my-3 justify-content-between">
+    <div class="col-4">
+        <p class="h5">SMTP Details</p>
+    </div>
+    <div class="col-4">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2 dark-input" type="search" placeholder="search smtp" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="col-4 row justify-content-end">
+        <button class="btn btn-outline-primary mx-2 col-4" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add new SMTP</button>
+        <button class="btn btn-outline-primary mx-2 col-4" (click)="getAllRecords()">All Records</button>
+    </div>
+</div>
+<hr>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">DB_ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">password</th>
+            <th scope="col">Host</th>
+            <th scope="col">Port</th>
+            <th scope="col">auth</th>
+            <th scope="col">Starttls Enable</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="smtps.length == 0;">
+            <td colspan="8" class="text-center"> No Content !</td>
+        </tr>
+        <tr *ngFor="let smtp of smtps; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{smtp.id}}</td>
+            <td>{{smtp.username}}</td>
+            <td>{{smtp.password}}</td>
+            <td>{{smtp.host}}</td>
+            <td>{{smtp.port}}</td>
+            <td>{{smtp.auth}}</td>
+            <td>{{smtp.starttlsEnable}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content dark-my-modal">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add SMTP</h1>
+        <button type="button" class="btn-close my-modal-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="p-3" [formGroup]="smtpForm" (ngSubmit)="submit()" novalidate>
+            <div class="mb-3">
+              <label for="smtp_username" class="form-label"><i class="bi bi-person-plus"></i> Username</label>
+              <input type="text" class="form-control dark-input" id="smtp_username" aria-describedby="usernameHelp" 
+                formControlName="username" [class.is-invalid]="username?.invalid && username?.touched">
+              <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username cannot be empty!</div>
+            </div>
+            <div class="mb-3">
+                <label for="smtp_password" class="form-label"><i class="bi bi-key"></i> Password</label>
+                <input type="text" class="form-control dark-input" id="smtp_password" aria-describedby="passwordHelp"
+                    formControlName="password" [class.is-invalid]="password?.invalid && password?.touched">
+                <div id="passwordHelp" class="form-text text-danger" [class.d-none]="password?.valid || password?.untouched">Password cannot be empty!</div>
+            </div>
+            <div class="mb-3">
+                <label for="host" class="form-label"><i class="bi bi-cloud"></i> Host</label>
+                <input type="text" class="form-control dark-input" id="host" aria-describedby="hostHelp" 
+                    formControlName="host" [class.is-invalid]="host?.invalid && host?.touched">
+                <div id="hostHelp" class="form-text text-danger" [class.d-none]="host?.valid || host?.untouched">Host cannot be empty!</div>
+            </div>
+            <div class="mb-3">
+                <label for="port" class="form-label"><i class="bi bi-plugin"></i> Port</label>
+                <input type="text" class="form-control dark-input" id="port" aria-describedby="portHelp" 
+                    formControlName="port" [class.is-invalid]="port?.invalid && port?.touched">
+                <div id="portHelp" class="form-text text-danger" [class.d-none]="port?.valid || port?.untouched">Port cannot be empty!</div>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input dark-input" id="exampleCheck1" formControlName="auth">
+              <label class="form-check-label" for="exampleCheck1">Auth</label>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input dark-input" id="exampleCheck2" formControlName="starttlsenable">
+              <label class="form-check-label" for="exampleCheck2">Start TLS Enabled</label>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #modalCloseBtn>Close</button>
+        <button type="button" class="btn btn-primary" (click)="save()" >Save</button>
+      </div>
+    </div>
+  </div>
+</div>
