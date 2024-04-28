@@ -1,3 +1,4 @@
-<div *ngIf="!networkStatus">
-    <p>You seem offline. Some functionalities might be affected.</p>
+<div *ngIf="!networkStatus" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-emoji-dizzy-fill"></i>
+    <strong class="mx-2">You seem offline. Application might not work properly.</strong>
 </div>

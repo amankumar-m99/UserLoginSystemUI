@@ -26,4 +26,10 @@ export class SmtpService {
     return this.httpClient.post<Smtp>(url, smtp, {headers: headers});
   }
 
+  markSelected(smtp:Smtp):Observable<any>{
+    let url = this.baseUrl + "/smtp/mark-selected";
+    let headers = Utils.getHeaderWithToken();
+    return this.httpClient.put<any>(url, smtp, {headers: headers});
+  }
+
 }

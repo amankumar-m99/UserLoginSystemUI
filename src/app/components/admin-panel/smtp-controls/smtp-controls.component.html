@@ -9,8 +9,8 @@
         </form>
     </div>
     <div class="col-4 row justify-content-end">
-        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add new SMTP</button>
-        <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllRecords()"><i class="bi bi-arrow-clockwise"></i> Refresh Records</button>
+        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#addNewSmtpFormModal">Add new SMTP</button>
+        <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllSmtps(true)"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
     </div>
 </div>
 <hr>
@@ -19,86 +19,97 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">DB_ID</th>
+            <th scope="col">Label</th>
             <th scope="col">Username</th>
             <th scope="col">Password</th>
             <th scope="col">Host</th>
             <th scope="col">Port</th>
             <th scope="col">Auth</th>
             <th scope="col">Starttls Enable</th>
-            <th scope="col">Selection Status</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngIf="smtps.length == 0;">
-            <td colspan="9" class="text-center"> No Content !</td>
+            <td colspan="10" class="text-center"> No Content !</td>
         </tr>
         <tr *ngFor="let smtp of smtps; index as i">
             <th scope="row">{{i+1}}</th>
             <td>{{smtp.id}}</td>
+            <td>{{smtp.label}}</td>
             <td>{{smtp.username}}</td>
             <td>{{smtp.password}}</td>
             <td>{{smtp.host}}</td>
             <td>{{smtp.port}}</td>
             <td>{{smtp.auth}}</td>
             <td>{{smtp.starttlsEnable}}</td>
-            <td *ngIf="smtp.isSelected"><span class="badge rounded-pill text-bg-success">Selected</span></td>
-            <td *ngIf="!smtp.isSelected">Mark as select</td>
+            <td>
+              <span><i class="bi bi-pencil-fill mx-2"></i> | <i class="bi bi-trash3-fill text-danger mx-2"></i> | </span>
+              <span *ngIf="smtp.isSelected" class="badge rounded-pill text-bg-success"> <i class="bi bi-check-lg"></i> Selected</span>
+              <span *ngIf="!smtp.isSelected" class="badge rounded-pill text-bg-primary" (click)="markAsSelected(smtp)"> <i class="bi bi-bounding-box-circles"></i> Select</span>
+            </td>
         </tr>
     </tbody>
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addNewSmtpFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNewSmtpFormModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content dark-my-modal">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add SMTP</h1>
+        <h1 class="modal-title fs-5">Add SMTP</h1>
         <button type="button" class="btn-close my-modal-btn" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form class="p-3" [formGroup]="smtpForm" (ngSubmit)="submit()" novalidate>
             <div class="mb-3">
-              <label for="smtp_username" class="form-label"><i class="bi bi-person-plus"></i> Username</label>
-              <input type="text" class="form-control dark-input" id="smtp_username" aria-describedby="usernameHelp" 
+              <label for="smtpFormLabel" class="form-label"><i class="bi bi-chat-left-quote"></i> Label</label>
+              <input type="text" class="form-control dark-input" id="smtpFormLabel" aria-describedby="smtpFormLabelHelp" 
+                formControlName="label" [class.is-invalid]="label?.invalid && label?.touched">
+              <div id="smtpFormLabelHelp" class="form-text text-danger" [class.d-none]="label?.valid || label?.untouched">Label cannot be empty!</div>
+            </div>
+            <div class="mb-3">
+              <label for="smtpFormUsername" class="form-label"><i class="bi bi-person-plus"></i> Username</label>
+              <input type="text" class="form-control dark-input" id="smtpFormUsername" aria-describedby="smtpFormUsernameHelp" 
                 formControlName="username" [class.is-invalid]="username?.invalid && username?.touched">
-              <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username cannot be empty!</div>
+              <div id="smtpFormUsernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username cannot be empty!</div>
             </div>
             <div class="mb-3">
-                <label for="smtp_password" class="form-label"><i class="bi bi-key"></i> Password</label>
-                <input type="text" class="form-control dark-input" id="smtp_password" aria-describedby="passwordHelp"
+                <label for="smtpFormPassword" class="form-label"><i class="bi bi-key"></i> Password</label>
+                <input type="password" class="form-control dark-input" id="smtpFormPassword" aria-describedby="smtpFormPasswordHelp"
                     formControlName="password" [class.is-invalid]="password?.invalid && password?.touched">
-                <div id="passwordHelp" class="form-text text-danger" [class.d-none]="password?.valid || password?.untouched">Password cannot be empty!</div>
+                <div id="smtpFormPasswordHelp" class="form-text text-danger" [class.d-none]="password?.valid || password?.untouched">Password cannot be empty!</div>
             </div>
             <div class="mb-3">
-                <label for="host" class="form-label"><i class="bi bi-cloud"></i> Host</label>
-                <input type="text" class="form-control dark-input" id="host" aria-describedby="hostHelp" 
+                <label for="smtpFormHost" class="form-label"><i class="bi bi-cloud"></i> Host</label>
+                <input type="text" class="form-control dark-input" id="smtpFormHost" aria-describedby="smtpFormHostHelp" 
                     formControlName="host" [class.is-invalid]="host?.invalid && host?.touched">
-                <div id="hostHelp" class="form-text text-danger" [class.d-none]="host?.valid || host?.untouched">Host cannot be empty!</div>
+                <div id="smtpFormHostHelp" class="form-text text-danger" [class.d-none]="host?.valid || host?.untouched">Host cannot be empty!</div>
             </div>
             <div class="mb-3">
-                <label for="port" class="form-label"><i class="bi bi-plugin"></i> Port</label>
-                <input type="text" class="form-control dark-input" id="port" aria-describedby="portHelp" 
+                <label for="smtpFormPort" class="form-label"><i class="bi bi-plugin"></i> Port</label>
+                <input type="text" class="form-control dark-input" id="smtpFormPort" aria-describedby="smtpFormPortHelp" 
                     formControlName="port" [class.is-invalid]="port?.invalid && port?.touched">
-                <div id="portHelp" class="form-text text-danger" [class.d-none]="port?.valid || port?.untouched">Port cannot be empty!</div>
+                <div id="smtpFormPortHelp" class="form-text text-danger" [class.d-none]="port?.valid || port?.untouched">Port cannot be empty!</div>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input dark-input" id="exampleCheck1" formControlName="auth">
-              <label class="form-check-label" for="exampleCheck1">Auth</label>
+              <input type="checkbox" class="form-check-input dark-input" id="smtpFormAuth" formControlName="auth">
+              <label class="form-check-label" for="smtpFormAuth">Auth</label>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input dark-input" id="exampleCheck2" formControlName="starttlsenable">
-              <label class="form-check-label" for="exampleCheck2">Start TLS Enabled</label>
+              <input type="checkbox" class="form-check-input dark-input" id="smtpFormStartTlsEnable" formControlName="starttlsEnable">
+              <label class="form-check-label" for="smtpFormStartTlsEnable">Start TLS Enabled</label>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input dark-input" id="isSelected" formControlName="isSelected">
-              <label class="form-check-label" for="isSelected">Set as Default</label>
+              <input type="checkbox" class="form-check-input dark-input" id="smtpFormIsSelected" formControlName="isSelected">
+              <label class="form-check-label" for="smtpFormIsSelected">Set as Default</label>
             </div>
             <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #modalCloseBtn>Close</button>
-        <button type="button" class="btn btn-primary" (click)="save()" >Save</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #addNewSmtpFormModalCloseBtn>Close</button>
+        <button type="button" class="btn btn-primary" (click)="submit()" >Save</button>
       </div>
     </div>
   </div>

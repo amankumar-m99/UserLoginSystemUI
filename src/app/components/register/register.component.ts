@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/custom-validators/email-validator';
 import { forbiddenNameValidator } from 'src/app/custom-validators/username-validator';
 import { RegistrationFormModel } from 'src/app/model/registration/registration-form-model';
+import { User } from 'src/app/model/user/user';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { SecurityCodeService } from 'src/app/services/security-code/security-code.service';
 import { Utils } from 'src/app/utils/utils';
@@ -12,7 +13,7 @@ import { Utils } from 'src/app/utils/utils';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   stepIndex:number;
   step:any;
   steps:any[];
@@ -24,55 +25,55 @@ export class RegisterComponent {
     private registrationService:RegistrationService,
     private securityCodeService:SecurityCodeService
     ){
+      this.countries = [];
+      this.isForm2 = false;
+      this.stepIndex=0;
+      this.securityCodeForm = this.formBuilder.group({
+        securityCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
+      });
+      let accountDetails = formBuilder.group({
+        username: ['', [Validators.required, Validators.minLength(2), forbiddenNameValidator(/abc/)]],
+        email: ['', [Validators.required, emailValidator()]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        promotionalMails: [true],
+      });
+      let personalDetails = formBuilder.group({
+        firstName: ['', [Validators.required, Validators.minLength(3)]],
+        middleName: [''],
+        lastName: [''],
+        gender: ['', [Validators.required]],
+        country: ['', [Validators.required]],
+        dateOfBirth: ["", [Validators.required]]
+      });
+      let securityDetails = formBuilder.group({
+        recoveryEmail: [''],
+        recoveryPhone: [''],
+        securityQuestion: [''],
+        securityAnswer: [''],
+        loginAlert: [true],
+        passwordChangeAlert: [true],
+        twoStepLogin: [false]
+      });
+      this.steps = [
+        {
+          "name":"Account Details",
+          "form" : accountDetails
+        },
+        {
+          "name":"Personal Details",
+          "form" : personalDetails
+        }
+      ]
+      this.registrationForm = this.formBuilder.group({
+        accountDet : accountDetails,
+        personalDet: personalDetails,
+        securityDet: securityDetails
+      });
+      this.step = this.steps[0];
+  }
+
+  ngOnInit(): void {
     this.countries = ["India", "Not India"];
-    this.isForm2 = false;
-    this.stepIndex=0;
-    this.securityCodeForm = this.formBuilder.group({
-      securityCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
-    });
-    let accountDetails = formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(2), forbiddenNameValidator(/abc/)]],
-      email: ['', [Validators.required, emailValidator()]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      promotionalMails: [true],
-    });
-    let personalDetails = formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(3)]],
-      middleName: [''],
-      lastName: [''],
-      gender: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      dateOfBirth: ["", [Validators.required]]
-    });
-    let securityDetails = formBuilder.group({
-      recoveryEmail: [''],
-      recoveryPhone: [''],
-      securityQuestion: [''],
-      securityAnswer: [''],
-      loginAlert: [true],
-      passwordChangeAlert: [true],
-      twoStepLogin: [false]
-    });
-    this.steps = [
-      {
-        "name":"Account Details",
-        "form" : accountDetails
-      },
-      {
-        "name":"Personal Details",
-        "form" : personalDetails
-      },
-      {
-        "name":"Security Details",
-        "form" : securityDetails
-      }
-    ]
-    this.registrationForm = this.formBuilder.group({
-      accountDet : accountDetails,
-      personalDet: personalDetails,
-      securityDet: securityDetails
-    });
-    this.step = this.steps[0];
   }
 
   previous(){
@@ -94,7 +95,6 @@ export class RegisterComponent {
     }
     if(this.stepIndex == 0){
       this.processStepOne();
-      // this.incrementStep();
     }
     else{
       this.incrementStep();
@@ -255,7 +255,6 @@ export class RegisterComponent {
   get twoStepLogin(){
     return this.registrationForm.get("securityDet")?.get("twoStepLogin");
   }
-
   get securityCode(){
     return this.securityCodeForm.get("securityCode");
   }

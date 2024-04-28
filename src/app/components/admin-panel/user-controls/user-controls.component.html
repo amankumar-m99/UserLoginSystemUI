@@ -9,8 +9,8 @@
         </form>
     </div>
     <div class="col-4 row justify-content-end">
-        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add new User</button>
-        <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllUsers()"><i class="bi bi-arrow-clockwise"></i> Refresh Users</button>
+        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#addNewUserFormModal">Add new User</button>
+        <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllUsers(true)"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
     </div>
 </div>
 <hr>
@@ -44,7 +44,7 @@
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="addNewUserFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNewUserFormModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content dark-my-modal">
         <div class="modal-header">
@@ -53,41 +53,106 @@
         </div>
         <div class="modal-body">
           <form class="p-3" [formGroup]="userForm" (ngSubmit)="submit()" novalidate>
-              <div class="mb-3">
-                <label for="smtp_username" class="form-label"><i class="bi bi-person-plus"></i> Username</label>
-                <input type="text" class="form-control dark-input" id="smtp_username" aria-describedby="usernameHelp" 
-                  formControlName="username" [class.is-invalid]="username?.invalid && username?.touched">
-                <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username cannot be empty!</div>
-              </div>
-              <div class="mb-3">
-                  <label for="smtp_password" class="form-label"><i class="bi bi-key"></i> Password</label>
-                  <input type="password" class="form-control dark-input" id="smtp_password" aria-describedby="passwordHelp"
-                      formControlName="password" [class.is-invalid]="password?.invalid && password?.touched">
-                  <div id="passwordHelp" class="form-text text-danger" [class.d-none]="password?.valid || password?.untouched">Password cannot be empty!</div>
-              </div>
-              <div class="mb-3">
+            <div>
+              <fieldset>
+                <div class="mb-3">
+                  <label for="smtp_username" class="form-label"><i class="bi bi-person-plus"></i> Username</label>
+                  <input type="text" class="form-control dark-input" id="smtp_username" aria-describedby="usernameHelp" 
+                    formControlName="username" [class.is-invalid]="username?.invalid && username?.touched">
+                  <div id="usernameHelp" class="form-text text-danger" [class.d-none]="username?.valid || username?.untouched">Username cannot be empty!</div>
+                </div>
+                <div class="mb-3">
                   <label for="host" class="form-label"><i class="bi bi-cloud"></i> Email</label>
                   <input type="email" class="form-control dark-input" id="host" aria-describedby="hostHelp" 
-                      formControlName="host" [class.is-invalid]="email?.invalid && email?.touched">
+                    formControlName="host" [class.is-invalid]="email?.invalid && email?.touched">
                   <div id="hostHelp" class="form-text text-danger" [class.d-none]="email?.valid || email?.untouched">Host cannot be empty!</div>
-              </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input dark-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Auth</label>
-              </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input dark-input" id="exampleCheck2">
-                <label class="form-check-label" for="exampleCheck2">Start TLS Enabled</label>
-              </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input dark-input" id="isSelected">
-                <label class="form-check-label" for="isSelected">Set as Default</label>
-              </div>
+                </div>
+                <div class="mb-3">
+                  <label for="smtp_password" class="form-label"><i class="bi bi-key"></i> Password</label>
+                  <input type="password" class="form-control dark-input" id="smtp_password" aria-describedby="passwordHelp"
+                    formControlName="password" [class.is-invalid]="password?.invalid && password?.touched">
+                  <div id="passwordHelp" class="form-text text-danger" [class.d-none]="password?.valid || password?.untouched">Password cannot be empty!</div>
+                </div>
+                
+              </fieldset>
+              <fieldset formGroupName="personalDet">
+                <div class="mb-3">
+                  <label for="firstname" class="form-label">First Name</label>
+                  <input type="text" class="form-control dark-input" id="firstname" aria-describedby="firstNameHelp"
+                    formControlName="firstName" [class.is-invalid]="firstName?.invalid && firstName?.touched">
+                  <div id="firstNameHelp" class="form-text text-danger" [class.d-none]="firstName?.valid || firstName?.untouched">
+                    <ng-container *ngIf="firstName?.hasError('required');else firstNameRequiredValidated">
+                      <span>Name is required</span>
+                    </ng-container>
+                    <ng-template #firstNameRequiredValidated>
+                      <ng-container *ngIf="firstName?.hasError('minlength')">
+                        <span>Name too short</span>
+                      </ng-container>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="middlename" class="form-label">Middle Name</label>
+                  <input type="email" class="form-control dark-input" id="middlename" formControlName="middleName">
+                </div>
+                <div class="mb-3">
+                  <label for="lastname" class="form-label">Last Name</label>
+                  <input type="text" class="form-control dark-input" id="lastname" formControlName="lastName">
+                </div>
+                <div class="mb-3">
+                  <label for="gender" class="form-label"><i class="bi bi-gender-neuter"></i> Gender</label>
+                  <span class="form-text small text-danger mx-3 d-none">Gender is required</span>
+                  <div class="form-check">
+                    <input type="radio" id="male" class="form-check-input dark-input is-invalid" value="male" aria-describedby="genderHelp"
+                      formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
+                    <label class="form-check-label" for="male"><i class="bi bi-gender-male"></i> Male</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" id="female" class="form-check-input dark-input is-invalid" value="female" aria-describedby="genderHelp"
+                      formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
+                    <label class="form-check-label" for="female"><i class="bi bi-gender-female"></i> Female</label>
+                  </div>
+                  <div class="form-check">
+                    <input type="radio" id="other" class="form-check-input dark-input is-invalid" value="other" aria-describedby="genderHelp"
+                      formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
+                    <label class="form-check-label" for="other"><i class="bi bi-gender-trans"></i> Other</label>
+                  </div>
+                  <div id="genderHelp" class="form-text text-danger" [class.d-none]="gender?.valid || gender?.untouched">
+                    <ng-container *ngIf="gender?.hasError('required')">
+                      <span>Gender is required</span>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="country" class="form-label">Country</label>
+                  <select class="form-select dark-input" aria-label="Default select" formControlName="country" aria-describedby="countryHelp"
+                    (blur)="validateCountry()" (change)="validateCountry()" [class.is-invalid]="country?.invalid && country?.touched">
+                    <option value = "" disabled>--Select Country--</option>
+                    <option *ngFor = "let country of countries" [value] = "country">{{country}}</option>
+                  </select>
+                  <div id="countryHelp" class="form-text text-danger" [class.d-none]="country?.valid || country?.untouched">
+                    <ng-container *ngIf="country?.hasError('required')">
+                      <span>Country is required</span>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="dateOfBirth" class="form-label">Date of Birthday</label>
+                  <input type="date" class="form-control dark-input" id="dateOfBirth" formControlName="dateOfBirth"
+                    [class.is-invalid]="dateOfBirth?.invalid && dateOfBirth?.touched">
+                  <div id="countryHelp" class="form-text text-danger" [class.d-none]="dateOfBirth?.valid || dateOfBirth?.untouched">
+                    <ng-container *ngIf="dateOfBirth?.hasError('required')">
+                      <span>Birthday is required</span>
+                    </ng-container>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
               <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #modalCloseBtn>Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #addNewUserFormModalCloseBtn>Close</button>
           <button type="button" class="btn btn-primary" (click)="save()" >Save</button>
         </div>
       </div>

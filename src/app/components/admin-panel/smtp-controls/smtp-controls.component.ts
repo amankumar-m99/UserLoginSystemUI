@@ -13,7 +13,7 @@ export class SmtpControlsComponent implements OnInit{
   smtps:Smtp[];
   smtpForm!:FormGroup;
 
-  @ViewChild('modalCloseBtn') modalCloseBtn!:ElementRef;
+  @ViewChild('addNewSmtpFormModalCloseBtn') modalCloseBtn!:ElementRef;
 
   constructor(
     private smtpService:SmtpService,
@@ -22,6 +22,7 @@ export class SmtpControlsComponent implements OnInit{
   {
     this.smtps = [];
     this.smtpForm = this.formBuilder.group({
+      label: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
       host: ['', Validators.required],
@@ -32,43 +33,51 @@ export class SmtpControlsComponent implements OnInit{
     });
   }
   ngOnInit(): void {
-    this.getAllRecords();
+    this.getAllSmtps(false);
   }
 
-  save():void{
+  submit():void{
     if(!this.smtpForm.valid){
       Utils.markAllFieldAsTouched(this.smtpForm);
       return;
     }
-    this.saveSmtp();
+    this.save();
     this.modalCloseBtn.nativeElement.click();
   }
 
-  getAllRecords():void{
-    this.smtpService.getAllRecords().subscribe(res=>{
-      if(res.length == 0)
-        alert("No records found.")
-      else{
-        this.smtps.length = 0;
-        this.smtps = res;
-      }
-    }, error=>{
-      alert("error "+error.statusCode);
-    });
-  }
-
-  submit():void{
-  }
-
-  saveSmtp():void{
+  save():void{
     this.smtpService.saveSmtp(this.smtpForm.value).subscribe(res=>{
       alert("Success.");
-      this.getAllRecords();
+      this.getAllSmtps(true);
+    }, error=>{
+      console.log(error);
+      alert("error "+error.statusCode);
+    });
+  }
+
+  markAsSelected(smtp: Smtp):void{
+    this.smtpService.markSelected(smtp).subscribe(e=>{
+      this.getAllSmtps(true);
+      alert("success");
+    }, error=>{
+      alert("Error in marking as selected");
+    });
+  }
+
+  getAllSmtps(showModal:boolean):void{
+    this.smtpService.getAllRecords().subscribe(res=>{
+      this.smtps.length = 0;
+      this.smtps = res;
+      if(res.length == 0 && showModal)
+        alert("No records found.");
     }, error=>{
       alert("error "+error.statusCode);
     });
   }
 
+  get label(){
+    return this.smtpForm.get("label");
+  }
   get username(){
     return this.smtpForm.get("username");
   }
