@@ -29,11 +29,11 @@ const routes: Routes = [
       { path:'security', component: DashboardSecurityComponent },
       { path:'notifications', component: DashboardNotificationComponent },
       { path:'admin-console', component: AdminPanelComponent, 
-      children:[
-          { path:'', redirectTo:'users', pathMatch: 'full' },
-          { path:'users', component: UserControlsComponent },
-          { path:'smtp', component: SmtpControlsComponent }
-        ]},
+        children:[
+        { path:'', redirectTo:'users', pathMatch: 'full' },
+        { path:'users', component: UserControlsComponent },
+        { path:'smtp', component: SmtpControlsComponent }
+      ]},
       { path:'super-admin-console', component: AdminPanelComponent }
     ]
   },
