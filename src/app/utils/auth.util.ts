@@ -21,7 +21,7 @@ export const ActivateLoginAndRegisterRoute = ()=>{
 export const ActivateAdminRoute = ()=>{
     let router = inject(Router);
     if(!Utils.isUserLoggedIn()){
-        // router.navigate(['dashboard']);
+        router.navigate(['dashboard']);
         return false;
     }
     if(Utils.getCookie("userId") === "2" || Utils.getCookie("userId") === "1")

@@ -28,7 +28,7 @@ const routes: Routes = [
       { path:'profile', component: ProfileComponent },
       { path:'security', component: DashboardSecurityComponent },
       { path:'notifications', component: DashboardNotificationComponent },
-      { path:'admin-console', component: AdminPanelComponent, 
+      { path:'admin-console', component: AdminPanelComponent, canActivate:[ActivateAdminRoute],
         children:[
         { path:'', redirectTo:'users', pathMatch: 'full' },
         { path:'users', component: UserControlsComponent },
