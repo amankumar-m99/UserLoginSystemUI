@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Smtp } from 'src/app/model/smtp/smtp';
 import { SmtpService } from 'src/app/services/smtp/smtp.service';
-import { Utils } from 'src/app/utils/utils';
+import { FormUtils } from 'src/app/utils/forms.util';
 
 @Component({
   selector: 'app-smtp-controls',
@@ -38,7 +38,7 @@ export class SmtpControlsComponent implements OnInit{
 
   submit():void{
     if(!this.smtpForm.valid){
-      Utils.markAllFieldAsTouched(this.smtpForm);
+      FormUtils.markAllFieldAsTouched(this.smtpForm);
       return;
     }
     this.save();

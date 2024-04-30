@@ -77,7 +77,7 @@ export class UserControlsComponent implements OnInit{
 
   submit():void{
     if(!this.userForm.valid){
-      Utils.markAllFieldAsTouched(this.userForm);
+      FormUtils.markAllFieldAsTouched(this.userForm);
       return;
     }
     this.save();
@@ -86,7 +86,6 @@ export class UserControlsComponent implements OnInit{
 
   save():void{
 
-    let f:FormUtils = new FormUtils(this.userForm, User);
     // this.registerService.register()
     // this.userService.(this.userForm.value).subscribe(res=>{
     //   alert("Success.");

@@ -6,7 +6,7 @@ import { RegistrationFormModel } from 'src/app/model/registration/registration-f
 import { User } from 'src/app/model/user/user';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { SecurityCodeService } from 'src/app/services/security-code/security-code.service';
-import { Utils } from 'src/app/utils/utils';
+import { FormUtils } from 'src/app/utils/forms.util';
 
 @Component({
   selector: 'app-register',
@@ -156,7 +156,7 @@ export class RegisterComponent implements OnInit{
   }
 
   indicateInValidFields(formGroup:FormGroup):void{
-    Utils.markAllFieldAsTouched(formGroup);
+    FormUtils.markAllFieldAsTouched(formGroup);
   }
 
   sendSecurityCode(email:string){
@@ -193,6 +193,11 @@ export class RegisterComponent implements OnInit{
     registrationFormModel.securityDetails.twoStepLogin = this.twoStepLogin?.value;
     this.sendSecurityCode(this.email?.value);
     this.isForm2=true;
+  }
+
+  getRegistrationFormModel(formGroup:FormGroup):RegistrationFormModel{
+
+    return new RegistrationFormModel();
   }
 
   submitSecurityCode(){

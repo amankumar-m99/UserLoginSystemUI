@@ -4,18 +4,6 @@ import { HttpHeaders } from "@angular/common/http";
 
 export class Utils{
 
-    public static markAllFieldAsTouched(formGroup: FormGroup):void{
-      Object.keys(formGroup.controls).forEach((key: string)=>{
-        const abstractControl = formGroup.get(key);
-        if (abstractControl instanceof FormGroup) {
-          // const abstractControl:AbstractControl<any, any> = formGroup.get(key);
-          Utils.markAllFieldAsTouched(abstractControl);
-        } else {
-          abstractControl?.markAsTouched();
-        }
-      });
-    }
-    
     public static setCookie(cname:string, cvalue:string) {
       const d = new Date();
       d.setTime(d.getTime() + (0.25 * 24 * 60 * 60 * 1000));
