@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginFormModel } from 'src/app/model/login/login-form-model';
@@ -12,6 +12,10 @@ import { Utils } from 'src/app/utils/utils';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  modalTitleText:string = "Title";
+  modalBodyText:string = "Body";
+
+  @ViewChild('launch_modal') launchModalButton!:ElementRef;
 
   loginForm : FormGroup;
   constructor(
@@ -31,8 +35,6 @@ export class LoginComponent {
     let password:string = this.loginForm.get("password")?.value;
     let loginFormModel = new LoginFormModel(email, password);
     this.loginService.login(loginFormModel).subscribe(res=>{
-      // localStorage.setItem("jwt", res.jwtToken);
-      // localStorage.setItem("username", res.username);
       Utils.setCookie("userId", res.userId.toString());
       Utils.setCookie("token", res.jwtToken);
       this.userService.getCurrentUser().subscribe(user=>{
@@ -47,7 +49,11 @@ export class LoginComponent {
         alert("Error while navigation to dashboard.");
       });
     }, error=>{
-      alert("Error while loging in. "+error.status);
+      console.log(error);
+      this.modalTitleText = "Error "+error.status;
+      this.modalBodyText = error.error.message;
+      this.launchModalButton.nativeElement.click();
+      // alert("Error while loging in. "+error.error.message);
     })
   }
 }
