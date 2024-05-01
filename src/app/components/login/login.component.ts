@@ -14,6 +14,7 @@ import { Utils } from 'src/app/utils/utils';
 export class LoginComponent {
   modalTitleText:string = "Title";
   modalBodyText:string = "Body";
+  disableSubmitBtn = false;
 
   @ViewChild('launch_modal') launchModalButton!:ElementRef;
 
@@ -34,6 +35,7 @@ export class LoginComponent {
     let email:string = this.loginForm.get("username")?.value;
     let password:string = this.loginForm.get("password")?.value;
     let loginFormModel = new LoginFormModel(email, password);
+    this.disableSubmitBtn=true;
     this.loginService.login(loginFormModel).subscribe(res=>{
       Utils.setCookie("userId", res.userId.toString());
       Utils.setCookie("token", res.jwtToken);
@@ -44,16 +46,24 @@ export class LoginComponent {
             roleId = role.id;
         }
         Utils.setRoleId(roleId.toString());
+        this.disableSubmitBtn = false;
         this.router.navigate(['/dashboard']);
       }, error=>{
+        this.disableSubmitBtn = false;
         alert("Error while navigation to dashboard.");
       });
     }, error=>{
+      this.disableSubmitBtn = false;
       console.log(error);
-      this.modalTitleText = "Error "+error.status;
-      this.modalBodyText = error.error.message;
+      if(error.status == 0){
+        this.modalTitleText = "Error";
+        this.modalBodyText = "Couldn't connect to server.";
+      }
+      else{
+        this.modalTitleText = "Error "+error.status;
+        this.modalBodyText = error.error.message;
+      }
       this.launchModalButton.nativeElement.click();
-      // alert("Error while loging in. "+error.error.message);
     })
   }
 }

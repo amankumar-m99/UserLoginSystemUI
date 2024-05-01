@@ -13,7 +13,10 @@
           <div id="passwordHelp" class="form-text"><a [routerLink]="['/register']">Forgot password?</a></div>
         </div>
         <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="disableSubmitBtn">
+          <span class="spinner-border spinner-border-sm" [class.d-none]="!disableSubmitBtn" aria-hidden="true"></span>
+          <span role="status">&nbsp;Submit<span [class.d-none]="!disableSubmitBtn">ting...</span></span>
+        </button>
         <hr>
         <div class="mb-3">
           <span>Not a member?</span>&nbsp;
