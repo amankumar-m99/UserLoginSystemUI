@@ -30,4 +30,12 @@ export class UserService {
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.get<User[]>(url, {headers: headers});
   }
+  
+  uploadPic(file:File):Observable<String>{
+    let headers = Utils.getHeaderWithToken();
+    let url = this.baseUrl + "/profile-pic";
+    const formData = new FormData();
+    formData.append("file", file);
+    return this.httpClient.post<String>(url, formData, {headers: headers});
+  }
 }

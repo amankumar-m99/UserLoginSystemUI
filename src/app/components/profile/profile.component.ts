@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -11,6 +11,8 @@ export class ProfileComponent implements OnInit{
   user!: User;
   border_color = "green";
   badge_class = "text-bg-success";
+
+  @ViewChild('fileUpload') inputFileElement!:ElementRef;
 
   constructor(private userService:UserService){ }
 
@@ -52,4 +54,18 @@ export class ProfileComponent implements OnInit{
     return roleName;
   }
 
+  onFileSelected(event: any):void{
+    const file:File = event.target.files[0];
+    if (file) {
+      this.userService.uploadPic(file).subscribe(res=>{
+        alert(res);
+      }, error=>{
+        console.log(error);
+      });
+    }
+  }
+
+  click():void{
+    this.inputFileElement.nativeElement.click();
+  }
 }
