@@ -36,9 +36,9 @@ export class LoginComponent {
     let password:string = this.loginForm.get("password")?.value;
     let loginFormModel = new LoginFormModel(email, password);
     this.disableSubmitBtn=true;
-    this.loginService.login(loginFormModel).subscribe(res=>{
-      Utils.setCookie("userId", res.userId.toString());
-      Utils.setCookie("token", res.jwtToken);
+    this.loginService.login(loginFormModel).subscribe({next: (v)=>{
+      Utils.setCookie("userId", v.userId.toString());
+      Utils.setCookie("token", v.jwtToken);
       this.userService.getCurrentUser().subscribe(user=>{
         let roleId = user.roles[0].id;
         for(let role of user.roles){
@@ -52,18 +52,18 @@ export class LoginComponent {
         this.disableSubmitBtn = false;
         alert("Error while navigation to dashboard.");
       });
-    }, error=>{
+    }, error: (e)=>{
       this.disableSubmitBtn = false;
-      console.log(error);
-      if(error.status == 0){
+      console.log(e);
+      if(e.status == 0){
         this.modalTitleText = "Error";
         this.modalBodyText = "Couldn't connect to server.";
       }
       else{
-        this.modalTitleText = "Error "+error.status;
-        this.modalBodyText = error.error.message;
+        this.modalTitleText = "Error "+e.status;
+        this.modalBodyText = e.error.message;
       }
       this.launchModalButton.nativeElement.click();
-    })
+    }, complete: ()=>{}});
   }
 }
