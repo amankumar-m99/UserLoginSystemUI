@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { StaticData } from 'src/app/static/static-data';
+import { Utils } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit{
   user!: User;
   border_color = "green";
   badge_class = "text-bg-success";
-  profileSrcSet = "";
+  profileSrcSet = StaticData.apiBaseUrl+"/images/profile-pic/"+Utils.getCookie("userId");
 
   @ViewChild('fileUpload') inputFileElement!:ElementRef;
 
@@ -60,7 +61,8 @@ export class ProfileComponent implements OnInit{
     const file:File = event.target.files[0];
     if (file) {
       this.userService.uploadPic(file).subscribe(res=>{
-        this.profileSrcSet = StaticData.apiBaseUrl+ "/" + res.response;
+        this.profileSrcSet = StaticData.apiBaseUrl+ res.response;
+        alert(res.response);
       }, error=>{
         console.log(error);
       });
