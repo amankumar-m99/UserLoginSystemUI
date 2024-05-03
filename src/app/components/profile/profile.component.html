@@ -1,6 +1,9 @@
 <div class="row align-items-center">
     <div class="col-3 text-center">
-        <img class="img-fluid profile-pic my-2" [style.border-color]="border_color" src="../../../assets/images/profile_pic_green.png" alt="profile-pic">
+        <picture>
+            <source media="(min-width:650px)" [srcset]="profileSrcSet">
+            <img class="img-fluid profile-pic my-2" [style.border-color]="border_color" src="../../../assets/images/profile_pic_green.png" alt="profile-pic">
+        </picture>
         <input type="file" class="file-input d-none" (change)="onFileSelected($event)" #fileUpload>
         <a class=" nav-link my-1 profile-upload-link" (click)="click()"> <i class="bi bi-upload"></i> Update Profile Pic</a>
     </div>
