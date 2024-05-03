@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit{
     const file:File = event.target.files[0];
     if (file) {
       this.userService.uploadPic(file).subscribe(res=>{
-        alert(res);
+        alert(res.response);
       }, error=>{
         console.log(error);
       });

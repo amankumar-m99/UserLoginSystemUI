@@ -56,7 +56,8 @@ export class Utils{
     public static getHeaderWithToken():HttpHeaders{
       let token = this.getJwtToken();
       let auth = "Bearer " + token;
-      let header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', auth);
+      // let header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', auth);
+      let header = new HttpHeaders().set('Authorization', auth);
       return header;
     }
   
