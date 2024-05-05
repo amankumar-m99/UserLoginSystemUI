@@ -1,12 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { emailValidator } from 'src/app/custom-validators/email-validator';
-import { forbiddenNameValidator } from 'src/app/custom-validators/username-validator';
 import { User } from 'src/app/model/user/user';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { FormUtils } from 'src/app/utils/forms.util';
-import { Utils } from 'src/app/utils/utils';
+import { emailValidator, forbiddenNameValidator } from 'src/app/utils/forms/validators/validators.form';
 
 @Component({
   selector: 'app-user-controls',

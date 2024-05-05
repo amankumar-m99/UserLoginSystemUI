@@ -1,7 +1,7 @@
 <div class="row align-items-center">
     <div class="col-3 text-center">
         <img #profilePic class="img-fluid profile-pic my-2" [style.border-color]="border_color" [src]="profilePicSrc" alt="profile-pic">
-        <input #fileUpload type="file" class="file-input d-none" (change)="onFileSelected($event)">
+        <input #fileUpload type="file" class="file-input d-none" accept="image/png, image/jpeg" (change)="onFileSelected($event)">
         <a class=" nav-link my-1 profile-upload-link" (click)="click()"> <i class="bi bi-upload"></i> Update Profile Pic</a>
     </div>
     <div class="col-5 fs-6">

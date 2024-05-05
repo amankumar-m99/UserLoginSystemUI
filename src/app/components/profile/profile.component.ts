@@ -79,25 +79,11 @@ export class ProfileComponent implements OnInit, AfterViewInit{
         },
         complete: ()=>{}
       });
-      this.userService.uploadPic(file).subscribe({
-        next: (response)=>{
-          // this.profileSrcSet = StaticData.apiBaseUrl+ res.response;
-          alert(response.response);
-        },
-        error: (error)=>{
-          console.log(error);
-          alert(error.error.message);
-        },
-        complete: ()=>{}
-      });
     }
-  }
-
-  errorInImg():void{
-    alert("errrop in imh");
   }
 
   click():void{
     this.inputFileElement.nativeElement.click();
   }
+
 }
