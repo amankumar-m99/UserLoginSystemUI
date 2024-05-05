@@ -17,12 +17,15 @@ export class DashboardSecurityComponent implements OnInit{
   ){ }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(res=>{
-      this.user = res;
-    }, error=>{
-      alert("error while fetching data for security");
+    this.userService.getCurrentUser().subscribe({
+      next: (response)=>{
+        this.user = response;
+      },
+      error: (error)=>{
+        alert("error while fetching data for security");
+      },
+      complete: ()=>{}
     });
   }
-
 
 }

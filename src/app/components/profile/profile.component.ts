@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { StaticData } from 'src/app/static/static-data';
@@ -9,21 +9,32 @@ import { Utils } from 'src/app/utils/utils';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit, AfterViewInit{
   user!: User;
   border_color = "green";
   badge_class = "text-bg-success";
-  profileSrcSet = StaticData.apiBaseUrl+"/images/profile-pic/"+Utils.getCookie("userId");
-
+  profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
+  fallbackImageSrc = "../../../assets/images/profile_pic_green.png";
+  
+  @ViewChild('profilePic') profilePic!:ElementRef;
   @ViewChild('fileUpload') inputFileElement!:ElementRef;
 
   constructor(private userService:UserService){ }
+  ngAfterViewInit(): void {
+    this.profilePic.nativeElement.addEventListener("error", (e:any) => {
+      this.profilePicSrc = this.fallbackImageSrc;
+    });
+  }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(res=>{
-      this.user = res;
-    }, error=>{
-      alert("Error in fetching data");
+    this.userService.getCurrentUser().subscribe({
+      next: (response)=>{
+        this.user = response;
+      },
+      error: (error)=>{
+        alert("Error in fetching data");
+      },
+      complete: ()=>{}
     });
   }
 
@@ -60,13 +71,30 @@ export class ProfileComponent implements OnInit{
   onFileSelected(event: any):void{
     const file:File = event.target.files[0];
     if (file) {
-      this.userService.uploadPic(file).subscribe(res=>{
-        this.profileSrcSet = StaticData.apiBaseUrl+ res.response;
-        alert(res.response);
-      }, error=>{
-        console.log(error);
+      this.userService.uploadPic(file).subscribe({
+        next: (response)=>{ alert(response.response);},
+        error: (error)=>{
+          console.log(error);
+        alert(error.error.message);
+        },
+        complete: ()=>{}
+      });
+      this.userService.uploadPic(file).subscribe({
+        next: (response)=>{
+          // this.profileSrcSet = StaticData.apiBaseUrl+ res.response;
+          alert(response.response);
+        },
+        error: (error)=>{
+          console.log(error);
+          alert(error.error.message);
+        },
+        complete: ()=>{}
       });
     }
+  }
+
+  errorInImg():void{
+    alert("errrop in imh");
   }
 
   click():void{

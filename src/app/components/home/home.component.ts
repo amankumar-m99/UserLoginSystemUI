@@ -21,11 +21,15 @@ export class HomeComponent implements OnInit{
     if(Utils.isUserLoggedIn()){
       this.router.navigate(["dashboard"]);
     }
-    // else{
-    //   this.quoteService.getRandomQuote().subscribe(res=>{
-    //     this.quote = res;
-    //   })
-    // }
+    else{
+    //   this.quoteService.getRandomQuote().subscribe({
+    //     next: (response)=>{
+    //       this.quote = response;
+    //     },
+    //     error: (error)=>{ },
+    //     complete: ()=>{}
+    //   });
+    }
   }
 
   login():void{

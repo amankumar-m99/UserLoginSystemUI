@@ -23,28 +23,36 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(user=>{
-      let roleId = user.roles[0].id;
-      for(let role of user.roles){
-        if(role.id < roleId)
-          roleId = role.id;
-      }
-      this.roleId = roleId;
-      Utils.setRoleId(this.roleId.toString());
-    }, error=>{
-      alert("Error while navigation to dashboard.")
+    this.userService.getCurrentUser().subscribe({
+      next: (response)=>{
+        let roleId = response.roles[0].id;
+        for(let role of response.roles){
+          if(role.id < roleId)
+            roleId = role.id;
+        }
+        this.roleId = roleId;
+        Utils.setRoleId(this.roleId.toString());
+      },
+      error: (error)=>{
+        alert("Error while navigation to dashboard.")
+      },
+      complete: ()=>{}
     });
   }
 
   getAllUsers():void{
-    this.userService.getAllUsers().subscribe(response=>{
-      if(this.users.length != 0)
-        this.users.length = 0;
-      response.forEach(r=>{
-        this.users.push(r);
-      });
-    }, error=>{
-      alert("Error " + error.statusCode + " occured!");
+    this.userService.getAllUsers().subscribe({
+      next: (response)=>{
+        if(this.users.length != 0)
+          this.users.length = 0;
+        response.forEach(r=>{
+          this.users.push(r);
+        });
+      },
+      error: (error)=>{
+        alert("Error " + error.statusCode + " occured!");
+      },
+      complete: ()=>{}
     });
   }
 

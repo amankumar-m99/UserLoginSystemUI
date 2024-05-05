@@ -36,34 +36,43 @@ export class LoginComponent {
     let password:string = this.loginForm.get("password")?.value;
     let loginFormModel = new LoginFormModel(email, password);
     this.disableSubmitBtn=true;
-    this.loginService.login(loginFormModel).subscribe({next: (v)=>{
-      Utils.setCookie("userId", v.userId.toString());
-      Utils.setCookie("token", v.jwtToken);
-      this.userService.getCurrentUser().subscribe(user=>{
-        let roleId = user.roles[0].id;
-        for(let role of user.roles){
-          if(role.id < roleId)
-            roleId = role.id;
+    this.loginService.login(loginFormModel).subscribe({
+      next: (response)=>{
+        Utils.setCookie("userId", response.userId.toString());
+        Utils.setCookie("token", response.jwtToken);
+        this.userService.getCurrentUser().subscribe({
+          next: (response)=>{
+            let roleId = response.roles[0].id;
+            for(let role of response.roles){
+              if(role.id < roleId)
+                roleId = role.id;
+            }
+            Utils.setRoleId(roleId.toString());
+            this.disableSubmitBtn = false;
+            this.router.navigate(['/dashboard']);
+          },
+          error: (error)=>{
+            this.disableSubmitBtn = false;
+            alert("Error while navigation to dashboard.");
+          },
+          complete: ()=>{}
+        });
+      },
+      error: (error)=>{
+        this.disableSubmitBtn = false;
+        console.log(error);
+        if(error.status == 0){
+          this.modalTitleText = "Error";
+          this.modalBodyText = "Couldn't connect to server.";
         }
-        Utils.setRoleId(roleId.toString());
-        this.disableSubmitBtn = false;
-        this.router.navigate(['/dashboard']);
-      }, error=>{
-        this.disableSubmitBtn = false;
-        alert("Error while navigation to dashboard.");
-      });
-    }, error: (e)=>{
-      this.disableSubmitBtn = false;
-      console.log(e);
-      if(e.status == 0){
-        this.modalTitleText = "Error";
-        this.modalBodyText = "Couldn't connect to server.";
-      }
-      else{
-        this.modalTitleText = "Error "+e.status;
-        this.modalBodyText = e.error.message;
-      }
-      this.launchModalButton.nativeElement.click();
-    }, complete: ()=>{}});
+        else{
+          this.modalTitleText = "Error "+error.status;
+          this.modalBodyText = error.error.message;
+        }
+        this.launchModalButton.nativeElement.click();
+      },
+      complete: ()=>{}
+    });
   }
+
 }

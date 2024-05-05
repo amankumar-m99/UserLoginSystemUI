@@ -116,42 +116,53 @@ export class RegisterComponent implements OnInit{
   }
 
   checkEmailInUse(email:string, username:string){
-    this.registrationService.isEmailInUse(email).subscribe(response=>{
-      if(response == true){
-        alert("Email address is already in use!");
-      }
-      else{
-        this.checkEmailHasBeenInUse(email, username);
-      }
-    }, error=>{
-      alert("Error " + error.status + " while enquiring email in use. "+ error.statusText);
+    this.registrationService.isEmailInUse(email).subscribe({
+      next: (response)=>{
+        if(response == true){
+          alert("Email address is already in use!");
+        }
+        else{
+          this.checkEmailHasBeenInUse(email, username);
+        }
+      },
+      error: (error)=>{
+        alert("Error " + error.status + " while enquiring email in use. "+ error.statusText);
+      },
+      complete: ()=>{}
     });
   }
 
   checkEmailHasBeenInUse(email:string, username:string){
-    this.registrationService.hasEmailBeenInUse(email).subscribe(response=>{
-      if(response == true){
-        alert("Email address was once in use.");
-      }
-      else{
-        this.checkUsernameAvailable(username);
-      }
-    }, error=>{
-      alert("Error " + error.status + " while enquiring email has been in use. "+ error.statusText);
+    this.registrationService.hasEmailBeenInUse(email).subscribe({
+      next: (response)=>{
+        if(response == true){
+          alert("Email address was once in use.");
+        }
+        else{
+          this.checkUsernameAvailable(username);
+        }
+      },
+      error: (error)=>{
+        alert("Error " + error.status + " while enquiring email has been in use. "+ error.statusText);
+      },
+      complete: ()=>{}
     });
   }
 
   checkUsernameAvailable(username:string){
-    this.registrationService.isUsernameAvailable(username).subscribe(response=>{
-      if(response == true){
-        this.incrementStep();
-      }
-      else{
-        alert("username is not available.");
-      }
-    }, error=>{
-      alert("Error " + error.status + " while enquiring username availability. "+ error.statusText);
-      
+    this.registrationService.isUsernameAvailable(username).subscribe({
+      next: (response)=>{
+        if(response == true){
+          this.incrementStep();
+        }
+        else{
+          alert("username is not available.");
+        }
+      },
+      error: (error)=>{
+        alert("Error " + error.status + " while enquiring username availability. "+ error.statusText);
+      },
+      complete: ()=>{}
     });
   }
 
@@ -161,10 +172,14 @@ export class RegisterComponent implements OnInit{
 
   sendSecurityCode(email:string){
     alert("sending security code to "+ email);
-    this.securityCodeService.sendSecurityCodeToEmail(email).subscribe(res=>{
-      alert("sent security code to "+ email)
-    }, error=>{
-      alert("could not sent security code to "+ email)
+    this.securityCodeService.sendSecurityCodeToEmail(email).subscribe({
+      next: (response)=>{
+        alert("sent security code to "+ email)
+      },
+      error: (error)=>{
+        alert("could not sent security code to "+ email)
+      },
+      complete: ()=>{}
     });
   }
 

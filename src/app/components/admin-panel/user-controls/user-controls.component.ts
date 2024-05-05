@@ -64,14 +64,18 @@ export class UserControlsComponent implements OnInit{
   }
 
   getAllUsers(showModal:boolean):void{
-    this.userService.getAllUsers().subscribe(response=>{
-      if(this.users.length != 0)
-        this.users.length = 0;
-      response.forEach(r=>{
-        this.users.push(r);
-      });
-    }, error=>{
-      alert("Error " + error.statusCode + " occured!");
+    this.userService.getAllUsers().subscribe({
+      next: (response)=>{
+        if(this.users.length != 0)
+          this.users.length = 0;
+        response.forEach(r=>{
+          this.users.push(r);
+        });
+      },
+      error: (error)=>{
+        alert("Error " + error.statusCode + " occured!");
+      },
+      complete: ()=>{}
     });
   }
 
@@ -85,14 +89,17 @@ export class UserControlsComponent implements OnInit{
   }
 
   save():void{
-
     // this.registerService.register()
-    // this.userService.(this.userForm.value).subscribe(res=>{
-    //   alert("Success.");
-    //   this.getAllRecords(true);
-    // }, error=>{
-    //   console.log(error);
-    //   alert("error "+error.statusCode);
+    // this.userService.(this.userForm.value).subscribe({
+    //   next: (response)=>{
+    //     alert("Success.");
+    //     this.getAllRecords(true);
+    //   },
+    //   error: (error)=>{
+    //     console.log(error);
+    //     alert("error "+error.statusCode);
+    //   },
+    //   complete: ()=>{}
     // });
   }
 

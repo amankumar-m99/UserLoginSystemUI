@@ -46,32 +46,43 @@ export class SmtpControlsComponent implements OnInit{
   }
 
   save():void{
-    this.smtpService.saveSmtp(this.smtpForm.value).subscribe(res=>{
-      alert("Success.");
-      this.getAllSmtps(true);
-    }, error=>{
-      console.log(error);
-      alert("error "+error.statusCode);
+    this.smtpService.saveSmtp(this.smtpForm.value).subscribe({
+      next: (response)=>{
+        alert("Success.");
+        this.getAllSmtps(true);
+      },
+      error: (error)=>{
+        alert("error "+error.statusCode);
+      },
+      complete: ()=>{}
     });
   }
 
   markAsSelected(smtp: Smtp):void{
-    this.smtpService.markSelected(smtp).subscribe(e=>{
-      this.getAllSmtps(true);
-      alert("success");
-    }, error=>{
-      alert("Error in marking as selected");
+    this.smtpService.markSelected(smtp).subscribe({
+      next: (response)=>{
+        this.getAllSmtps(true);
+        alert("success");
+      },
+      error: (error)=>{
+        alert("Error in marking as selected");
+      },
+      complete: ()=>{}
     });
   }
 
   getAllSmtps(showModal:boolean):void{
-    this.smtpService.getAllRecords().subscribe(res=>{
-      this.smtps.length = 0;
-      this.smtps = res;
-      if(res.length == 0 && showModal)
-        alert("No records found.");
-    }, error=>{
-      alert("error "+error.statusCode);
+    this.smtpService.getAllRecords().subscribe({
+      next: (response)=>{
+        this.smtps.length = 0;
+        this.smtps = response;
+        if(response.length == 0 && showModal)
+          alert("No records found.");
+      },
+      error: (error)=>{
+        alert("error "+error.statusCode);
+      },
+      complete: ()=>{}
     });
   }
 
