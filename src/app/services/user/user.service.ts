@@ -36,8 +36,7 @@ export class UserService {
     let headers = Utils.getHeaderWithToken(); //'set('responseType', 'text');
     let url = this.baseUrl + "/profile-pic";
     const formData = new FormData();
-    formData.append("id", Utils.getCookie("userId"));
-    formData.append("file", file);
+    formData.append("profile-pic", file);
     return this.httpClient.post<ProfilePicResponse>(url, formData, {headers: headers});
   }
 }
