@@ -1,8 +1,9 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { StaticData } from 'src/app/static/static-data';
 import { Utils } from 'src/app/utils/utils';
+import Cropper from 'cropperjs';
 
 @Component({
   selector: 'app-profile',
@@ -15,9 +16,14 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   badge_class = "text-bg-success";
   profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
   fallbackImageSrc = "../../../assets/images/profile_pic_green.png";
+  fileName="";
+  uploadedImgSrc:any=""
+  cropper!:Cropper;
   
   @ViewChild('profilePic') profilePic!:ElementRef;
   @ViewChild('fileUpload') inputFileElement!:ElementRef;
+  @ViewChild('uploadedImage') uploadedImage!:ElementRef;
+  @ViewChild('profilePicPreviewModalButton') profilePicPreviewModalButton!:ElementRef;
 
   constructor(private userService:UserService){ }
   ngAfterViewInit(): void {
@@ -71,14 +77,30 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   onFileSelected(event: any):void{
     const file:File = event.target.files[0];
     if (file) {
-      this.userService.uploadPic(file).subscribe({
-        next: (response)=>{ alert(response.response);},
-        error: (error)=>{
-          console.log(error);
-        alert(error.error.message);
-        },
-        complete: ()=>{}
-      });
+      this.profilePicPreviewModalButton.nativeElement.click();
+      this.uploadedImgSrc = file.webkitRelativePath+file.name;
+      this.fileName = this.uploadedImgSrc;
+      this.uploadedImgSrc = URL.createObjectURL(file);
+      // this.cropper = new Cropper(this.uploadedImage.nativeElement, {
+      //   zoomable:false,
+      //   scalable: false,
+      //   aspectRatio: 1,
+      //   crop: ()=>{
+      //     const canvas = this.cropper.getCroppedCanvas();
+      //     this.imageDestination = canvas.toDataURL("image/png");
+      //   }
+      // });
+      // const reader = new FileReader();
+      // reader.onload = e =>  this.uploadedImgSrc = reader.result;
+      // reader.readAsDataURL(file);
+      // this.userService.uploadPic(file).subscribe({
+      //   next: (response)=>{ alert(response.response);},
+      //   error: (error)=>{
+      //     console.log(error);
+      //   alert(error.error.message);
+      //   },
+      //   complete: ()=>{}
+      // });
     }
   }
 

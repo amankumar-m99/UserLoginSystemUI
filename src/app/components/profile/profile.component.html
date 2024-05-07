@@ -27,6 +27,45 @@
         </div>
     </div>
 </div>
+<!-- Button trigger modal -->
+<button #profilePicPreviewModalButton type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#profilePicPreviewModal">Launch</button>
+  <!-- Modal -->
+  <div class="modal fade" id="profilePicPreviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content dark-my-modal">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Preview profile pic</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-9 text-center">
+                        <img #uploadedImage crossorigin class="img-fluid" [src]="uploadedImgSrc" alt="no image">
+                    </div>
+                    <div class="col-3 row flex-column justify-content-center">
+                        <div class="col text-center">
+                            <img class="img-fluid profile-pic" [src]="uploadedImgSrc" alt="no image">
+                        </div>
+                        <div class="col text-center pt-5">
+                            <button class="btn btn-outline-primary m-3"><i class="bi bi-arrow-clockwise"></i></button>
+                            <button class="btn btn-outline-primary m-3"><i class="bi bi-arrow-repeat"></i></button>
+                            <button class="btn btn-outline-primary m-3"><i class="bi bi-arrow-counterclockwise"></i></button>
+                        </div>
+                        <div class="col text-center mt-2">
+                            <span>{{fileName}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <table class="table table-striped table-dark my-5">
     <thead>
         <tr>
