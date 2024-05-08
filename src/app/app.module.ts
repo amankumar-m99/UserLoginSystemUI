@@ -23,6 +23,8 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +51,8 @@ import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/sm
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
