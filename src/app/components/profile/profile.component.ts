@@ -13,18 +13,21 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProfileComponent implements OnInit, AfterViewInit{
   user!: User;
+  fileName="";
   border_color = "green";
   badge_class = "text-bg-success";
   profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
   fallbackImageSrc = "../../../assets/images/profile_pic_green.png";
-  fileName="";
 
   imageChangedEvent: any = '';
+  imageCroppedEvent!: ImageCroppedEvent;
   croppedImage: any = '';
-  
+  disableSubmitBtn = false;
+
   @ViewChild('profilePic') profilePic!:ElementRef;
-  @ViewChild('fileUpload') inputFileElement!:ElementRef;
-  @ViewChild('profilePicPreviewModalButton') profilePicPreviewModalButton!:ElementRef;
+  @ViewChild('fileInputTag') fileInputTag!:ElementRef;
+  @ViewChild('profilePicPreviewModalCloseButton') profilePicPreviewModalCloseButton!:ElementRef;
+  @ViewChild('profilePicPreviewModalLaunchButton') profilePicPreviewModalLaunchButton!:ElementRef;
 
   constructor(
     private userService:UserService,
@@ -49,8 +52,35 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     });
   }
 
-  click():void{
-    this.inputFileElement.nativeElement.click();
+  openProfilePicPreviewModal(){
+    this.profilePicPreviewModalLaunchButton.nativeElement.click();
+  }
+  
+  closeProfilePicPreviewModal(){ 
+    this.profilePicPreviewModalCloseButton.nativeElement.click();
+  }
+
+  openFileChooser():void{
+    this.fileInputTag.nativeElement.click();
+  }
+
+  uploadProfilePic():void{
+    if(this.imageCroppedEvent.blob != null){
+      const file = new File([this.imageCroppedEvent.blob], this.fileName);
+      this.disableSubmitBtn = true;
+      this.userService.uploadPic(file).subscribe({
+        next: (response)=>{
+          this.closeProfilePicPreviewModal();
+        },
+        error: (error)=>{
+          this.disableSubmitBtn = false;
+          console.log(error);
+        },
+        complete: ()=>{
+          this.disableSubmitBtn = false;
+        }
+      });
+    }
   }
 
   fileChangeEvent(event: any): void {
@@ -65,11 +95,11 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     }
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(testStr);
     // event.blob can be used to upload the cropped image
+    this.imageCroppedEvent = event;
   }
-
   imageLoaded(image: LoadedImage) {
     // show cropper
-    this.profilePicPreviewModalButton.nativeElement.click();
+    this.openProfilePicPreviewModal();
   }
 
   cropperReady() {

@@ -1,8 +1,8 @@
 <div class="row align-items-center">
     <div class="col-3 text-center">
         <img #profilePic class="img-fluid profile-pic my-2" [style.border-color]="border_color" [src]="profilePicSrc" alt="profile-pic">
-        <input #fileUpload type="file" class="file-input d-none" accept="image/png, image/jpeg" (change)="fileChangeEvent($event)">
-        <a class=" nav-link my-1 profile-upload-link" (click)="click()"> <i class="bi bi-upload"></i> Update Profile Pic</a>
+        <input #fileInputTag type="file" class="file-input d-none" accept="image/png, image/jpeg" (change)="fileChangeEvent($event)">
+        <a class=" nav-link my-1 profile-upload-link" (click)="openFileChooser()"> <i class="bi bi-upload"></i> Update Profile Pic</a>
     </div>
     <div class="col-5 fs-6">
         <div class="row">
@@ -28,14 +28,14 @@
     </div>
 </div>
 <!-- Button trigger modal -->
-<button #profilePicPreviewModalButton type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#profilePicPreviewModal">Launch</button>
+<button #profilePicPreviewModalLaunchButton type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#profilePicPreviewModal">Launch</button>
   <!-- Modal -->
   <div class="modal fade" id="profilePicPreviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content dark-my-modal">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Preview profile pic</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" [disabled]="disableSubmitBtn"></button>
         </div>
         <div class="modal-body">
             <div class="container-fluid">
@@ -71,9 +71,12 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Upload</button>
-        </div>
+          <button #profilePicPreviewModalCloseButton type="button" class="btn btn-secondary" data-bs-dismiss="modal" [disabled]="disableSubmitBtn">Close</button>
+          <button type="button" class="btn btn-primary" (click)="uploadProfilePic()" [disabled]="disableSubmitBtn">
+            <span class="spinner-border spinner-border-sm" [class.d-none]="!disableSubmitBtn" aria-hidden="true"></span>
+            <span>&nbsp;Submit<span [class.d-none]="!disableSubmitBtn">ting...</span></span>
+          </button>
+          </div>
       </div>
     </div>
   </div>
