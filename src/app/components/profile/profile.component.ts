@@ -5,6 +5,7 @@ import { StaticData } from 'src/app/static/static-data';
 import { Utils } from 'src/app/utils/utils';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Role } from 'src/app/model/role/role';
 
 @Component({
   selector: 'app-profile',
@@ -44,12 +45,36 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     this.userService.getCurrentUser().subscribe({
       next: (response)=>{
         this.user = response;
+        this.initBadgeClass();
       },
       error: (error)=>{
         alert("Error in fetching data");
       },
       complete: ()=>{}
     });
+  }
+
+  initBadgeClass():void{
+    let minRoleId = Number.MAX_SAFE_INTEGER;
+    let roles:Role[] = this.user.roles;
+    roles.forEach(role=>{
+      if(role.id < minRoleId)
+        minRoleId = role.id;
+    });
+    switch(minRoleId){
+      case 1:
+        this.border_color = "yellow";
+        this.badge_class = "text-bg-warning";
+        break;
+      case 2:
+        this.border_color = "green";
+        this.badge_class = "text-bg-success";
+        break;
+      default:
+        this.border_color = "blue";
+        this.badge_class = "text-bg-primary";
+        break;
+    }
   }
 
   openProfilePicPreviewModal(){
