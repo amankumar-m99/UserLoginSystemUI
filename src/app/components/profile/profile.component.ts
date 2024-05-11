@@ -67,10 +67,11 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   uploadProfilePic():void{
     if(this.imageCroppedEvent.blob != null){
       const file = new File([this.imageCroppedEvent.blob], this.fileName);
+      this.profilePicSrc = "";
       this.disableSubmitBtn = true;
       this.userService.uploadPic(file).subscribe({
         next: (response)=>{
-          this.closeProfilePicPreviewModal();
+          this.profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
         },
         error: (error)=>{
           this.disableSubmitBtn = false;
@@ -78,6 +79,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
         },
         complete: ()=>{
           this.disableSubmitBtn = false;
+          this.closeProfilePicPreviewModal();
         }
       });
     }
@@ -139,6 +141,5 @@ export class ProfileComponent implements OnInit, AfterViewInit{
       return "N/A";
     return roleName;
   }
-
 
 }
