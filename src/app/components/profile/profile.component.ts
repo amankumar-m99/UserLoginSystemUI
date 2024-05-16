@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   border_color = "green";
   badge_class = "text-bg-success";
   profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
-  fallbackImageSrc = "../../../assets/images/profile_pic_green.png";
+  fallbackImageSrc = "../../../assets/images/user.png";
 
   imageChangedEvent: any = '';
   imageCroppedEvent!: ImageCroppedEvent;

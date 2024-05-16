@@ -9,7 +9,7 @@
         </form>
     </div>
     <div class="col-4 row justify-content-end">
-        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#addNewSmtpFormModal"><i class="bi bi-plus-lg"></i> Add new SMTP</button>
+        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#addNewSmtpFormModal"><i class="bi bi-plus-lg"></i> Add SMTP</button>
         <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllSmtps(true)"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
     </div>
 </div>
@@ -58,7 +58,7 @@
     <div class="modal-content dark-my-modal">
       <div class="modal-header">
         <h1 class="modal-title fs-5">Add SMTP</h1>
-        <button type="button" class="btn-close my-modal-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close dark-modal-cross-btn" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form class="p-3" [formGroup]="smtpForm" (ngSubmit)="submit()" novalidate>

@@ -1,0 +1,80 @@
+<div class="row my-3 justify-content-between">
+    <div class="col-4">
+        <p class="h5"><i class="bi bi-person"></i> Roles Details</p>
+    </div>
+    <div class="col-4">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2 dark-input" type="search" placeholder="search role" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="col-4 row justify-content-end">
+        <button class="btn btn-outline-primary mx-1 col-5" type="button" data-bs-toggle="modal" data-bs-target="#addNewSmtpFormModal"><i class="bi bi-plus-lg"></i> Add Role</button>
+        <button class="btn btn-outline-primary mx-1 col-5" (click)="getAllRoles(true)"><i class="bi bi-arrow-clockwise"></i> Refresh Data</button>
+    </div>
+</div>
+<hr>
+<table class="table table-striped table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">DB_ID</th>
+            <th scope="col">Role Name</th>
+            <th scope="col">Role Description</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="roles.length == 0;">
+            <td colspan="10" class="text-center"> No Content !</td>
+        </tr>
+        <tr *ngFor="let role of roles; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{role.id}}</td>
+            <td>{{role.roleName}}</td>
+            <td>{{role.roleDescription}}</td>
+            <td>
+              <span><i class="bi bi-pencil-fill mx-2"></i> | <i class="bi bi-trash3-fill text-danger mx-2"></i> | </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="addNewSmtpFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addNewSmtpFormModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content dark-my-modal">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Add a new Role</h1>
+        <button type="button" class="btn-close dark-modal-cross-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="p-3" [formGroup]="roleForm" (ngSubmit)="submit()" novalidate>
+            <div class="mb-3">
+              <label for="roleId" class="form-label">Role ID</label>
+              <input type="text" class="form-control dark-input" id="roleId" aria-describedby="roleFormRoleIdHelp" 
+                formControlName="roleId" [class.is-invalid]="roleId?.invalid && roleId?.touched">
+              <div id="roleFormRoleIdHelp" class="form-text text-danger" [class.d-none]="roleId?.valid || roleId?.untouched">Role Id cannot be empty!</div>
+            </div>
+            <div class="mb-3">
+              <label for="roleFormRoleName" class="form-label">Role Name</label>
+              <input type="text" class="form-control dark-input" id="roleFormRoleName" aria-describedby="roleFormRoleNameHelp" 
+                formControlName="roleName" [class.is-invalid]="roleName?.invalid && roleName?.touched">
+              <div id="roleFormRoleNameHelp" class="form-text text-danger" [class.d-none]="roleName?.valid ||roleName?.untouched">Username cannot be empty!</div>
+            </div>
+            <div class="mb-3">
+                <label for="roleFormRoleDescription" class="form-label">Role Description</label>
+                <textarea type="text" rows="3" class="form-control dark-input" id="roleFormRoleDescription" aria-describedby="roleFormRoleDescriptionHelp"
+                    formControlName="roleDescription" [class.is-invalid]="roleDescription?.invalid && roleDescription?.touched"></textarea>
+                <div id="roleFormRoleDescriptionHelp" class="form-text text-danger" [class.d-none]="roleDescription?.valid || roleDescription?.untouched">Description cannot be empty!</div>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #addNewSmtpFormModalCloseBtn>Close</button>
+        <button type="button" class="btn btn-primary" (click)="submit()" >Save</button>
+      </div>
+    </div>
+  </div>
+</div>

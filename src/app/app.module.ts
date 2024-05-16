@@ -16,7 +16,6 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { UserComponent } from './components/user/user/user.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
 import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
 import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
@@ -24,6 +23,7 @@ import { UserControlsComponent } from './components/admin-panel/user-controls/us
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { RoleControlsComponent } from './components/admin-panel/role-controls/role-controls.component';
 
 @NgModule({
   declarations: [
@@ -39,12 +39,12 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ContactComponent,
     UserComponent,
     ProfileComponent,
-    DashboardHomeComponent,
     DashboardSecurityComponent,
     DashboardNotificationComponent,
     AdminPanelComponent,
     UserControlsComponent,
     SmtpControlsComponent,
+    RoleControlsComponent
   ],
   imports: [
     BrowserModule,

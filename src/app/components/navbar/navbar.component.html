@@ -6,32 +6,47 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item mx-3">
+        <li class="nav-item mx-3" *ngIf="!isLoggedIn">
           <a class="nav-link active" aria-current="page" [routerLink]="['/home']"><i class="bi bi-house"></i> Home</a>
         </li>
-        <li class="nav-item mx-3">
+        <li class="nav-item mx-3" *ngIf="!isLoggedIn">
           <a class="nav-link" [routerLink]="['/about']"><i class="bi bi-info-circle"></i> About</a>
         </li>
-        <li class="nav-item mx-3">
+        <li class="nav-item mx-3" *ngIf="!isLoggedIn">
           <a class="nav-link" [routerLink]="['/contact']"><i class="bi bi-person-rolodex"></i> Contact</a>
         </li>
         <li class="nav-item mx-3" *ngIf="isLoggedIn">
-          <a class="nav-link" [routerLink]="['/dashboard/profile']"><i class="bi bi-person-lines-fill"></i> My Profile</a>
+          <a class="nav-link" [routerLink]="['/dashboard']"><i class="bi bi-bell"></i> Dashboard</a>
         </li>
         <li class="nav-item mx-3" *ngIf="isLoggedIn">
-          <a class="nav-link" [routerLink]="['/dashboard/security']"><i class="bi bi-shield-lock"></i> Security</a>
-        </li>
-        <li class="nav-item mx-3" *ngIf="isLoggedIn">
-          <a class="nav-link" [routerLink]="['/dashboard/notifications']"><i class="bi bi-bell"></i> Notifications</a>
+          <a class="nav-link" [routerLink]="['/notifications']"><i class="bi bi-bell"></i> Notifications</a>
         </li>
         <li class="nav-item dropdown" *ngIf="isLoggedIn && isAdmin">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-check-fill"></i> Admin </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/dashboard/admin-console/users']"><i class="bi bi-people"></i> Users</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin-console/users']"><i class="bi bi-people"></i> Users</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" [routerLink]="['/dashboard/admin-console/smtp']"><i class="bi bi-envelope-at"></i> SMTP</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin-console/smtp']"><i class="bi bi-envelope-at"></i> SMTP</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-shield-check"></i> Security</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/admin-console/roles']"><i class="bi bi-person"></i> Roles</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item"><i class="bi bi-shield-check"></i> Security</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isLoggedIn">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i> My Account </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/profile']"><i class="bi bi-person-lines-fill"></i> Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" [routerLink]="['/security']"><i class="bi bi-shield-lock"></i> Security</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isLoggedIn">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">More </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/about']"><i class="bi bi-person-lines-fill"></i> About</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" [routerLink]="['/contact']"><i class="bi bi-shield-lock"></i> Contact</a></li>
           </ul>
         </li>
       </ul>
@@ -48,7 +63,7 @@
     <div class="modal-content dark-my-modal">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Confirm Log out</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close dark-modal-cross-btn" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         You shall be logged out. Continue?

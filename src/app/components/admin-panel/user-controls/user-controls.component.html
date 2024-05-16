@@ -19,6 +19,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">DB_ID</th>
+            <th scope="col">Profile Pic</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">Lock Status</th>
@@ -32,6 +33,7 @@
         <tr *ngFor="let user of users; index as i">
             <th scope="row">{{i+1}}</th>
             <td>{{user.id}}</td>
+            <td><img src="../../../../assets/images/user.png" width="40px" alt="pic"></td>
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
             <td>{{user.isLocked}}</td>
@@ -49,7 +51,7 @@
       <div class="modal-content dark-my-modal">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Add User</h1>
-          <button type="button" class="btn-close my-modal-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close dark-modal-cross-btn" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form class="p-3" [formGroup]="userForm" (ngSubmit)="submit()" novalidate>

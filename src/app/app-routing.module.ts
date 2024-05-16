@@ -13,28 +13,24 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
 import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { DashboardHomeComponent } from './components/dashboard/dashboard-home/dashboard-home.component';
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
+import { RoleControlsComponent } from './components/admin-panel/role-controls/role-controls.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
   { path:"login", title:"Login", component:LoginComponent, canActivate:[ActivateLoginAndRegisterRoute]},
   { path:"register", title:"Register", component:RegisterComponent, canActivate:[ActivateLoginAndRegisterRoute]},
-  { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute],
+  { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
+  { path:"profile", title:"Profile", component: ProfileComponent, canActivate:[ActivateDashBoardRoute]},
+  { path:"security", title:"Profile", component: DashboardSecurityComponent, canActivate:[ActivateDashBoardRoute]},
+  { path:"notifications", title:"Notifications", component: DashboardNotificationComponent, canActivate:[ActivateDashBoardRoute]},
+  { path:"admin-console", title:"Profile", component: AdminPanelComponent, canActivate:[ActivateDashBoardRoute],
     children: [
-      { path:'', redirectTo:'home', pathMatch: 'full' },
-      { path:'home', component: DashboardHomeComponent },
-      { path:'profile', component: ProfileComponent },
-      { path:'security', component: DashboardSecurityComponent },
-      { path:'notifications', component: DashboardNotificationComponent },
-      { path:'admin-console', component: AdminPanelComponent, canActivate:[ActivateAdminRoute],
-        children:[
-        { path:'', redirectTo:'users', pathMatch: 'full' },
-        { path:'users', component: UserControlsComponent },
-        { path:'smtp', component: SmtpControlsComponent }
-      ]},
-      { path:'super-admin-console', component: AdminPanelComponent }
+      { path:'', redirectTo:'users', pathMatch: 'full' },
+      { path:'users', component: UserControlsComponent },
+      { path:'roles', component: RoleControlsComponent },
+      { path:'smtp', component: SmtpControlsComponent }
     ]
   },
   { path:"about", title:"About", component:AboutComponent},
