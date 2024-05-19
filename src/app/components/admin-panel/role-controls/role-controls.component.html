@@ -19,6 +19,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">DB_ID</th>
+            <th scope="col">Role Id</th>
             <th scope="col">Role Name</th>
             <th scope="col">Role Description</th>
             <th scope="col">Action</th>
@@ -31,10 +32,15 @@
         <tr *ngFor="let role of roles; index as i">
             <th scope="row">{{i+1}}</th>
             <td>{{role.id}}</td>
+            <td>{{role.roleId}}</td>
             <td>{{role.roleName}}</td>
             <td>{{role.roleDescription}}</td>
             <td>
-              <span><i class="bi bi-pencil-fill mx-2"></i> | <i class="bi bi-trash3-fill text-danger mx-2"></i> | </span>
+              <span>
+                <i class="bi bi-pencil-fill mx-2"></i>
+                <i class="bi bi-box-arrow-up-right mx-2"></i>
+                <i class="bi bi-trash3-fill text-danger mx-2"></i>
+              </span>
             </td>
         </tr>
     </tbody>

@@ -1,6 +1,6 @@
-<app-navbar></app-navbar>
+<app-profile></app-profile>
 <div class="container">
-    <table class="table table-striped table-dark my-5">
+    <table class="table table-striped table-dark">
         <thead>
             <tr>
                 <th colspan="3">Account Details</th>
@@ -50,51 +50,6 @@
             <tr>
                 <th scope="col">Credential Expiration Status</th>
                 <td>{{user.isCredentialExpired}}</td>
-                <td>Edit</td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-striped table-dark my-5">
-        <thead>
-            <tr>
-                <th colspan="3">Personal Details</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="user != null;">
-            <tr>
-                <th scope="col">First Name</th>
-                <td>{{user.personalDetails.firstName}}</td>
-                <td>Edit</td>
-            </tr>
-            <tr>
-                <th scope="col">Middle Name</th>
-                <td>{{user.personalDetails.middleName}}</td>
-                <td>Edit</td>
-            </tr>
-            <tr>
-                <th scope="col">Last Name</th>
-                <td>{{user.personalDetails.lastName}}</td>
-                <td>Edit</td>
-            </tr>
-            <tr>
-                <th scope="col">Phone Number</th>
-                <td>{{user.personalDetails.phoneNumber}}</td>
-                <td>Edit</td>
-                
-            </tr>
-            <tr>
-                <th scope="col">Gender</th>
-                <td>{{user.personalDetails.gender}}</td>
-                <td>Edit</td>
-            </tr>
-            <tr>
-                <th scope="col">Country</th>
-                <td>{{user.personalDetails.country}}</td>
-                <td>Edit</td>
-            </tr>
-            <tr>
-                <th scope="col">Birthday</th>
-                <td>{{user.personalDetails.dateOfBirth}}</td>
                 <td>Edit</td>
             </tr>
         </tbody>
