@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SecurityCodeVerifier } from 'src/app/model/email/security-code-verifier';
 import { RegistrationFormModel } from 'src/app/model/registration/registration-form-model';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { SecurityCodeService } from 'src/app/services/security-code/security-code.service';
@@ -209,22 +210,29 @@ export class RegisterComponent implements OnInit{
     this.isForm2=true;
   }
 
-  getRegistrationFormModel(formGroup:FormGroup):RegistrationFormModel{
-    return new RegistrationFormModel();
-  }
-
   submitSecurityCode(){
     if(!this.securityCodeForm.valid){
       this.indicateInValidFields(this.securityCodeForm);
       return;
     }
-    this.registrationService.register(this.registrationForm.value).subscribe({
+    let obj = new SecurityCodeVerifier(this.email?.value, this.securityCode?.value);
+    this.securityCodeService.verifySecurityCode(obj).subscribe({
       next: (response)=>{
-        alert('user registered.');
+        if(response){
+          this.registrationService.register(this.registrationForm.value).subscribe({
+            next: (response)=>{
+              alert('user registered.');
+            },
+            error: (error)=>{
+              alert("Error while registering user.");
+            }
+          });
+        }
+        else{
+          alert("wrong security code");
+        }
       },
-      error: (error)=>{
-        alert("Error while registering user.");
-      }
+      error:(error)=>{}
     });
   }
 

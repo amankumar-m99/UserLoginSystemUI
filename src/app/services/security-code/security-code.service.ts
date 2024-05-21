@@ -18,9 +18,9 @@ export class SecurityCodeService {
     return this.httpClient.post<any>(url, new securityCodeForm(email));
   }
   
-  verifySecurityCode(securityCodeForm:SecurityCodeVerifier){
-    let url = this.url+"/security-code";
-    return this.httpClient.post<any>(url, securityCodeForm);
+  verifySecurityCode(securityCodeForm:SecurityCodeVerifier):Observable<boolean>{
+    let url = this.url+"/verify-email";
+    return this.httpClient.post<boolean>(url, securityCodeForm);
   }
 
 }
