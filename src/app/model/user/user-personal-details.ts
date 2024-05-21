@@ -8,5 +8,5 @@ export class UserPersonalDetails{
         public gender:string,
         public country:string,
         public dateOfBirth:any
-    ){}
+    ){ }
 }

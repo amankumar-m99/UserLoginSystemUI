@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit{
   registrationForm:FormGroup;
   securityCodeForm:FormGroup;
   countries:string[];
-  constructor(private formBuilder:FormBuilder,
+  constructor(
+    private formBuilder:FormBuilder,
     private registrationService:RegistrationService,
     private securityCodeService:SecurityCodeService
     ){
@@ -184,32 +185,31 @@ export class RegisterComponent implements OnInit{
   resendSecurityCode(){}
 
   submit(){
-    let registrationFormModel = new RegistrationFormModel();
-    registrationFormModel.accountDetails.username = this.username?.value;
-    registrationFormModel.accountDetails.email = this.email?.value;
-    registrationFormModel.accountDetails.password = this.password?.value;
-    registrationFormModel.accountDetails.promotionalMails = this.promotionalMails?.value;
+    // let registrationFormModel = new RegistrationFormModel();
+    // registrationFormModel.accountDetails.username = this.username?.value;
+    // registrationFormModel.accountDetails.email = this.email?.value;
+    // registrationFormModel.accountDetails.password = this.password?.value;
+    // registrationFormModel.accountDetails.promotionalMails = this.promotionalMails?.value;
 
-    registrationFormModel.personalDetails.firstName = this.firstName?.value;
-    registrationFormModel.personalDetails.middleName = this.middleName?.value;
-    registrationFormModel.personalDetails.lastName = this.lastName?.value;
-    registrationFormModel.personalDetails.gender = this.gender?.value;
-    registrationFormModel.personalDetails.country = this.country?.value;
-    registrationFormModel.personalDetails.dateOfBirth = this.dateOfBirth?.value;
+    // registrationFormModel.personalDetails.firstName = this.firstName?.value;
+    // registrationFormModel.personalDetails.middleName = this.middleName?.value;
+    // registrationFormModel.personalDetails.lastName = this.lastName?.value;
+    // registrationFormModel.personalDetails.gender = this.gender?.value;
+    // registrationFormModel.personalDetails.country = this.country?.value;
+    // registrationFormModel.personalDetails.dateOfBirth = this.dateOfBirth?.value;
 
-    registrationFormModel.securityDetails.recoveryEmail = this.recoveryEmail?.value;
-    registrationFormModel.securityDetails.recoveryPhone = this.recoveryPhone?.value;
-    registrationFormModel.securityDetails.sequrityQuestion = this.sequrityQuestion?.value;
-    registrationFormModel.securityDetails.sequrityAnswer = this.sequrityAnswer?.value;
-    registrationFormModel.securityDetails.loginAlert = this.loginAlert?.value;
-    registrationFormModel.securityDetails.passwordChangeAlert = this.passwordChangeAlert?.value;
-    registrationFormModel.securityDetails.twoStepLogin = this.twoStepLogin?.value;
+    // registrationFormModel.securityDetails.recoveryEmail = this.recoveryEmail?.value;
+    // registrationFormModel.securityDetails.recoveryPhone = this.recoveryPhone?.value;
+    // registrationFormModel.securityDetails.sequrityQuestion = this.sequrityQuestion?.value;
+    // registrationFormModel.securityDetails.sequrityAnswer = this.sequrityAnswer?.value;
+    // registrationFormModel.securityDetails.loginAlert = this.loginAlert?.value;
+    // registrationFormModel.securityDetails.passwordChangeAlert = this.passwordChangeAlert?.value;
+    // registrationFormModel.securityDetails.twoStepLogin = this.twoStepLogin?.value;
     this.sendSecurityCode(this.email?.value);
     this.isForm2=true;
   }
 
   getRegistrationFormModel(formGroup:FormGroup):RegistrationFormModel{
-
     return new RegistrationFormModel();
   }
 
@@ -218,6 +218,14 @@ export class RegisterComponent implements OnInit{
       this.indicateInValidFields(this.securityCodeForm);
       return;
     }
+    this.registrationService.register(this.registrationForm.value).subscribe({
+      next: (response)=>{
+        alert('user registered.');
+      },
+      error: (error)=>{
+        alert("Error while registering user.");
+      }
+    });
   }
 
   get username(){

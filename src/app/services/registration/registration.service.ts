@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/model/user/user';
 import { StaticData } from 'src/app/static/static-data';
 
 @Injectable({
@@ -31,9 +32,9 @@ export class RegistrationService {
     return this.httpClient.get<boolean>(url);
   }
 
-  register():Observable<boolean>{
+  register(userModel:any):Observable<User>{
     let url = this.registrationUrl;
-    return this.httpClient.get<boolean>(url);
+    return this.httpClient.post<User>(url, userModel);
   }
 
 }
