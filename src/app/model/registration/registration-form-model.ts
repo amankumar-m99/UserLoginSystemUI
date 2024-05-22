@@ -9,6 +9,7 @@ export class RegistrationFormModel{
         "firstName":"",
         "middleName":"",
         "lastName":"",
+        "phoneNUmber":"",
         "gender":"",
         "country":"",
         "dateOfBirth":""
