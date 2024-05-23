@@ -16,11 +16,13 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 import { RoleControlsComponent } from './components/admin-panel/role-controls/role-controls.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
   { path:"login", title:"Login", component:LoginComponent, canActivate:[ActivateLoginAndRegisterRoute]},
   { path:"register", title:"Register", component:RegisterComponent, canActivate:[ActivateLoginAndRegisterRoute]},
+  { path:"forgot-password", title:"Forgot Password", component:ForgotPasswordComponent},
   { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"profile", title:"Profile", component: ProfileComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"security", title:"Profile", component: DashboardSecurityComponent, canActivate:[ActivateDashBoardRoute]},

@@ -86,10 +86,6 @@
               </ng-template>
             </div>
           </div>
-          <div class="form-check form-switch mb-3">
-            <label for="promoemails" class="form-label">Receive promotional emails</label>
-            <input type="checkbox" class="form-check-input form-control dark-input" role="switch" id="promoemails" formControlName="promotionalMails">
-          </div>
         </fieldset>
   
         <fieldset *ngSwitchCase="2" formGroupName="personalDet">
@@ -117,15 +113,19 @@
             <input type="text" class="form-control dark-input" id="lastname" formControlName="lastName">
           </div>
           <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="text" class="form-control dark-input" id="phoneNumber" formControlName="phoneNumber">
+          </div>
+          <div class="mb-3">
             <label for="gender" class="form-label">Gender</label>
             <span class="form-text small text-danger mx-3 d-none">Gender is required</span>
             <div class="form-check">
-              <input type="radio" id="male" class="form-check-input dark-input is-invalid" value="male" aria-describedby="genderHelp"
+              <input type="radio" id="male" class="form-check-input dark-input is-invalid" value="MALE" aria-describedby="genderHelp"
                 formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
               <label class="form-check-label" for="male">Male</label>
             </div>
             <div class="form-check">
-              <input type="radio" id="female" class="form-check-input dark-input is-invalid" value="female" aria-describedby="genderHelp"
+              <input type="radio" id="female" class="form-check-input dark-input is-invalid" value="FEMALE" aria-describedby="genderHelp"
                 formControlName="gender" [class.is-invalid]="gender?.invalid && gender?.touched">
               <label class="form-check-label" for="female">Female</label>
             </div>

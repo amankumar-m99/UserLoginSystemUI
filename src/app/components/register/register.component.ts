@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit{
   registrationForm:FormGroup;
   securityCodeForm:FormGroup;
   countries:string[];
+
   constructor(
     private formBuilder:FormBuilder,
     private registrationService:RegistrationService,
@@ -34,13 +35,13 @@ export class RegisterComponent implements OnInit{
       let accountDetails = formBuilder.group({
         username: ['', [Validators.required, Validators.minLength(2), forbiddenNameValidator(/abc/)]],
         email: ['', [Validators.required, emailValidator()]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        promotionalMails: [true],
+        password: ['', [Validators.required, Validators.minLength(8)]]
       });
       let personalDetails = formBuilder.group({
         firstName: ['', [Validators.required, Validators.minLength(3)]],
         middleName: [''],
         lastName: [''],
+        phoneNumber: [''],
         gender: ['', [Validators.required]],
         country: ['', [Validators.required]],
         dateOfBirth: ["", [Validators.required]]
@@ -51,7 +52,7 @@ export class RegisterComponent implements OnInit{
         securityQuestion: [''],
         securityAnswer: [''],
         loginAlert: [true],
-        passwordChangeAlert: [true],
+        passwordUpdateAlert: [true],
         twoStepLogin: [false]
       });
       this.steps = [
@@ -63,11 +64,10 @@ export class RegisterComponent implements OnInit{
           "name":"Personal Details",
           "form" : personalDetails
         }
-      ]
+      ];
       this.registrationForm = this.formBuilder.group({
         accountDet : accountDetails,
-        personalDet: personalDetails,
-        securityDet: securityDetails
+        personalDet: personalDetails
       });
       this.step = this.steps[0];
   }
@@ -166,10 +166,6 @@ export class RegisterComponent implements OnInit{
     });
   }
 
-  indicateInValidFields(formGroup:FormGroup):void{
-    FormUtils.markAllFieldAsTouched(formGroup);
-  }
-
   sendSecurityCode(email:string){
     alert("sending security code to "+ email);
     this.securityCodeService.sendSecurityCodeToEmail(email).subscribe({
@@ -199,7 +195,7 @@ export class RegisterComponent implements OnInit{
     this.securityCodeService.verifySecurityCode(obj).subscribe({
       next: (response)=>{
         if(response){
-          let userReg = this.getRegistrationFormModel(this.registrationForm);
+          let userReg = this.getRegistrationFormModel();
           this.registrationService.register(userReg).subscribe({
             next: (response)=>{
               alert('user registered.');
@@ -218,28 +214,33 @@ export class RegisterComponent implements OnInit{
     });
   }
 
-  getRegistrationFormModel(formGroup:FormGroup):RegistrationFormModel{
+  getRegistrationFormModel():RegistrationFormModel{
     let registrationFormModel = new RegistrationFormModel();
     registrationFormModel.accountDetails.username = this.username?.value;
     registrationFormModel.accountDetails.email = this.email?.value;
     registrationFormModel.accountDetails.password = this.password?.value;
-    registrationFormModel.accountDetails.promotionalMails = this.promotionalMails?.value;
+    registrationFormModel.accountDetails.roles.push(3);
 
     registrationFormModel.personalDetails.firstName = this.firstName?.value;
     registrationFormModel.personalDetails.middleName = this.middleName?.value;
     registrationFormModel.personalDetails.lastName = this.lastName?.value;
+    registrationFormModel.personalDetails.phoneNUmber = this.phoneNumber?.value;
     registrationFormModel.personalDetails.gender = this.gender?.value;
     registrationFormModel.personalDetails.country = this.country?.value;
     registrationFormModel.personalDetails.dateOfBirth = this.dateOfBirth?.value;
 
     registrationFormModel.securityDetails.recoveryEmail = this.recoveryEmail?.value;
     registrationFormModel.securityDetails.recoveryPhone = this.recoveryPhone?.value;
-    registrationFormModel.securityDetails.sequrityQuestion = this.sequrityQuestion?.value;
-    registrationFormModel.securityDetails.sequrityAnswer = this.sequrityAnswer?.value;
+    registrationFormModel.securityDetails.securityQuestion = this.securityQuestion?.value;
+    registrationFormModel.securityDetails.securityAnswer = this.securityAnswer?.value;
     registrationFormModel.securityDetails.loginAlert = this.loginAlert?.value;
-    registrationFormModel.securityDetails.passwordChangeAlert = this.passwordChangeAlert?.value;
+    registrationFormModel.securityDetails.passwordUpdateAlert = this.passwordUpdateAlert?.value;
     registrationFormModel.securityDetails.twoStepLogin = this.twoStepLogin?.value;
     return registrationFormModel;
+  }
+
+  indicateInValidFields(formGroup:FormGroup):void{
+    FormUtils.markAllFieldAsTouched(formGroup);
   }
 
   get username(){
@@ -251,9 +252,6 @@ export class RegisterComponent implements OnInit{
   get password(){
     return this.registrationForm.get("accountDet")?.get("password");
   }
-  get promotionalMails(){
-    return this.registrationForm.get("accountDet")?.get("promotionalMails");
-  }
 
   get firstName(){
     return this.registrationForm.get("personalDet")?.get("firstName");
@@ -263,6 +261,9 @@ export class RegisterComponent implements OnInit{
   }
   get lastName(){
     return this.registrationForm.get("personalDet")?.get("lastName");
+  }
+  get phoneNumber(){
+    return this.registrationForm.get("personalDet")?.get("phoneNumber");
   }
   get gender(){
     return this.registrationForm.get("personalDet")?.get("gender");
@@ -280,17 +281,17 @@ export class RegisterComponent implements OnInit{
   get recoveryPhone(){
     return this.registrationForm.get("securityDet")?.get("recoveryEmail");
   }
-  get sequrityQuestion(){
-    return this.registrationForm.get("securityDet")?.get("sequrityQuestion");
+  get securityQuestion(){
+    return this.registrationForm.get("securityDet")?.get("securityQuestion");
   }
-  get sequrityAnswer(){
-    return this.registrationForm.get("securityDet")?.get("sequrityAnswer");
+  get securityAnswer(){
+    return this.registrationForm.get("securityDet")?.get("securityAnswer");
   }
   get loginAlert(){
     return this.registrationForm.get("securityDet")?.get("loginAlert");
   }
-  get passwordChangeAlert(){
-    return this.registrationForm.get("securityDet")?.get("passwordChangeAlert");
+  get passwordUpdateAlert(){
+    return this.registrationForm.get("securityDet")?.get("passwordUpdateAlert");
   }
   get twoStepLogin(){
     return this.registrationForm.get("securityDet")?.get("twoStepLogin");
