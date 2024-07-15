@@ -10,24 +10,23 @@ import { Utils } from 'src/app/utils/utils';
 })
 export class SmtpService {
 
-  baseUrl = StaticData.apiBaseUrl;
 
   constructor(private httpClient: HttpClient) { }
 
   getAllRecords():Observable<Smtp[]>{
-    let url = this.baseUrl + "/smtp/get-all";
+    let url = StaticData.smtpGetAllGetUrl;
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.get<Smtp[]>(url, {headers: headers});
   }
   
   saveSmtp(smtp:any):Observable<Smtp>{
-    let url = this.baseUrl + "/smtp/add";
+    let url = StaticData.smtpAddPostUrl;
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.post<Smtp>(url, smtp, {headers: headers});
   }
 
   markSelected(smtp:Smtp):Observable<any>{
-    let url = this.baseUrl + "/smtp/mark-selected";
+    let url = StaticData.smtpMarkSelectedPutUrl + "/smtp/mark-selected";
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.put<any>(url, smtp, {headers: headers});
   }

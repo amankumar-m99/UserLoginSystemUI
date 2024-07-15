@@ -10,7 +10,7 @@ import { LoginFormModel } from 'src/app/model/login/login-form-model';
 })
 export class LoginService {
 
-  loginUrl = StaticData.apiBaseUrl+"/login";
+  loginUrl = StaticData.jwtLoginPostUrl;
 
   constructor(private httpClient: HttpClient) { }
 

@@ -15,13 +15,13 @@ export class RoleService {
   constructor(private httpClient: HttpClient) { }
 
   getAllRecords():Observable<Role[]>{
-    let url = this.baseUrl + "/role/all-roles";
+    let url = StaticData.roleAllRoleGetUrl;
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.get<Role[]>(url, {headers: headers});
   }
 
   saveRole(smtp:any):Observable<Role>{
-    let url = this.baseUrl + "/role/create";
+    let url = StaticData.roleCreatePostUrl;
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.post<Role>(url, smtp, {headers: headers});
   }

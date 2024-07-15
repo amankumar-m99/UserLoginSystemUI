@@ -10,16 +10,15 @@ import { SecurityCodeVerifier } from 'src/app/model/email/security-code-verifier
 })
 export class SecurityCodeService {
 
-  url = StaticData.apiBaseUrl+"/email";
   constructor(private httpClient: HttpClient) { }
   
   sendSecurityCodeToEmail(email:string):Observable<any>{
-    let url = this.url+"/security-code";
+    let url = StaticData.emailSecurityCodePostUrl;
     return this.httpClient.post<any>(url, new securityCodeForm(email));
   }
   
   verifySecurityCode(securityCodeForm:SecurityCodeVerifier):Observable<boolean>{
-    let url = this.url+"/verify-email";
+    let url = StaticData.emailVerifyPostUrl;
     return this.httpClient.post<boolean>(url, securityCodeForm);
   }
 

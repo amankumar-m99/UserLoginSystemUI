@@ -10,10 +10,10 @@ import { StaticData } from 'src/app/static/static-data';
 
 export class RegistrationService {
 
-  usernameUrl = StaticData.apiBaseUrl+"/register/username-available/";
-  emailInUseUrl=StaticData.apiBaseUrl+"/register/email-in-use/";
-  emailHasBeenInUseUrl=StaticData.apiBaseUrl+"/register/has-email-been-in-use/";
-  registrationUrl = StaticData.apiBaseUrl+"/register/user";
+  usernameUrl = StaticData.registerUsernameAvailableGetUrl;
+  emailInUseUrl=StaticData.registeEmailInUseGetUrl;
+  emailHasBeenInUseUrl=StaticData.registerHasEmailBeenInUseGetUrl;
+  registrationUrl = StaticData.registerUserPostUrl;
 
   constructor(private httpClient: HttpClient) { }
 

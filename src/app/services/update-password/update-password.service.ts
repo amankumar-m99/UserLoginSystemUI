@@ -8,12 +8,10 @@ import { StaticData } from 'src/app/static/static-data';
 })
 export class UpdatePasswordService {
 
-  baseUrl = StaticData.apiBaseUrl;
-
   constructor(private httpClient: HttpClient) {}
 
   sendSecurityCodeToUpdatePassword(username:string):Observable<Boolean>{
-    let url = this.baseUrl + "/password-update/user";
+    let url = StaticData.passwordUpdateUserPostUrl;
     let obj = {"email": username};
     return this.httpClient.post<Boolean>(url, obj);
   }
