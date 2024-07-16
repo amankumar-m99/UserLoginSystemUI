@@ -6,6 +6,7 @@ import { Utils } from 'src/app/utils/utils';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Role } from 'src/app/model/role/role';
+import { UrlUtils } from 'src/app/utils/url-utils';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   fileName="";
   border_color = "green";
   badge_class = "text-bg-success";
-  profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
+  profilePicSrc = UrlUtils.formUrl(StaticData.imageProfilePicGetUrlB, Utils.getCookie("userId"));
   fallbackImageSrc = "../../../assets/images/user.png";
 
   imageChangedEvent: any = '';
@@ -96,7 +97,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
       this.disableSubmitBtn = true;
       this.userService.uploadPic(file).subscribe({
         next: (response)=>{
-          this.profilePicSrc = StaticData.apiBaseUrl+"/images/profile-pic/" + Utils.getCookie("userId");
+          this.profilePicSrc = UrlUtils.formUrl(StaticData.imageProfilePicGetUrlB, Utils.getCookie("userId"));
         },
         error: (error)=>{
           this.disableSubmitBtn = false;

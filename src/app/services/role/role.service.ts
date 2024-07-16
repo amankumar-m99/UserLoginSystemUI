@@ -10,8 +10,6 @@ import { Utils } from 'src/app/utils/utils';
 })
 export class RoleService {
 
-  baseUrl = StaticData.apiBaseUrl;
-
   constructor(private httpClient: HttpClient) { }
 
   getAllRecords():Observable<Role[]>{

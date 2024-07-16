@@ -5,22 +5,22 @@ import { StaticData } from 'src/app/static/static-data';
 import { User } from 'src/app/model/user/user';
 import { Utils } from 'src/app/utils/utils';
 import { ProfilePicResponse } from 'src/app/model/profllepicresponse';
+import { UrlUtils } from 'src/app/utils/url-utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = StaticData.apiBaseUrl;
   constructor(private httpClient: HttpClient) { }
 
   getCurrentUser():Observable<User>{
-    let url = StaticData.useruserInfoGetUrl + Utils.getCookie("userId");
+    let url = UrlUtils.formUrl(StaticData.useruserInfoGetUrlB, Utils.getCookie("userId"));
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.get<User>(url, {headers: headers});
   }
 
   getUserById(userId:number):Observable<User>{
-    let url = StaticData.useruserInfoGetUrl + userId.toString();
+    let url = UrlUtils.formUrl(StaticData.useruserInfoGetUrlB, userId.toString());
     let headers = Utils.getHeaderWithToken();
     return this.httpClient.get<User>(url, {headers: headers});
   }
