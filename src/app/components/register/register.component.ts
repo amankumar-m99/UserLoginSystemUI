@@ -191,7 +191,7 @@ export class RegisterComponent implements OnInit{
       this.indicateInValidFields(this.securityCodeForm);
       return;
     }
-    let obj = new SecurityCodeVerifier(this.email?.value, this.securityCode?.value);
+    let obj = new SecurityCodeVerifier(this.email?.value, this.securityCode?.value, 2);
     this.securityCodeService.verifySecurityCode(obj).subscribe({
       next: (response)=>{
         if(response){
