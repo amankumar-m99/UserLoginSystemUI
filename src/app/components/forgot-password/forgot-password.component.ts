@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UrlSegment } from '@angular/router';
+import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { UpdatePasswordService } from 'src/app/services/update-password/update-password.service';
 
 @Component({
@@ -10,26 +10,40 @@ import { UpdatePasswordService } from 'src/app/services/update-password/update-p
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm:FormGroup;
+  fillSecurityCodeForm:FormGroup;
+  isSecurityCodeSent:boolean;
 
   constructor(
     private formBuilder:FormBuilder,
-    private updatePasswordService:UpdatePasswordService
+    private updatePasswordService:UpdatePasswordService,
+    private activatedroute:ActivatedRoute
   ){
+    let emailId = this.activatedroute.snapshot.paramMap.get("emailId");
     this.forgotPasswordForm = this.formBuilder.group({
-      username: ['', Validators.required]
+      username: [emailId, Validators.required],
     });
+    this.fillSecurityCodeForm = this.formBuilder.group({
+      securityCode: ['', Validators.required]
+    });
+    this.isSecurityCodeSent = false;
   }
 
-  submit():void{
+  submitEmail():void{
     let username = this.forgotPasswordForm.get('username')?.value;
     this.updatePasswordService.sendSecurityCodeToUpdatePassword(username).subscribe({
       next: (response)=>{
-        alert(response);
+        if(response){
+          this.isSecurityCodeSent = true;
+        }
       },
       error: (error)=>{
         alert("error "+error.statusCode);
       },
       complete: ()=>{}
     });
+  }
+
+  submitSecurityCode():void{
+
   }
 }
