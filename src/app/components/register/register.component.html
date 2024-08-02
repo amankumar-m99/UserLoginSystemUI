@@ -164,7 +164,15 @@
 
       <hr>
       <button type="button" class="btn btn-primary mx-1" [class.d-none]="stepIndex==0" (click)="previous()">Previous</button>
-      <button type="button" class="btn btn-primary mx-1" [class.d-none]="stepIndex>=steps.length-1"(click)="next()">Next</button>
+      <button type="button" class="btn btn-primary mx-1" [disabled]="isRequestInProgress" [class.d-none]="stepIndex>=steps.length-1"(click)="next()">
+        <ng-container *ngIf="isRequestInProgress else elseBlock">
+          <span role="status">Please wait...</span>
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        </ng-container>
+        <ng-template #elseBlock>
+          Next
+        </ng-template>
+      </button>
       <button type="submit" class="btn btn-primary mx-1" [class.d-none]="stepIndex!=steps.length-1">Submit</button>
       <hr>
       <fieldset>

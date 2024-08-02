@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit{
   registrationForm:FormGroup;
   securityCodeForm:FormGroup;
   countries:string[];
+  isRequestInProgress:boolean;
 
   constructor(
     private formBuilder:FormBuilder,
@@ -29,6 +30,7 @@ export class RegisterComponent implements OnInit{
       this.countries = [];
       this.isForm2 = false;
       this.stepIndex=0;
+      this.isRequestInProgress = false;
       this.securityCodeForm = this.formBuilder.group({
         securityCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
       });
@@ -116,8 +118,10 @@ export class RegisterComponent implements OnInit{
   }
 
   checkEmailInUse(email:string, username:string){
+    this.isRequestInProgress = true;
     this.registrationService.isEmailInUse(email).subscribe({
       next: (response)=>{
+        this.isRequestInProgress = false;
         if(response == true){
           alert("Email address is already in use!");
         }
@@ -126,6 +130,7 @@ export class RegisterComponent implements OnInit{
         }
       },
       error: (error)=>{
+        this.isRequestInProgress = false;
         alert("Error " + error.status + " while enquiring email in use. "+ error.statusText);
       },
       complete: ()=>{}
@@ -167,7 +172,6 @@ export class RegisterComponent implements OnInit{
   }
 
   sendSecurityCode(email:string){
-    alert("sending security code to "+ email);
     this.securityCodeService.sendSecurityCodeToEmail(email).subscribe({
       next: (response)=>{
         alert("sent security code to "+ email)
@@ -198,7 +202,8 @@ export class RegisterComponent implements OnInit{
           let userReg = this.getRegistrationFormModel();
           this.registrationService.register(userReg).subscribe({
             next: (response)=>{
-              alert('user registered.');
+              // this.router
+              alert('user registered. Proceed to login page.');
             },
             error: (error)=>{
               console.log(error);
