@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginFormModel } from 'src/app/model/login/login-form-model';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -23,13 +23,18 @@ export class LoginComponent {
     private formBuilder:FormBuilder,
     private loginService:LoginService,
     private userService:UserService,
-    private router:Router
+    private router:Router,
+    private activatedroute:ActivatedRoute
     ){
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
+      let emailId:string | null = "";
+      if(this.activatedroute.snapshot.paramMap?.has("emailId")){
+        emailId = this.activatedroute.snapshot.paramMap.get("emailId");
+      }
+      this.loginForm = this.formBuilder.group({
+        username: [emailId, Validators.required],
+        password: ['', Validators.required]
+      });
+    }
 
   submit(){
     let email:string = this.loginForm.get("username")?.value;

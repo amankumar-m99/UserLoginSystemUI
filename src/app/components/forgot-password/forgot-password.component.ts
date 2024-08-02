@@ -18,7 +18,7 @@ export class ForgotPasswordComponent {
     private updatePasswordService:UpdatePasswordService,
     private activatedroute:ActivatedRoute
   ){
-    let emailId:string | null = null;
+    let emailId:string | null = "";
     if(this.activatedroute.snapshot.paramMap?.has("emailId")){
       emailId = this.activatedroute.snapshot.paramMap.get("emailId");
     }
