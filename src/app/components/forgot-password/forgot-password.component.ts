@@ -18,7 +18,10 @@ export class ForgotPasswordComponent {
     private updatePasswordService:UpdatePasswordService,
     private activatedroute:ActivatedRoute
   ){
-    let emailId = this.activatedroute.snapshot.paramMap.get("emailId");
+    let emailId:string | null = null;
+    if(this.activatedroute.snapshot.paramMap?.has("emailId")){
+      emailId = this.activatedroute.snapshot.paramMap.get("emailId");
+    }
     this.forgotPasswordForm = this.formBuilder.group({
       username: [emailId, Validators.required],
     });
