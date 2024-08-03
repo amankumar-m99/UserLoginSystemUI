@@ -18,6 +18,7 @@ export class ForgotPasswordComponent {
     private updatePasswordService:UpdatePasswordService,
     private activatedroute:ActivatedRoute
   ){
+    this.isSecurityCodeSent = true;
     let emailId:string | null = "";
     if(this.activatedroute.snapshot.paramMap?.has("emailId")){
       emailId = this.activatedroute.snapshot.paramMap.get("emailId");
@@ -26,9 +27,10 @@ export class ForgotPasswordComponent {
       username: [emailId, Validators.required],
     });
     this.fillSecurityCodeForm = this.formBuilder.group({
+      newPassword: ['', Validators.required],
+      againPassword: ['', Validators.required],
       securityCode: ['', Validators.required]
     });
-    this.isSecurityCodeSent = false;
   }
 
   submitEmail():void{
