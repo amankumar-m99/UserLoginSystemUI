@@ -1,5 +1,3 @@
-import { Conditional } from "@angular/compiler";
-
 export class UrlUtils{
     public static formUrl(url:string, value1:string, ...values:string[]){
 		let start = url.indexOf("{");
