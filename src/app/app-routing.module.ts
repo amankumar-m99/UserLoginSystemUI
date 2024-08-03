@@ -23,6 +23,7 @@ const routes: Routes = [
   { path:"login", title:"Login", component:LoginComponent, canActivate:[ActivateLoginAndRegisterRoute]},
   { path:"register", title:"Register", component:RegisterComponent, canActivate:[ActivateLoginAndRegisterRoute]},
   { path:"forgot-password", title:"Forgot Password", component:ForgotPasswordComponent},
+  { path:"forgot-password/:emailId", title:"Forgot Password", component:ForgotPasswordComponent},
   { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"profile", title:"Profile", component: ProfileComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"security", title:"Profile", component: DashboardSecurityComponent, canActivate:[ActivateDashBoardRoute]},

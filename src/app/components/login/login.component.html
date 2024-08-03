@@ -10,7 +10,7 @@
         <div class="mb-4">
           <label for="exampleInputPassword1" class="form-label"><i class="bi bi-key"></i> Password</label>
           <input type="password" class="form-control dark-input" id="exampleInputPassword1" aria-describedby="passwordHelp" formControlName="password">
-          <div id="passwordHelp" class="form-text"><a [routerLink]="['/forgot-password']">Forgot password?</a></div>
+          <div id="passwordHelp" class="form-text"><a [routerLink]="['/forgot-password', loginForm.get('username')?.value]">Forgot password?</a></div>
         </div>
         <hr>
         <button type="submit" class="btn btn-primary" [disabled]="disableSubmitBtn">
