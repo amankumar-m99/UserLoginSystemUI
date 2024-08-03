@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+	"custom_command": "ng serve -o --port 8080 --host 0.0.0.0"
   },
   "private": true,
   "dependencies": {
