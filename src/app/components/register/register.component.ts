@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SecurityCodeVerifier } from 'src/app/model/email/security-code-verifier';
 import { RegistrationFormModel } from 'src/app/model/registration/registration-form-model';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit{
   constructor(
     private formBuilder:FormBuilder,
     private registrationService:RegistrationService,
-    private securityCodeService:SecurityCodeService
+    private securityCodeService:SecurityCodeService,
+    private router:Router
     ){
       this.countries = [];
       this.isForm2 = false;
@@ -174,7 +176,7 @@ export class RegisterComponent implements OnInit{
   sendSecurityCode(email:string){
     this.securityCodeService.sendSecurityCodeToEmail(email).subscribe({
       next: (response)=>{
-        alert("sent security code to "+ email)
+        this.isForm2=true;
       },
       error: (error)=>{
         alert("could not sent security code to "+ email)
@@ -187,7 +189,6 @@ export class RegisterComponent implements OnInit{
 
   submit(){
     this.sendSecurityCode(this.email?.value);
-    this.isForm2=true;
   }
 
   submitSecurityCode(){
@@ -202,7 +203,7 @@ export class RegisterComponent implements OnInit{
           let userReg = this.getRegistrationFormModel();
           this.registrationService.register(userReg).subscribe({
             next: (response)=>{
-              // this.router
+              this.router.navigate(['login', this.email?.value]);
               alert('user registered. Proceed to login page.');
             },
             error: (error)=>{
