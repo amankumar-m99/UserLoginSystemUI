@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SecurityCodeVerifier } from 'src/app/model/email/security-code-verifier';
 import { RegistrationFormModel } from 'src/app/model/registration/registration-form-model';
+import { EmailVerificationFormModel } from 'src/app/model/user/email-verification-form.model';
 import { RegistrationService } from 'src/app/services/registration/registration.service';
 import { SecurityCodeService } from 'src/app/services/security-code/security-code.service';
 import { FormUtils } from 'src/app/utils/forms.util';
@@ -196,8 +196,8 @@ export class RegisterComponent implements OnInit{
       this.indicateInValidFields(this.securityCodeForm);
       return;
     }
-    let obj = new SecurityCodeVerifier(this.email?.value, this.securityCode?.value, 2);
-    this.securityCodeService.verifySecurityCode(obj).subscribe({
+    let data = new EmailVerificationFormModel(this.email?.value, this.securityCode?.value);
+    this.securityCodeService.verifySecurityCode(data).subscribe({
       next: (response)=>{
         if(response){
           let userReg = this.getRegistrationFormModel();

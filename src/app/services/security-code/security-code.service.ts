@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StaticData } from 'src/app/static/static-data';
 import { securityCodeForm } from 'src/app/model/security/security-code-form';
-import { SecurityCodeVerifier } from 'src/app/model/email/security-code-verifier';
+import { EmailVerificationFormModel } from 'src/app/model/user/email-verification-form.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class SecurityCodeService {
     return this.httpClient.post<any>(url, new securityCodeForm(email));
   }
   
-  verifySecurityCode(securityCodeForm:SecurityCodeVerifier):Observable<boolean>{
+  verifySecurityCode(securityCodeForm:EmailVerificationFormModel):Observable<boolean>{
     let url = StaticData.emailVerifyPostUrl;
     return this.httpClient.post<boolean>(url, securityCodeForm);
   }

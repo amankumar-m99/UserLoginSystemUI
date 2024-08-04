@@ -29,11 +29,11 @@ export class StaticData{
     static registeEmailInUseGetUrlB = this.baseUrl+"/register/email-in-use/{email}"; // get: /register/email-in-use/{email}
 
     // password-update-controller
-    static passwordUpdateUserPostUrl = this.baseUrl+"/password-update/user"; // post: /password-update/user
+    static passwordUpdateUpdatePostUrl = this.baseUrl+"/password-update/update"; // post: /password-update/update
+    static passwordUpdateSendSecurityCodePostUrl = this.baseUrl+"/password-update/send-security-code"; // post: /password-update/send-security-code
 
     // jwt-controller
     static jwtLoginPostUrl = this.baseUrl+"/jwt/login"; // post: /jwt/login
-    static jwtActivatePostUrl = this.baseUrl+"/jwt/activate"; // post: /jwt/activate
 
     // email-verification-controller
     static emailVerifyPostUrl = this.baseUrl+"/email/verify-email"; // post: /email/verify-email

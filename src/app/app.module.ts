@@ -25,6 +25,7 @@ import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/sm
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { RoleControlsComponent } from './components/admin-panel/role-controls/role-controls.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { UpdatePasswordFormComponent } from './components/update-password-form/update-password-form.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     UserControlsComponent,
     SmtpControlsComponent,
     RoleControlsComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    UpdatePasswordFormComponent
   ],
   imports: [
     BrowserModule,
