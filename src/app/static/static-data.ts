@@ -1,8 +1,9 @@
 export class StaticData{
     static isRouteGuardEnabled = true;
 
-    static baseUrl = "http://localhost:8080";
-    // static baseUrl = "http://192.168.57.82:8080";
+    static baseUrl = 
+    // "http://localhost:8080";
+    "http://192.168.1.6:8080";
 
     // smtp-controller
     static smtpMarkSelectedPutUrl = this.baseUrl+"/smtp/mark-selected"; //put: /smtp/mark-selected
