@@ -17,6 +17,7 @@ import { UserControlsComponent } from './components/admin-panel/user-controls/us
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
 import { RoleControlsComponent } from './components/admin-panel/role-controls/role-controls.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path:"forgot-password/:emailId", title:"Forgot Password", component:ForgotPasswordComponent},
   { path:"dashboard", title:"Dashboard", component:DashboardComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"profile", title:"Profile", component: ProfileComponent, canActivate:[ActivateDashBoardRoute]},
+  { path:"profile/update-password", title:"Update ", component:UpdatePasswordComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"security", title:"Profile", component: DashboardSecurityComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"notifications", title:"Notifications", component: DashboardNotificationComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"admin-console", title:"Profile", component: AdminPanelComponent, canActivate:[ActivateDashBoardRoute],

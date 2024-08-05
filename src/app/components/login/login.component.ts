@@ -44,6 +44,7 @@ export class LoginComponent {
     this.loginService.login(loginFormModel).subscribe({
       next: (response)=>{
         Utils.setCookie("userId", response.userId.toString());
+        Utils.setCookie("userEmail", response.userEmail);
         Utils.setCookie("token", response.jwtToken);
         this.userService.getCurrentUser().subscribe({
           next: (response)=>{

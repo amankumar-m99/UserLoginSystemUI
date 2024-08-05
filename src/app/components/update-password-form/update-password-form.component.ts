@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UpdatePasswordFormModel } from 'src/app/model/user/update-password-form.model';
 import { UpdatePasswordService } from 'src/app/services/update-password/update-password.service';
 
@@ -20,6 +20,7 @@ export class UpdatePasswordFormComponent {
   constructor(
     private formBuilder:FormBuilder,
     private updatePasswordService:UpdatePasswordService,
+    private router:Router,
     private activatedroute:ActivatedRoute
   ){
     this.isSecurityCodeSent = true;
@@ -41,7 +42,8 @@ export class UpdatePasswordFormComponent {
     this.updatePasswordService.updatePassword(updatePasswwordModel).subscribe({
       next: (response)=>{
         if(response){
-          alert("Success")
+          alert("Success");
+          this.router.navigate(['login']);
         }
       },
       error: (error)=>{

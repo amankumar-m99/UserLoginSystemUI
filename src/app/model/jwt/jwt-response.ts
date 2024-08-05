@@ -1,3 +1,7 @@
 export class JwtResponse{
-    constructor(public jwtToken:string, public userId:number) { }
+    constructor(
+        public userId:number,
+        public userEmail:string,
+        public jwtToken:string
+    ) { }
 }

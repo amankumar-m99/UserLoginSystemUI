@@ -50,7 +50,8 @@ export class Utils{
   
     public static getJwtResponse():JwtResponse{
       let userId = parseInt(this.getCookie("userId"));
-      return new JwtResponse(this.getCookie("token"), userId);
+      let userEmail = this.getCookie("userEmail");
+      return new JwtResponse(userId, userEmail, this.getCookie("token"));
     }
   
     public static getHeaderWithToken():HttpHeaders{

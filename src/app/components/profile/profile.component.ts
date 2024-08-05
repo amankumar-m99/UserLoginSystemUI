@@ -7,6 +7,7 @@ import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Role } from 'src/app/model/role/role';
 import { UrlUtils } from 'src/app/utils/url-utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -33,7 +34,8 @@ export class ProfileComponent implements OnInit, AfterViewInit{
 
   constructor(
     private userService:UserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router:Router
   ){ }
 
   ngAfterViewInit(): void {
@@ -76,6 +78,10 @@ export class ProfileComponent implements OnInit, AfterViewInit{
         this.badge_class = "text-bg-primary";
         break;
     }
+  }
+
+  updatePassword(){
+    this.router.navigate(['profile/update-password']);
   }
 
   openProfilePicPreviewModal(){
