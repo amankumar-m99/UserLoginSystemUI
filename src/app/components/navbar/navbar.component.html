@@ -15,6 +15,9 @@
         <li class="nav-item mx-3" *ngIf="!isLoggedIn">
           <a class="nav-link" [routerLink]="['/contact']"><i class="bi bi-person-rolodex"></i> Contact</a>
         </li>
+        <li class="nav-item mx-3" *ngIf="!isLoggedIn">
+          <a class="nav-link" [routerLink]="['/build-info']"><i class="bi bi-info-circle"></i> Build Info</a>
+        </li>
         <li class="nav-item mx-3" *ngIf="isLoggedIn">
           <a class="nav-link" [routerLink]="['/dashboard']"><i class="bi bi-bell"></i> Dashboard</a>
         </li>
