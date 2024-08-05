@@ -17,7 +17,6 @@ import { ContactComponent } from './components/contact/contact.component';
 import { UserComponent } from './components/user/user/user.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
-import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
@@ -46,7 +45,6 @@ import { TechStackItemComponent } from './components/tech-stack-item/tech-stack-
     UserComponent,
     ProfileComponent,
     DashboardSecurityComponent,
-    DashboardNotificationComponent,
     AdminPanelComponent,
     UserControlsComponent,
     SmtpControlsComponent,

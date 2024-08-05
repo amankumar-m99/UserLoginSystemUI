@@ -11,7 +11,6 @@ import { UserComponent } from './components/user/user/user.component';
 import { ActivateDashBoardRoute, ActivateLoginAndRegisterRoute, ActivateAdminRoute } from './utils/auth.util';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
-import { DashboardNotificationComponent } from './components/dashboard/dashboard-notification/dashboard-notification.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
@@ -31,7 +30,6 @@ const routes: Routes = [
   { path:"profile", title:"Profile", component: ProfileComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"profile/update-password", title:"Update ", component:UpdatePasswordComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"security", title:"Profile", component: DashboardSecurityComponent, canActivate:[ActivateDashBoardRoute]},
-  { path:"notifications", title:"Notifications", component: DashboardNotificationComponent, canActivate:[ActivateDashBoardRoute]},
   { path:"admin-console", title:"Profile", component: AdminPanelComponent, canActivate:[ActivateDashBoardRoute],
     children: [
       { path:'', redirectTo:'users', pathMatch: 'full' },
