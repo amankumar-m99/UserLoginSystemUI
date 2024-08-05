@@ -1,0 +1,8 @@
+<div class="row text-center">
+    <h4>Tech Stack</h4>
+</div>
+<div class="row p-3 px-3 justify-content-center">
+    <div class="col-2 mx-3 my-1" *ngFor = "let item of techStackItems">
+        <app-tech-stack-item [src]="item.src" [technology]="item.technology" [version]="item.version"></app-tech-stack-item>
+    </div>
+</div>

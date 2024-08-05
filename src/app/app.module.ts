@@ -27,6 +27,9 @@ import { RoleControlsComponent } from './components/admin-panel/role-controls/ro
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { UpdatePasswordFormComponent } from './components/update-password-form/update-password-form.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { TechStackComponent } from './components/tech-stack/tech-stack.component';
+import { BuildInfoComponent } from './components/build-info/build-info.component';
+import { TechStackItemComponent } from './components/tech-stack-item/tech-stack-item.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
     RoleControlsComponent,
     ForgotPasswordComponent,
     UpdatePasswordFormComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
+    TechStackComponent,
+    BuildInfoComponent,
+    TechStackItemComponent
   ],
   imports: [
     BrowserModule,

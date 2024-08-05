@@ -18,6 +18,7 @@ import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/sm
 import { RoleControlsComponent } from './components/admin-panel/role-controls/role-controls.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { BuildInfoComponent } from './components/build-info/build-info.component';
 
 const routes: Routes = [
   { path:"home", title:"Home", component:HomeComponent},
@@ -41,6 +42,7 @@ const routes: Routes = [
   },
   { path:"about", title:"About", component:AboutComponent},
   { path:"contact", title:"Contact", component:ContactComponent},
+  { path:"build-info", title:"Build Info", component:BuildInfoComponent},
   { path:"user/:id", title:"User Details", component:UserComponent, canActivate:[ActivateAdminRoute]},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
