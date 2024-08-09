@@ -29,17 +29,10 @@
             <li><a class="dropdown-item" [routerLink]="['/admin-console/smtp']"><i class="bi bi-envelope-at"></i> SMTP</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" [routerLink]="['/admin-console/roles']"><i class="bi bi-person"></i> Roles</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item"><i class="bi bi-shield-check"></i> Security</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown" *ngIf="isLoggedIn">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person"></i> My Account </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/profile']"><i class="bi bi-person-lines-fill"></i> Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" [routerLink]="['/security']"><i class="bi bi-shield-lock"></i> Security</a></li>
-          </ul>
+        <li class="nav-item mx-3" *ngIf="isLoggedIn">
+          <a class="nav-link" [routerLink]="['/profile']"><i class="bi bi-person-lines-fill"></i> Profile</a>
         </li>
         <li class="nav-item dropdown" *ngIf="isLoggedIn">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">More </a>
