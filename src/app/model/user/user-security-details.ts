@@ -1,6 +1,6 @@
 export class UserSecurityDetails {
     constructor(
-        public id:number,
+        public id:string,
         public recoveryEmail:string,
         public recoveryPhoneNumber:string,
         public securityQuestion:string,
