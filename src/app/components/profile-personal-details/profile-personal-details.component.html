@@ -1,0 +1,73 @@
+<form [formGroup]="personalDetailsForm" (ngSubmit)="submit()" novalidate>
+    <div class="row my-1 justify-content-between">
+        <div class="col-3"><span class="h5 fw-bold">Personal Details</span></div>
+        <div class="col-3">
+            <button class="btn btn-primary mx-1" [class.d-none]="!isPersonalDetailsEditable" type="submit">Save</button>
+            <button class="btn btn-danger mx-1" [class.d-none]="!isPersonalDetailsEditable" type="button"
+                (click)="discardPersonalDetails()">Discard</button>
+            <button class="btn btn-primary mx-1" [class.d-none]="isPersonalDetailsEditable" type="button"
+                (click)="editPersonalDetails()">Edit Personal Details</button>
+        </div>
+    </div>
+    <table class="table table-striped table-dark my-1 border">
+        <tbody *ngIf="(!(personalDetails === undefined) && personalDetails !=null);">
+            <tr>
+                <td scope="col">First Name</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.firstName}}</span>
+                    <input type="text" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="firstName" />
+                </td>
+            </tr>
+            <tr>
+                <td scope="col">Middle Name</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.middleName}}</span>
+                    <input type="text" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="middleName" />
+                </td>
+            </tr>
+            <tr>
+                <td scope="col">Last Name</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.lastName}}</span>
+                    <input type="text" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="lastName" />
+                </td>
+            </tr>
+            <tr>
+                <td scope="col">Phone Number</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.phoneNumber}}</span>
+                    <input type="text" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="phoneNumber" />
+                </td>
+
+            </tr>
+            <tr>
+                <td scope="col">Gender</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.gender}}</span>
+                    <input type="text" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="gender" />
+                </td>
+            </tr>
+            <tr>
+                <td scope="col">Country</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.country}}</span>
+                    <input type="text" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="country" />
+                </td>
+            </tr>
+            <tr>
+                <td scope="col">Birthday</td>
+                <td>
+                    <span [class.d-none]="isPersonalDetailsEditable">{{personalDetails.dateOfBirth | date}}</span>
+                    <input type="date" class="form-control dark-input" [class.d-none]="!isPersonalDetailsEditable"
+                        [readOnly]="!isPersonalDetailsEditable" formControlName="dateOfBirth" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
