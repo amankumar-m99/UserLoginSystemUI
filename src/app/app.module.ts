@@ -14,9 +14,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NetworkIndicatorComponent } from './components/network-indicator/network-indicator.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { UserComponent } from './components/user/user/user.component';
+import { UserComponent } from './components/user/user.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { DashboardSecurityComponent } from './components/dashboard/dashboard-security/dashboard-security.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { UserControlsComponent } from './components/admin-panel/user-controls/user-controls.component';
 import { SmtpControlsComponent } from './components/admin-panel/smtp-controls/smtp-controls.component';
@@ -29,6 +28,11 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
 import { TechStackComponent } from './components/tech-stack/tech-stack.component';
 import { BuildInfoComponent } from './components/build-info/build-info.component';
 import { TechStackItemComponent } from './components/tech-stack-item/tech-stack-item.component';
+import { EditableTextfieldComponent } from './components/editable-textfield/editable-textfield.component';
+import { ProfilePersonalDetailsComponent } from './components/profile-personal-details/profile-personal-details.component';
+import { ProfileSecurityDetailsComponent } from './components/profile-security-details/profile-security-details.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,6 @@ import { TechStackItemComponent } from './components/tech-stack-item/tech-stack-
     ContactComponent,
     UserComponent,
     ProfileComponent,
-    DashboardSecurityComponent,
     AdminPanelComponent,
     UserControlsComponent,
     SmtpControlsComponent,
@@ -54,7 +57,12 @@ import { TechStackItemComponent } from './components/tech-stack-item/tech-stack-
     UpdatePasswordComponent,
     TechStackComponent,
     BuildInfoComponent,
-    TechStackItemComponent
+    TechStackItemComponent,
+    EditableTextfieldComponent,
+    ProfilePersonalDetailsComponent,
+    ProfileSecurityDetailsComponent,
+    FooterComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
