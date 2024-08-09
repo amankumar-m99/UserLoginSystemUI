@@ -18,6 +18,8 @@ export class StaticData{
     static useruserInfoGetUrlB = this.baseUrl+"/user/user-info/{userIdStr}"; // get: /user/user-info/{userIdStr}
     static userCurrentGetUrl = this.baseUrl+"/user/current"; // get: /user/current
     static userAllGetUrl = this.baseUrl+"/user/all"; // get: /user/all
+    static userUpdatePersonalDetailsPostUrl = this.baseUrl+"/user/update-personal-details"; // post: /user/update-personal-details
+    static userUpdateSecurityDetailsPostUrl = this.baseUrl+"/user/update-security-details"; // post: /user/update-security-details
 
     // role-controller
     static roleCreatePostUrl = this.baseUrl+"/role/create"; // post: /role/create

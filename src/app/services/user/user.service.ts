@@ -6,6 +6,8 @@ import { User } from 'src/app/model/user/user';
 import { Utils } from 'src/app/utils/utils';
 import { ProfilePicResponse } from 'src/app/model/profllepicresponse';
 import { UrlUtils } from 'src/app/utils/url-utils';
+import { UserPersonalDetails } from 'src/app/model/user/user-personal-details';
+import { UserSecurityDetails } from 'src/app/model/user/user-security-details';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,17 @@ export class UserService {
     const formData = new FormData();
     formData.append("profile-pic", file);
     return this.httpClient.post<ProfilePicResponse>(url, formData, {headers: headers});
+  }
+
+  updatePersonalDetails(personalDetails: UserPersonalDetails):Observable<UserPersonalDetails>{
+    let url = StaticData.userUpdatePersonalDetailsPostUrl;
+    let headers = Utils.getHeaderWithToken();
+    return this.httpClient.post<UserPersonalDetails>(url, personalDetails, {headers: headers});
+  }
+
+  updateSecurityDetails(securityDetails: UserSecurityDetails):Observable<UserSecurityDetails>{
+    let url = StaticData.userUpdateSecurityDetailsPostUrl;
+    let headers = Utils.getHeaderWithToken();
+    return this.httpClient.post<UserSecurityDetails>(url, securityDetails, {headers: headers});
   }
 }
