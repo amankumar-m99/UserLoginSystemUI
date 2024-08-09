@@ -31,7 +31,6 @@ import { TechStackItemComponent } from './components/tech-stack-item/tech-stack-
 import { EditableTextfieldComponent } from './components/editable-textfield/editable-textfield.component';
 import { ProfilePersonalDetailsComponent } from './components/profile-personal-details/profile-personal-details.component';
 import { ProfileSecurityDetailsComponent } from './components/profile-security-details/profile-security-details.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
@@ -61,7 +60,6 @@ import { LayoutComponent } from './components/layout/layout.component';
     EditableTextfieldComponent,
     ProfilePersonalDetailsComponent,
     ProfileSecurityDetailsComponent,
-    FooterComponent,
     LayoutComponent
   ],
   imports: [
